@@ -1,6 +1,12 @@
 
 open Ecs
 
+module Control_system = System.Make(Control)
+(* Use a functor to define the new system *)
+
+let () = System.register (module Control_system)
+(* Register the system globally *)
+
 module Collision_system = System.Make(Collisions)
 (* Use a functor to define the new system *)
 

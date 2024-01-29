@@ -1,0 +1,4 @@
+let g = Vector.{x=0.; y = 0.1}
+
+let horz_vel = Vector.{x = 0.2; y =0.}
+let jump = Vector.{x = 0.; y = -0.3}

@@ -33,6 +33,8 @@ let update _dt el =
               Rect.has_origin s_pos s_rect
               && not (Vector.is_zero v1 && Vector.is_zero v2)
             then begin
+              let () = e1#ground_collision#get (e2#id#get) in
+              let () = e2#ground_collision#get (e1#id#get) in
               (* [3] le plus petit des vecteurs a b c d *)
               let a = Vector.{ x = s_pos.x; y = 0.0 } in
               let b = Vector.{ x = float s_rect.width +. s_pos.x; y = 0.0 } in
@@ -71,7 +73,7 @@ let update _dt el =
               (* Elasticité fixe. En pratique, l'elasticité peut être stockée dans
                  les objets comme un composant : 1 pour la balle et les murs, 0.5 pour
                  des obstacles absorbants, 1.2 pour des obstacles rebondissant, … *)
-              let e = 0.8 in
+              let e = e2 # elasticity #get  in
               (* normalisation des masses *)
               let m1, m2 =
                 if Float.is_infinite m1 && Float.is_infinite m2 then

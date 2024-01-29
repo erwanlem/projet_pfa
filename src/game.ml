@@ -1,12 +1,13 @@
 open System_defs
 open Component_defs
 
+
 (* On crée une fenêtre *)
 let () = Global.init (Format.sprintf "game_canvas:%dx%d:r=presentvsync" 800 600)
 
 let init_walls () =
   ignore (Box.create "wall_top" 0 0 800 40 (Gfx.color 0 0 255 255) infinity);
-  ignore (Box.create "wall_bottom" 0 560 800 40 (Gfx.color 0 0 255 255) infinity);
+  ignore (Box.create "ground" 0 560 800 40 (Gfx.color 0 0 255 255) infinity);
   ignore (Box.create "wall_left" 0 40 40 520 (Gfx.color 0 255 0 255) infinity);
   ignore (Box.create "wall_right" 760 40 40 520 (Gfx.color 0 255 0 255) infinity)
 
@@ -16,7 +17,8 @@ let init_objects () =
   obj # sum_forces # set Vector.{ x=0.2; y=(-0.2) }
 
 let init_player () =
-  ignore (Box.create "player" 100 100 40 40 (Gfx.color 255 0 0 255) 10.0)
+  ignore (Character.create "player" (100) 100 40 40 (Gfx.color (Random.int 255) (Random.int 255) (Random.int 255) 255) 50. 0.)
+  (*in player # sum_forces # set Vector.{x =((Random.float 2.)-.1.);y = ((Random.float 2.)-.1.)}*)
 
 (*let ball = Box.create "ball" 50 295 10 10 (Gfx.color 0 0 0 255)
 let () = Move_system.register (ball :> movable)
@@ -41,7 +43,7 @@ let init dt =
   Level_loader.load_map "resources/files/01.level";
   (*init_walls ();*)
   (*init_objects ();*)
-init_player ();
+  init_player ();
   Ecs.System.init_all dt;
   false
 
@@ -54,31 +56,10 @@ let v_up = Vector. { x = 0.0; y = -5.0 }
 let v_down = Vector.sub Vector.zero v_up*)
 
 let update dt =
-  ignore (Gfx.poll_event ());
-  (*let () = match Gfx.poll_event () with
-      KeyDown s -> set_key s; Gfx.debug "%s\n%!"s;
-    | KeyUp s -> unset_key s
-    | _ -> ()
-  in
-  player1 # velocity # set Vector.zero;
-  player2 # velocity # set Vector.zero;
-
-  if has_key "e" then player1 # velocity # set v_up;
-  if has_key "d" then player1 # velocity # set v_down;
-  if has_key "u" then player2 # velocity # set v_up;
-  if has_key "j" then player2 # velocity # set v_down;
-
-  Ecs.System.update_all dt;
-  let s = Global.scoring () in
-  if s <> 0 then begin
-    let x, v = if s = 2 then 50.0, random_v true else 740., random_v false in
-    ball # pos # set Vector.{x; y = 295.0 };
-    ball # velocity # set v;
-    Global.set_scoring 0;
-  end;*)
   Ecs.System.update_all dt;
   true
 
-let run () = 
-  Gfx.main_loop init;
-  Gfx.main_loop update
+  let run cfg = 
+    Config.register cfg;
+    Gfx.main_loop init;
+    Gfx.main_loop update

@@ -8,8 +8,8 @@ let create id x y w h color mass =
   box # color # set color;
   box # id # set id;
   box # mass # set mass;
-  Force_system.register (box :> collidable);
-  Move_system.register (box :> movable);
+  Force_system.register (box:>collidable);
   Draw_system.register (box :> drawable);
-  Collision_system.register (box :> collidable);
+  Collision_system.register (box:>collidable);
+  Move_system.register (box :> movable);
   box

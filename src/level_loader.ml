@@ -33,7 +33,9 @@ let draw_char r c char =
   match char with
   | 'X' -> ignore (Box.create ("bloc_" ^ (string_of_int r) ^ (string_of_int c)) 
   (c*basic_block_w) (600-(r+1)*basic_block_h) basic_block_w basic_block_h (Gfx.color 0 0 255 255) infinity)
-  | '_' -> ignore (Box.create ("platform_" ^ (string_of_int r) ^ (string_of_int c))
+  | 'G' -> ignore (Box.create "ground" 
+  (c*basic_block_w) (600-(r+1)*basic_block_h) basic_block_w basic_block_h (Gfx.color 0 0 255 255) infinity)
+  | '_' -> ignore (Box.create "platform"
   (c*basic_block_w) (600-r*basic_block_h-platform_h) little_platform_w platform_h (Gfx.color 0 255 255 255) infinity)
   | '[' -> ignore (Box.create ("platform_" ^ (string_of_int r) ^ (string_of_int c))
   (c*basic_block_w) (600-(r+1)*basic_block_h) platform_h little_platform_w (Gfx.color 0 255 255 255) infinity)
@@ -42,7 +44,6 @@ let draw_char r c char =
   platform_h little_platform_w (Gfx.color 0 255 255 255) infinity)
   | '^' -> ignore (Box.create ("jump_" ^ (string_of_int r) ^ (string_of_int c))
   (c*basic_block_w) (600-r*basic_block_h-platform_h) little_platform_w platform_h (Gfx.color 0 0 0 255) infinity)
-
   | _   -> ()
 
 
