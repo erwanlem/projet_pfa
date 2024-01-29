@@ -17,10 +17,15 @@ let rec print_map map =
 
 (* Lecture d'un fichier texte et renvoie la liste des lignes *)
 let read_file file =
-  try
-    (let c = open_in file in
-    In_channel.input_lines c)
-  with Sys_error e -> (Gfx.debug "Error while loading map : %s" e); []
+  let res = Gfx.load_file file in
+  let rec wait_until_ready res =
+    if Gfx.resource_ready res then res
+    else wait_until_ready res
+  in
+  (try
+  String.split_on_char '\n' (Gfx.get_resource (wait_until_ready res))
+  with Failure m -> Gfx.debug "Error while loading map : %s" m; [] 
+  )
 
 
 (* Place un élément à partir d'un caractère *)
