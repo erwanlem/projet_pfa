@@ -63,6 +63,11 @@ class id =
     method id = id
   end
 
+class camera_position =
+  object
+    val camera_position = Component.def (Vector.zero)
+    method camera_position = camera_position
+  end
 
 (* Some complex components *)
 
@@ -89,6 +94,7 @@ class drawable =
     inherit position
     inherit rect
     inherit color
+    inherit camera_position
   end
 
 class box =
@@ -116,4 +122,12 @@ class character =
   object
     inherit box
     inherit! controlable
+  end
+
+class camera =
+  object
+    (* Objet suivi par la camera *)
+    val focus = Component.def (new box)
+    method focus = focus
+    method position = focus#get#pos#get
   end

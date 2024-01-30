@@ -5,6 +5,9 @@ type t = drawable
 
 let init _ = ()
 
+
+let focus_pos = ref Vector.zero
+
 let white = Gfx.color 255 255 255 255
 
 let update _dt el =
@@ -17,7 +20,7 @@ let update _dt el =
   Seq.iter (fun d ->
       let color = d # color # get in
       let Rect.{width; height} = d # rect # get in
-      let Vector.{x; y} = d # pos # get in
+      let Vector.{x; y} = d # camera_position # get in
       let x = int_of_float x in
       let y = int_of_float y in
       Gfx.set_color ctx color;

@@ -13,3 +13,6 @@ Les plateformes ont maintenant deux blocs sur les extrêmitées afin d'éviter d
 
 ### Ewen - 30/01
 **Design du jeu**. Premier jet du scénario du jeu. Découpage en niveau avec description détaillée des niveaux(élément de gameplay, lieus, ennemis et histoire).  
+
+### Erwan - 30/01
+**Mouvement de caméra** : La caméra suit maintenant le joueur. J'ai créé un composant caméra qui contient l'objet que l'on veut suivre (focus). La caméra est stockée dans *Global*. Il y a ensuite un système *vision* qui applique les modifications des positions en fonction de l'emplacement de la caméra. Cette organisation devrait permettre une certaine souplesse par la suite si des modifications sont à faire. On applique le système *vision* juste avant *draw*. On ajoute une **position de caméra** aux objets qui permet de définir la position de l'objet par rapport à la caméra et non plus une coordonnée fixe. C'est maintenant la position caméra qui est utilisée dans *draw*.

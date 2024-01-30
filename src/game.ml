@@ -17,7 +17,8 @@ let init_objects () =
   obj # sum_forces # set Vector.{ x=0.2; y=(-0.2) }
 
 let init_player () =
-  ignore (Character.create "player" (100) 100 40 40 (Gfx.color (Random.int 255) (Random.int 255) (Random.int 255) 255) 50. 0.)
+  let player = Character.create "player" (100) 100 40 40 (Gfx.color (Random.int 255) (Random.int 255) (Random.int 255) 255) 50. 0. in
+  Global.init_camera (Camera.create (player:>box))
   (*in player # sum_forces # set Vector.{x =((Random.float 2.)-.1.);y = ((Random.float 2.)-.1.)}*)
 
 (*let ball = Box.create "ball" 50 295 10 10 (Gfx.color 0 0 0 255)

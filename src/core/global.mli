@@ -9,3 +9,6 @@ val init : string -> unit
 val scoring : unit -> int
 val set_scoring : int -> unit
 
+val init_camera : Component_defs.camera -> unit
+val camera : unit -> Component_defs.camera
+

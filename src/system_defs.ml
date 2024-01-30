@@ -25,6 +25,12 @@ module Move_system = System.Make(Move)
 let () = System.register (module Move_system)
 (* Register the system globally *)
 
+module Vision_system = System.Make(Vision)
+(* Use a functor to define the new system *)
+
+let () = System.register (module Vision_system)
+(* Register the system globally *)
+
 
 module Draw_system = System.Make(Draw)
 (* Use a functor to define the new system *)

@@ -32,10 +32,12 @@ let create id x y w h color mass elas =
   char # control # set (player_control char);
   char # ground_collision # set (player_ground_collision char);
   char # grounded # set false;
+  char # camera_position # set Vector.{ x = float x; y = float y };
   Force_system.register (char:>collidable);
   Draw_system.register (char :> drawable);
   Collision_system.register (char:>collidable);
   Move_system.register (char :> movable);
   Control_system.register (char :> controlable);
+  Vision_system.register (char :> drawable);
   char
   
