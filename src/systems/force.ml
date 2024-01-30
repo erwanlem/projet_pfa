@@ -4,7 +4,7 @@ type t = collidable
 
 let init _ = ()
 
-let gravity = Vector.{x=0.0; y=0.01}
+let gravity = Const.gravity
 let delta = 1000. /. 60.
 let update dt el =
   Seq.iter (fun (m : t) ->

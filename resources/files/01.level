@@ -1,9 +1,4 @@
-X
-X
-X
-X
-X
-X
-X          _______        
-X               
- GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+20x8 # taille du niveau avec x, y
+0:2x3|3x1 # bloc 1
+0:6x4|3x1 # bloc 2
+# blocId:posXxposY|WidthxHeight
