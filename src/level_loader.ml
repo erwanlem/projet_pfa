@@ -35,9 +35,22 @@ let draw_element id x y w h =
     ignore (Box.create "platform_"
     (x*basic_block_w) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity);
     ignore (Box.create "platform_"
+    (x*basic_block_w+4) (600-(y-1)*basic_block_h-4) (w*basic_block_w-8) 4 (Gfx.color 0 255 0 255) infinity);
+    ignore (Box.create "platform_"
     ((x+w)*basic_block_w-4) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity); 
     ignore (Box.create "platform"
-    (x*basic_block_w+4) (600-y*basic_block_h) (w*basic_block_w-8) (h*basic_block_h) (Gfx.color 255 255 0 255) infinity)
+    (x*basic_block_w+4) (600-y*basic_block_h) (w*basic_block_w-8) (h*basic_block_h-4) (Gfx.color 255 255 0 255) infinity)
+
+  | 1 ->
+    ignore (Box.create "platform_"
+    (x*basic_block_w) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity);
+    ignore (Box.create "platform_"
+    (x*basic_block_w+4) (600-(y-1)*basic_block_h-4) (w*basic_block_w-8) 4 (Gfx.color 0 255 0 255) infinity);
+    ignore (Box.create "platform_"
+    ((x+w)*basic_block_w-4) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity); 
+    ignore (Jump_box.create "platform"
+    (x*basic_block_w+4) (600-y*basic_block_h) (w*basic_block_w-8) (h*basic_block_h-4) (Gfx.color 255 255 0 255) infinity)
+
   | _ -> ()
   (*| 'X' -> ()
   
