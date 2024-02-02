@@ -29,6 +29,13 @@ let read_file file =
 
 
 (* Place un élément à partir d'un caractère *)
+(*
+  Identifiants de bloc
+  0 -> plateforme
+  1 -> jump box
+  2 -> kill box   
+*)
+
 let draw_element id x y w h =
   match id with
   | 0 ->
@@ -50,6 +57,10 @@ let draw_element id x y w h =
     ((x+w)*basic_block_w-4) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity); 
     ignore (Jump_box.create "platform"
     (x*basic_block_w+4) (600-y*basic_block_h) (w*basic_block_w-8) (h*basic_block_h-4) (Gfx.color 255 255 0 255) infinity)
+
+  | 2 ->
+    ignore (Jump_box.create "death_box"
+    (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 255 255 0 255) infinity)
 
   | _ -> ()
   (*| 'X' -> ()

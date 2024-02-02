@@ -22,9 +22,13 @@ class velocity =
 class grounded =
   object
     val grounded = Component.def false
-    val ground_collision = Component.def (fun (c : string) -> ())
     method grounded = grounded
-    method ground_collision = ground_collision
+  end
+
+class onCollideEvent =
+  object
+    val onCollideEvent = Component.def (fun (a : string) -> ())
+    method onCollideEvent = onCollideEvent
   end
 
 class color =
@@ -51,11 +55,6 @@ class sum_forces =
     method sum_forces = sum_forces
   end
 
-class event =
-  object
-    val event = Component.def (fun (a : string) -> ())
-    method event = event
-  end
 
 class id =
   object
@@ -67,6 +66,12 @@ class camera_position =
   object
     val camera_position = Component.def (Vector.zero)
     method camera_position = camera_position
+  end
+
+class health =
+  object
+    val health = Component.def (50.)
+    method health = health
   end
 
 (* Some complex components *)
@@ -87,6 +92,7 @@ class collidable =
     inherit rect
     inherit elasticity
     inherit grounded
+    inherit onCollideEvent
   end
 
 class drawable =
@@ -104,13 +110,6 @@ class box =
     inherit! id
   end
 
-class event_box =
-  object
-    inherit drawable
-    inherit event
-    inherit id
-  end
-
 class controlable =
   object
     inherit box
@@ -118,10 +117,11 @@ class controlable =
     method control = control
   end
 
-class character = 
+class player = 
   object
     inherit box
     inherit! controlable
+    inherit health
   end
 
 class camera =

@@ -17,7 +17,7 @@ let init_objects () =
   obj # sum_forces # set Vector.{ x=0.2; y=(-0.2) }
 
 let init_player () =
-  let player = Character.create "player" (100) 100 40 40 (Gfx.color 255 0 0 255) 50. 0. in
+  let player = Player.create "player" (100) 100 40 40 (Gfx.color 255 0 0 255) 50. 0. in
   Global.init_camera (Camera.create (player:>box))
   (*in player # sum_forces # set Vector.{x =((Random.float 2.)-.1.);y = ((Random.float 2.)-.1.)}*)
 
@@ -60,7 +60,6 @@ let update dt =
   Ecs.System.update_all dt;
   true
 
-  let run cfg = 
-    Config.register cfg;
+  let run () = 
     Gfx.main_loop init;
     Gfx.main_loop update

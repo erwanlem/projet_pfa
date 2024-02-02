@@ -1,1 +1,1 @@
-let () = Game.run (Game.{ key_left = "left"; key_right = "right"; key_up = "up"; key_down = "down"})
+let () = Game.run ()

@@ -33,8 +33,8 @@ let update _dt el =
               Rect.has_origin s_pos s_rect
               && not (Vector.is_zero v1 && Vector.is_zero v2)
             then begin
-              let () = e1#ground_collision#get (e2#id#get) in
-              let () = e2#ground_collision#get (e1#id#get) in
+              let () = e1#onCollideEvent#get (e2#id#get) in
+              let () = e2#onCollideEvent#get (e1#id#get) in
               (* [3] le plus petit des vecteurs a b c d *)
               let a = Vector.{ x = s_pos.x; y = 0.0 } in
               let b = Vector.{ x = float s_rect.width +. s_pos.x; y = 0.0 } in
