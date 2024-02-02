@@ -55,7 +55,6 @@ class sum_forces =
     method sum_forces = sum_forces
   end
 
-
 class id =
   object
     val id = Component.def ("")
@@ -70,10 +69,16 @@ class camera_position =
 
 class health =
   object
-    val health = Component.def (50.)
+    val health = Component.def 50.
     method health = health
   end
 
+class direction =
+  object
+    val direction = Component.def 0.
+    method direction = direction
+  end
+  
 (* Some complex components *)
 
 class movable =
@@ -122,6 +127,7 @@ class player =
     inherit box
     inherit! controlable
     inherit health
+    inherit direction
   end
 
 class camera =

@@ -6,15 +6,30 @@ open Config
 let cfg = Config.get_config ()
 
 let player_control player keys =
-  if Hashtbl.mem keys cfg.key_left then 
-      player # velocity # set (Vector.add (Vector.mult (-1.) Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}))
+  (* Déplacement vers la gauche *)
+  if Hashtbl.mem keys cfg.key_left then
+      (player # velocity # set (Vector.add (Vector.mult (-1.) Const.horz_vel)
+      (Vector.{x=0.; y=(player#velocity#get).y}));
+      player # direction # set (-1.) )
+
+  (* Déplacement vers la droite *)
   else if Hashtbl.mem keys cfg.key_right then 
-      player # velocity # set (Vector.add (Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}))
+      (player # velocity # set (Vector.add (Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
+      player # direction # set (1.) )
   else player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} );
 
-  if Hashtbl.mem keys cfg.key_space then ();
+  (* Tirer *)
+  if Hashtbl.mem keys cfg.key_space then
+    (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
+      if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
+      else (Vector.get_x player#pos#get)-.15. in
 
-  if Hashtbl.mem keys cfg.key_up && player#grounded#get then 
+    (ignore (Bullet.create "bullet" x 
+    (Vector.get_y player#pos#get+.10.) 10 10 (Const.bullet_speed *. player#direction#get) 0. (Gfx.color 0 0 0 255));
+    Hashtbl.remove keys cfg.key_space));
+
+  (* Jump *)
+  if Hashtbl.mem keys cfg.key_up && player#grounded#get then
     (player # grounded # set false;
     player # sum_forces # set (Vector.add (player#sum_forces#get) (Const.jump)))
 
@@ -26,23 +41,24 @@ let player_collision player collide =
 
 
 let create id x y w h color mass elas =
-  let char = new player in
-  char # pos # set Vector.{ x = float x; y = float y };
-  char # rect # set Rect.{width = w; height = h};
-  char # color # set color;
-  char # id # set id;
-  char # mass # set mass;
-  char # elasticity # set elas;
-  char # health # set Const.player_health;
-  char # control # set (player_control char);
-  char # onCollideEvent # set (player_collision char);
-  char # grounded # set false;
-  char # camera_position # set Vector.{ x = float x; y = float y };
-  Force_system.register (char:>collidable);
-  Draw_system.register (char :> drawable);
-  Collision_system.register (char:>collidable);
-  Move_system.register (char :> movable);
-  Control_system.register (char :> controlable);
-  Vision_system.register (char :> drawable);
-  char
+  let player = new player in
+  player # pos # set Vector.{ x = float x; y = float y };
+  player # rect # set Rect.{width = w; height = h};
+  player # color # set color;
+  player # id # set id;
+  player # mass # set mass;
+  player # elasticity # set elas;
+  player # health # set Const.player_health;
+  player # control # set (player_control player);
+  player # onCollideEvent # set (player_collision player);
+  player # grounded # set false;
+  player # direction # set 1.;
+  player # camera_position # set Vector.{ x = float x; y = float y };
+  Force_system.register (player:>collidable);
+  Draw_system.register (player :> drawable);
+  Collision_system.register (player:>collidable);
+  Move_system.register (player :> movable);
+  Control_system.register (player :> controlable);
+  Vision_system.register (player :> drawable);
+  player
   

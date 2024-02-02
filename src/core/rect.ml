@@ -20,3 +20,9 @@ let has_origin v r =
 let intersect v1 r1 v2 r2 =
   let v, r = mdiff v1 r1 v2 r2 in
   has_origin v r
+
+let get_width r =
+  r.width
+
+let get_height r =
+  r.height

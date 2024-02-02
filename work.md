@@ -23,3 +23,6 @@ Les plateformes ont maintenant deux blocs sur les extrêmitées afin d'éviter d
 ### Erwan - 02/02
 **Ajout kill_box** (le joueur meurt s'il touche le bloc). J'ai ajouté un composant *health* au composant *player*. La valeur de vie par défaut du joueur est stockée dans *const.ml*. Ajout d'un **composant général *onCollideEvent*** qui permet d'appeler une fonction lors de la collision. Tout objet peut donc effectuer une action lors d'une collision. On lui donne pour paramètre l'identifier le l'objet en collision. **Création de *bullet.ml*** qui va permettre de créer des "projectiles" (à voir ce qu'on tire). Le projectile est détruit lors d'une collision. Il faudra gérer la collision d'un ennemi est d'un projectile tel que si l'ennemi est en collision avec un projectile il perd de la vie (on gère donc ça du côté de l'ennemi pas du projectile).
 Légère modification des touches. Tous les identifiants des touches sont maintenant dans le fichier *config.ml*.
+
+### Erwan - 02/02
+**Tir des projectiles** possible avec la touche espace. Ajout d'un composant *direction* qui permet de garder la direction du joueur (gauche ou droite) utilisée pour tirer dans la direction vers laquelle on regarde. La vitesse des projectiles peut être modifiée via le fichier *const.ml*.
