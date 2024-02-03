@@ -8,7 +8,7 @@ let create id x y w h color mass =
   box # color # set color;
   box # id # set id;
   box # mass # set mass;
-  box # elasticity # set 1.5;
+  box # elasticity # set 2.;
   box # camera_position # set Vector.{ x = float x; y = float y };
   (*box # onCollideEvent # set (fun s -> Gfx.debug "%s\n" s);*)
   Force_system.register (box:>collidable);

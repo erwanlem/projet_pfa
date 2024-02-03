@@ -93,6 +93,7 @@ let update _dt el =
               let j =
                 -.(1.0 +. e) *. Vector.dot v n /. ((1. /. m1) +. (1. /. m2))
               in
+              let j = if j > 30. then 30. else j in
               (* [8] calcul des nouvelles vitesses *)
               let new_v1 = Vector.add v1 (Vector.mult (j/. m1) n) in
               let new_v2 = Vector.sub v2 (Vector.mult (j/. m2) n) in

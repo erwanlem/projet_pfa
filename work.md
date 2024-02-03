@@ -26,3 +26,6 @@ Légère modification des touches. Tous les identifiants des touches sont mainte
 
 ### Erwan - 02/02
 **Tir des projectiles** possible avec la touche espace. Ajout d'un composant *direction* qui permet de garder la direction du joueur (gauche ou droite) utilisée pour tirer dans la direction vers laquelle on regarde. La vitesse des projectiles peut être modifiée via le fichier *const.ml*.
+
+### Erwan - 03/02
+**Limitation rebond *jump_box***. Les rebonds des collisions sont limités pour que le joueur ne saute pas infiniment haut.
