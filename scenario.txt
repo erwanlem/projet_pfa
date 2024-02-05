@@ -10,8 +10,8 @@ Lieu:
     Chateau de kaamelot ou plaine
 
 Enemis:
-    -Archer démoniaque (tire une fleche devant lui a interval +- régulier, meurt en 1 coup d'épée)
-    -Chevalier démoniaque (se bat au corps a corps, beaucoup de point de vie (2-3 coups d'épée))
+    -Archer démoniaque (tire une fleche devant lui a interval +- régulier, meurt en 1 coup d'épée) cat 0
+    -Chevalier démoniaque (se bat au corps a corps, beaucoup de point de vie (2-3 coups d'épée)) cat 1
 
 Scénario:
     Le chateau de kaamelot se fait attaquer, le roi arthur defend son chateau. Il doit affronter de multiple ennemis et esquiver leurs coups.
@@ -33,7 +33,7 @@ Lieu:
 
 Enemis:
     -Plante (Plante carnivore, arbre vivant)
-    -monstre de la forêt ( à determiner)
+    -monstre de la forêt ( à determiner) 
 
 Scénario:
     Le roi arthur se met en quête de rencontrer Merlin et rentre dans la foret magique ou vit Merlin.
@@ -54,7 +54,7 @@ Lieu:
 
 Enemis:
     -Esprit de glace(fonce sur le roi et explosent après un court délai. Cette explosion diminue la jauge de chaleur. Bouclier inéfficace. Seul moyen d'eviter l'explosion: coup d'épée qui feras reculer le monstre.)
-
+    cat 2
 Scénario:
     Le roi arthur s'est rendu a la plaine des neiges éternelles et doit le traverser malgré le froid insoutenable.
     Sur son chemin il trouveras des feu de camps allummés qui le réchaufferont.
@@ -63,27 +63,12 @@ Scénario:
 
 
 
-Niveau 4:
-
+Niveau 4(Boss):
 Element de gameplay principal:
     Excalibur: -inflige 1.5x(valeur a determiner) les degats d'un coup d'épée  
                -Permet de tirer une lame magique devant soit (Nombre limité par niveau)(dégats à determiné(- puissant qu'un coup d'épée))
 
-Lieu:
-    Plaine volcanique
 
-Ennemis:
-    -Archers démoniaque
-    -Chevaliers démononiaque
-
-Piège:
-    Faille avec de la lave, des boules de jeu sautent de celle si a interval régulier puis retombe dans la lave.
-
-Scénario:
-    Le roi arthur arrive a la plaine volcanique et doit affronter l'armée du Roi démon. Il traverse la plaine et entre dans le chateau du roi démon.
-
-
-Niveau 5(Boss):
 
 Lieu:
     Chateau du roi démon.

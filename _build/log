@@ -1,0 +1,31 @@
+# dune build
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/ewen/.cache/dune/db
+# Workspace root: /home/ewen/Etudes/ProjetPFA/projet_pfa-main
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Release
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/home/ewen/Etudes/ProjetPFA/projet_pfa-main/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; instrument_with = []
+#  }
+$ /home/ewen/.opam/def/bin/ocamlc.opt -config > /tmp/dune_6f0c30_output
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlc.opt -w -40 -g -bin-annot -I prog/.game_js.eobjs/byte -I /home/ewen/.opam/def/lib/js_of_ocaml -I /home/ewen/.opam/def/lib/js_of_ocaml-compiler/runtime -I lib/ecs/.ecs.objs/byte -I lib/gfx/gfx_jsoo/.gfx_jsoo.objs/byte -I src/.game.objs/byte -no-alias-deps -o prog/.game_js.eobjs/byte/dune__exe__Game_js.cmo -c -impl prog/game_js.pp.ml)
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlc.opt -w -40 -g -bin-annot -I src/.game.objs/byte -I lib/ecs/.ecs.objs/byte -I lib/gfx/.gfx.objs/byte -intf-suffix .ml -no-alias-deps -open Game__ -o src/.game.objs/byte/game__Global.cmo -c -impl src/core/global.ml)
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlc.opt -w -40 -g -a -o src/game.cma src/.game.objs/byte/game__.cmo src/.game.objs/byte/game__Vector.cmo src/.game.objs/byte/game__Rect.cmo src/.game.objs/byte/game__Component_defs.cmo src/.game.objs/byte/game__Global.cmo src/.game.objs/byte/game__Vision.cmo src/.game.objs/byte/game__Collisions.cmo src/.game.objs/byte/game__Config.cmo src/.game.objs/byte/game__Const.cmo src/.game.objs/byte/game__Control.cmo src/.game.objs/byte/game__Draw.cmo src/.game.objs/byte/game__Ennemy.cmo src/.game.objs/byte/game__Force.cmo src/.game.objs/byte/game__Move.cmo src/.game.objs/byte/game__System_defs.cmo src/.game.objs/byte/game__Bullet.cmo src/.game.objs/byte/game__Player.cmo src/.game.objs/byte/game__Box.cmo src/.game.objs/byte/game__Jump_box.cmo src/.game.objs/byte/game__Level_loader.cmo src/.game.objs/byte/game__Knight.cmo src/.game.objs/byte/game__Camera.cmo src/.game.objs/byte/game.cmo src/.game.objs/byte/game__Arch.cmo)
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlc.opt -w -40 -g -o prog/game_js.bc-for-jsoo -no-check-prims -noautolink lib/ecs/ecs.cma /home/ewen/.opam/def/lib/js_of_ocaml-compiler/runtime/jsoo_runtime.cma /home/ewen/.opam/def/lib/js_of_ocaml/js_of_ocaml.cma lib/gfx/gfx_jsoo/gfx_jsoo.cma src/game.cma prog/.game_js.eobjs/byte/dune__exe__Game_js.cmo)
+# Promoting "_build/default/prog/game_js.bc-for-jsoo" to
+# "prog/game_js.bc-for-jsoo"
+$ (cd _build/default/prog && /home/ewen/.opam/def/bin/js_of_ocaml -I . --file=../resources/files -o game_js.bc.js game_js.bc-for-jsoo)
+# Promoting "_build/default/prog/game_js.bc.js" to "prog/game_js.bc.js"
