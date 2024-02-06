@@ -13,6 +13,8 @@ module type S = sig
 
   val unregister : t -> unit
   (* remove an entity from this system *)
+
+  val remove_all : unit -> unit
 end
 
 module Make (T : sig
@@ -28,6 +30,7 @@ module Make (T : sig
   let unregister e = Hashtbl.remove elem_table e
   let init dt = T.init dt
   let update dt = T.update dt (Hashtbl.to_seq_keys elem_table)
+  let remove_all () = Hashtbl.reset elem_table
 end
 
 let systems = Queue.create ()
@@ -45,4 +48,11 @@ let update_all dt =
     (fun m ->
        let module M = (val m : S) in
        M.update dt)
+    systems
+
+let remove_all dt =
+  Queue.iter
+    (fun m ->
+      let module M = (val m : S) in
+      M.remove_all ())
     systems

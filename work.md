@@ -32,3 +32,7 @@ Légère modification des touches. Tous les identifiants des touches sont mainte
 
 ### Erwan - 06/02
 **Changement du système de rebond**. Les rebonds sont maintenant possible en vérifiant le vecteur sol-joueur et la direction du vecteur vélocité du joueur. L'entité *jump_box* utilise le même procédé pour ajuster le composant *elasticity*. Si la collision a lieu au dessus elasticity = 2 sinon elasticity = 0.
+**Changement de niveaux** en utilisant l'entité **exit_box**. Cette entité va (pas encore fait) prendre un nom de niveau et si collision avec le joueur alors change de niveau.
+**Préchargement des ressources** via le fichier *resources.ml*. Ce fichier charge toutes les ressources et les stocke dans une table de hachage.
+**Gestion des niveaux** via *global.ml*. Le update vérifie si un changement de niveau est demandé et si oui il charge le niveau correspondant. On peut get et set les niveaux via des fonctions dans *global.ml*.
+**Création de 02.level** pour tester.

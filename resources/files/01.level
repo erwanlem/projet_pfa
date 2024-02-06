@@ -1,7 +1,14 @@
-40x8
+3:0x1|60x1
 
-
+1:7x4|3x1 # bloc 2
 0:2x3|3x1 # bloc 1
-1:6x4|3x1 # bloc 2
-3:10x1|0x0 # bot
+0:16x6|6x1
+100:2x2|0x0
+
+10:58x3|1x2
+
+
+4:0x16|1x15
+4:59x16|1x15
+
 # blocId:posXxposY|WidthxHeight

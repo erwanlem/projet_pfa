@@ -47,14 +47,29 @@ let draw_element id x y w h =
     (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 255 255 0 255) infinity)
 
   | 2 ->
-    ignore (Jump_box.create "death_box"
+    ignore (Box.create "death_box"
     (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 255 255 0 255) infinity)
+  
+  | 3 -> 
+    ignore (Box.create "ground"
+    (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 0 255 128 255) infinity);
+  
+  | 4 ->
+    ignore (Box.create "wall" 
+    (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 128 255 0 255) infinity)
+
+  | 10 ->
+    ignore ( Exit_box.create "exit" (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) )
+
+  | 100 ->
+    let player = Player.create "player" (x*basic_block_w) (600-y*basic_block_h) 40 40 (Gfx.color 255 0 0 255) 50. 0. in
+    Global.init_camera (Camera.create (player:>box))
 
   | _ -> ()
 
 
 (* Place les éléments d'une ligne *)
-let read_line line =  
+let read_line line =
   if line = "" || line.[0] = '#' then ()
   else
     (* Récupération des informations *)
@@ -72,19 +87,9 @@ let read_line line =
 
 (* Charge le fichier au chemin donné en paramètre et renvoie la liste des lignes *)
 let load_map (map : string) =
-  let l = read_file map in
+  let l = Hashtbl.find Resources.resources map in
+  let l = Gfx.get_resource l in
+  let l = String.split_on_char '\n' l in
   print_map l;
 
-  let size = String.split_on_char 'x' (List.hd l) in
-  let x = int_of_string (List.nth size 0) in
-  let y = int_of_string (List.nth size 1) in
-
-  let l = List.tl l in
-  let rev_map = List.rev l in
-  List.iter (fun line -> read_line line) rev_map;
-
-  (* Création des bordures *)
-  ignore (Box.create "ground"
-  0 (600-basic_block_h) (x*basic_block_w) (basic_block_h) (Gfx.color 0 255 128 255) infinity);
-  ignore (Box.create "wall_left" 
-  0 (600-y*basic_block_h) (basic_block_w) ((y-1)*basic_block_h) (Gfx.color 128 255 0 255) infinity)
+  List.iter (fun line -> read_line line) l;

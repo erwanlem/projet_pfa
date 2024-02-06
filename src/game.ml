@@ -41,10 +41,6 @@ let () = Move_system.register (player2 :> movable)*)
 
 
 let init dt =
-  Level_loader.load_map "resources/files/01.level";
-  (*init_walls ();*)
-  (*init_objects ();*)
-  init_player ();
   Ecs.System.init_all dt;
   false
 
@@ -57,9 +53,12 @@ let v_up = Vector. { x = 0.0; y = -5.0 }
 let v_down = Vector.sub Vector.zero v_up*)
 
 let update dt =
+  if Global.level_switch () then
+    Level_loader.load_map (Global.get_level ());
   Ecs.System.update_all dt;
   true
 
-  let run () = 
+  let run () =
+    Gfx.main_loop Resources.load_resources;
     Gfx.main_loop init;
     Gfx.main_loop update

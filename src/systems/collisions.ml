@@ -74,7 +74,7 @@ let update _dt el =
               (* Elasticité fixe. En pratique, l'elasticité peut être stockée dans
                  les objets comme un composant : 1 pour la balle et les murs, 0.5 pour
                  des obstacles absorbants, 1.2 pour des obstacles rebondissant, … *)
-              let e = e1 # elasticity #get  in
+              let e = Float.max (e1 # elasticity #get) (e2 # elasticity #get) in
               (* normalisation des masses *)
               let m1, m2 =
                 if Float.is_infinite m1 && Float.is_infinite m2 then

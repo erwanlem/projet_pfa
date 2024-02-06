@@ -55,6 +55,7 @@ let create id x y w h color mass elas =
   player # onCollideEvent # set (player_collision player);
   player # grounded # set false;
   player # direction # set 1.;
+  player # spawn_position # set Vector.{x = float x;y = float y};
   player # camera_position # set Vector.{ x = float x; y = float y };
   Force_system.register (player:>collidable);
   Draw_system.register (player :> drawable);

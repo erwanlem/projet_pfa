@@ -6,4 +6,4 @@ let jump = Vector.{x = 0.; y = -0.6}
 
 let player_health = 50.
 
-let bullet_speed = 0.2
+let bullet_speed = 0.3

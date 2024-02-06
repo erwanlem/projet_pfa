@@ -12,3 +12,7 @@ val set_scoring : int -> unit
 val init_camera : Component_defs.camera -> unit
 val camera : unit -> Component_defs.camera
 
+val level_switch : unit -> bool
+val get_level : unit -> string
+val set_level : string -> unit
+

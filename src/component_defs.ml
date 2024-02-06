@@ -61,6 +61,12 @@ class id =
     method id = id
   end
 
+class spawn_position =
+  object
+    val spawn_position = Component.def (Vector.zero)
+    method spawn_position = spawn_position
+  end
+
 class camera_position =
   object
     val camera_position = Component.def (Vector.zero)
@@ -128,6 +134,7 @@ class player =
     inherit! controlable
     inherit health
     inherit direction
+    inherit spawn_position
   end
 
 class camera =
