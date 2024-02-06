@@ -27,7 +27,7 @@ class grounded =
 
 class onCollideEvent =
   object
-    val onCollideEvent = Component.def (fun (a : string) -> ())
+    val onCollideEvent = Component.def (fun (a : string) (p : Vector.t) -> ())
     method onCollideEvent = onCollideEvent
   end
 
@@ -118,7 +118,7 @@ class box =
 class controlable =
   object
     inherit box
-    val control = Component.def (fun (h : (string, unit) Hashtbl.t) -> ())
+    val control = Component.def (fun (h : (string, bool) Hashtbl.t) -> ())
     method control = control
   end
 

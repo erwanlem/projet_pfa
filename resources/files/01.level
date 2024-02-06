@@ -3,4 +3,5 @@
 
 0:2x3|3x1 # bloc 1
 1:6x4|3x1 # bloc 2
+3:10x1|0x0 # bot
 # blocId:posXxposY|WidthxHeight

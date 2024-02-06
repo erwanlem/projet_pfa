@@ -29,3 +29,6 @@ Légère modification des touches. Tous les identifiants des touches sont mainte
 
 ### Erwan - 03/02
 **Limitation rebond *jump_box***. Les rebonds des collisions sont limités pour que le joueur ne saute pas infiniment haut.
+
+### Erwan - 06/02
+**Changement du système de rebond**. Les rebonds sont maintenant possible en vérifiant le vecteur sol-joueur et la direction du vecteur vélocité du joueur. L'entité *jump_box* utilise le même procédé pour ajuster le composant *elasticity*. Si la collision a lieu au dessus elasticity = 2 sinon elasticity = 0.

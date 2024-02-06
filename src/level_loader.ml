@@ -39,52 +39,18 @@ let read_file file =
 let draw_element id x y w h =
   match id with
   | 0 ->
-    ignore (Box.create "platform_"
-    (x*basic_block_w) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity);
-    ignore (Box.create "platform_"
-    (x*basic_block_w+4) (600-(y-1)*basic_block_h-4) (w*basic_block_w-8) 4 (Gfx.color 0 255 0 255) infinity);
-    ignore (Box.create "platform_"
-    ((x+w)*basic_block_w-4) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity); 
     ignore (Box.create "platform"
-    (x*basic_block_w+4) (600-y*basic_block_h) (w*basic_block_w-8) (h*basic_block_h-4) (Gfx.color 255 255 0 255) infinity)
+    (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 255 255 0 255) infinity)
 
   | 1 ->
-    ignore (Box.create "platform_"
-    (x*basic_block_w) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity);
-    ignore (Box.create "platform_"
-    (x*basic_block_w+4) (600-(y-1)*basic_block_h-4) (w*basic_block_w-8) 4 (Gfx.color 0 255 0 255) infinity);
-    ignore (Box.create "platform_"
-    ((x+w)*basic_block_w-4) (600-y*basic_block_h+1) 4 (h*basic_block_h-2) (Gfx.color 255 255 0 255) infinity); 
-    ignore (Jump_box.create "platform"
-    (x*basic_block_w+4) (600-y*basic_block_h) (w*basic_block_w-8) (h*basic_block_h-4) (Gfx.color 255 255 0 255) infinity)
+    ignore (Jump_box.create "jump"
+    (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 255 255 0 255) infinity)
 
   | 2 ->
     ignore (Jump_box.create "death_box"
     (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (Gfx.color 255 255 0 255) infinity)
 
   | _ -> ()
-  (*| 'X' -> ()
-  
-  | 'G' -> ()
-  
-  | '_' -> (* ajoute bordures sur les plateformes *)
-  ignore (Box.create "platform_"
-  (c*basic_block_w-4) (600-r*basic_block_h-platform_h) 4 platform_h (Gfx.color 0 255 255 255) infinity);
-  ignore (Box.create "platform_"
-  ((c+1)*basic_block_w) (600-r*basic_block_h-platform_h) 4 platform_h (Gfx.color 0 255 255 255) infinity);  
-  ignore (Box.create "platform"
-  (c*basic_block_w) (600-r*basic_block_h-platform_h) basic_block_w platform_h (Gfx.color 0 255 255 255) infinity)
-  
-  | '[' -> ignore (Box.create ("platform_" ^ (string_of_int r) ^ (string_of_int c))
-  (c*basic_block_w) (600-(r+1)*basic_block_h) platform_h little_platform_w (Gfx.color 0 255 255 255) infinity)
-  
-  | ']' -> ignore (Box.create ("platform_" ^ (string_of_int r) ^ (string_of_int c))
-  ((c+1)*basic_block_w-platform_h) (600-(r+1)*basic_block_h)
-  platform_h little_platform_w (Gfx.color 0 255 255 255) infinity)
-  
-  | '^' -> ignore (Box.create ("jump_" ^ (string_of_int r) ^ (string_of_int c))
-  (c*basic_block_w) (600-r*basic_block_h-platform_h) little_platform_w platform_h (Gfx.color 0 0 0 255) infinity)
-  | _   -> ()*)
 
 
 (* Place les éléments d'une ligne *)

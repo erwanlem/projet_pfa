@@ -33,8 +33,9 @@ let update _dt el =
               Rect.has_origin s_pos s_rect
               && not (Vector.is_zero v1 && Vector.is_zero v2)
             then begin
-              let () = e1#onCollideEvent#get (e2#id#get) in
-              let () = e2#onCollideEvent#get (e1#id#get) in
+              let () = e1#onCollideEvent#get (e2#id#get) (e2#pos#get) in
+              let () = e2#onCollideEvent#get (e1#id#get) (e1#pos#get) in
+              (*Gfx.debug "%s : %a, %s : %a\n%!" (e2#id#get) Vector.pp e2#pos#get (e1#id#get) Vector.pp e1#pos#get;*)
               (* [3] le plus petit des vecteurs a b c d *)
               let a = Vector.{ x = s_pos.x; y = 0.0 } in
               let b = Vector.{ x = float s_rect.width +. s_pos.x; y = 0.0 } in
@@ -73,7 +74,7 @@ let update _dt el =
               (* Elasticité fixe. En pratique, l'elasticité peut être stockée dans
                  les objets comme un composant : 1 pour la balle et les murs, 0.5 pour
                  des obstacles absorbants, 1.2 pour des obstacles rebondissant, … *)
-              let e = e2 # elasticity #get  in
+              let e = e1 # elasticity #get  in
               (* normalisation des masses *)
               let m1, m2 =
                 if Float.is_infinite m1 && Float.is_infinite m2 then
@@ -93,7 +94,7 @@ let update _dt el =
               let j =
                 -.(1.0 +. e) *. Vector.dot v n /. ((1. /. m1) +. (1. /. m2))
               in
-              let j = if j > 30. then 30. else j in
+              let j = if j > 30. then 30. else j in (* Limite du rebond*)
               (* [8] calcul des nouvelles vitesses *)
               let new_v1 = Vector.add v1 (Vector.mult (j/. m1) n) in
               let new_v2 = Vector.sub v2 (Vector.mult (j/. m2) n) in

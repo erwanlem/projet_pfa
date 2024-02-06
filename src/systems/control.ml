@@ -11,8 +11,9 @@ let cfg = Config.get_config ()
 let update dt el =
   let () = match Gfx.poll_event () with
     Gfx.NoEvent -> ()
-    | Gfx.KeyDown s -> Gfx.debug "%s\n" cfg.key_right; Gfx.debug "%s@\n%!" s; (*if s=cfg.key_up && not (Hashtbl.mem keys s) then*) 
-      Hashtbl.replace keys s ()
+    | Gfx.KeyDown s -> Gfx.debug "%s\n" cfg.key_right; Gfx.debug "%s@\n%!" s;
+                if Hashtbl.mem keys s then ()
+                else Hashtbl.replace keys s true
     | Gfx.KeyUp s -> Hashtbl.remove keys s
     | _ -> ()
   in

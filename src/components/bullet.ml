@@ -1,7 +1,7 @@
 open Component_defs
 open System_defs
 
-let bullet_collide bullet collide =
+let bullet_collide bullet collide pos =
   (* Détruire *)
   Gfx.debug "Destroy bullet with %s\n%!" collide;
   Force_system.unregister (bullet :> collidable);
