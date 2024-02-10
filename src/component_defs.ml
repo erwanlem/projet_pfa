@@ -84,6 +84,12 @@ class direction =
     val direction = Component.def 0.
     method direction = direction
   end
+
+class level =
+  object
+    val level = Component.def 0
+    method level = level
+  end
   
 (* Some complex components *)
 
@@ -135,6 +141,7 @@ class player =
     inherit health
     inherit direction
     inherit spawn_position
+    inherit level
   end
 
 class camera =

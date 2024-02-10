@@ -10,7 +10,7 @@ let onCollide box collide pos =
   Draw_system.remove_all ();
   Collision_system.remove_all ();
   Move_system.remove_all ();
-  Vision_system.remove_all ();
+  View_system.remove_all ();
   Global.set_level "resources/files/02.level"
   end
   

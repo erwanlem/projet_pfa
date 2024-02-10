@@ -8,7 +8,7 @@ let bullet_collide bullet collide pos =
   Draw_system.unregister (bullet :> drawable);
   Collision_system.unregister (bullet :> collidable);
   Move_system.unregister (bullet :> movable);
-  Vision_system.unregister (bullet :> drawable)
+  View_system.unregister (bullet :> drawable)
 
 
 let create id x y w h dir_x dir_y color =
@@ -25,5 +25,5 @@ let create id x y w h dir_x dir_y color =
   Draw_system.register (box :> drawable);
   Collision_system.register (box:>collidable);
   Move_system.register (box :> movable);
-  Vision_system.register (box :> drawable);
+  View_system.register (box :> drawable);
   box

@@ -94,13 +94,18 @@ let update _dt el =
               let j =
                 -.(1.0 +. e) *. Vector.dot v n /. ((1. /. m1) +. (1. /. m2))
               in
-              let j = if j > 30. then 30. else j in (* Limite du rebond*)
               (* [8] calcul des nouvelles vitesses *)
               let new_v1 = Vector.add v1 (Vector.mult (j/. m1) n) in
               let new_v2 = Vector.sub v2 (Vector.mult (j/. m2) n) in
+
+              (* Limitation de la force *)
+              let new_v1 = Vector.clamp new_v1 (-0.3) 0.3 in
+              let new_v2 = Vector.clamp new_v2 (-0.3) 0.3 in 
+
               (* [9] mise à jour des vitesses *)
+
               e1#velocity#set new_v1;
-              e2#velocity#set new_v2
+              e2#velocity#set new_v2;
             end
           end)
         el)

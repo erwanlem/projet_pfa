@@ -16,5 +16,4 @@ let update _dt el =
     else
       let Vector.{x; y} = m # pos # get in
       m#camera_position#set Vector.{x;y}
-
   ) el;

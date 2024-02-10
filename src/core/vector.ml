@@ -13,5 +13,11 @@ let pp fmt a = Format.fprintf fmt "(%f, %f)" a.x a.y
 let get_x vect = vect.x
 let get_y vect = vect.y
 
+let clamp vect min max =
+  let {x;y} = vect in
+  let x = if x > max then max else (if x < min then min else x) in
+  let y = if y > max then max else (if y < min then min else y) in
+  {x;y}
+
 let zero = { x = 0.0; y = 0.0 }
 let is_zero v = v.x = 0.0 && v.y = 0.0

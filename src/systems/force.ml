@@ -15,6 +15,6 @@ let update dt el =
       m # sum_forces # set Vector.zero;
       let a = Vector.mult (1.0 /. m # mass # get) f in
       let delta_v = Vector.mult delta a in
-      m # velocity # set (Vector.add delta_v m # velocity # get)
+      m # velocity # set (Vector.add delta_v m # velocity # get);
     end
     ) el

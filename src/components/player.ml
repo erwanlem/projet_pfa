@@ -19,7 +19,7 @@ let player_control player keys =
   else player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} );
 
   (* Shoot *)
-  if Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then
+  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then
     (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.15. in
@@ -29,17 +29,21 @@ let player_control player keys =
     Hashtbl.replace keys cfg.key_space false);
 
   (* Jump *)
-  if Hashtbl.mem keys cfg.key_up && player#grounded#get && Hashtbl.find keys cfg.key_up then
+  if Hashtbl.mem keys cfg.key_up && player#grounded#get 
+    && Hashtbl.find keys cfg.key_up then
     (player # grounded # set false;
     player # sum_forces # set (Vector.add (player#sum_forces#get) (Const.jump));
     Hashtbl.replace keys cfg.key_up false)
-
+    
 
 let player_collision player collide pos =
   let vect_y_collision = (Vector.get_y pos) -. ((Vector.get_y player#pos#get) +. float (Rect.get_height player#rect#get)) in
-  if (Vector.get_y player#sum_forces#get) >= 0. && (int_of_float vect_y_collision) >= 0 && not player#grounded#get then 
-    player # grounded # set true
-  else if collide = "death_box" then player#health#set 0.0
+  if (collide="ground" || collide="platform") && (Vector.get_y player#sum_forces#get) >= 0. 
+    && (int_of_float vect_y_collision) >= 0 && not player#grounded#get then 
+    player # grounded # set true;
+  
+  if collide = "death_box" then player#health#set 0.0
+
 
 
 let create id x y w h color mass elas =
@@ -55,6 +59,7 @@ let create id x y w h color mass elas =
   player # onCollideEvent # set (player_collision player);
   player # grounded # set false;
   player # direction # set 1.;
+  player # level # set 1;
   player # spawn_position # set Vector.{x = float x;y = float y};
   player # camera_position # set Vector.{ x = float x; y = float y };
   Force_system.register (player:>collidable);
@@ -62,6 +67,7 @@ let create id x y w h color mass elas =
   Collision_system.register (player:>collidable);
   Move_system.register (player :> movable);
   Control_system.register (player :> controlable);
-  Vision_system.register (player :> drawable);
+  View_system.register (player :> drawable);
+  Health_system.register (player);
   player
   

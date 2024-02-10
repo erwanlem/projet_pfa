@@ -13,5 +13,5 @@ let create id x y w h color mass =
   Draw_system.register (box :> drawable);
   Collision_system.register (box:>collidable);
   Move_system.register (box :> movable);
-  Vision_system.register (box :> drawable);
+  View_system.register (box :> drawable);
   box

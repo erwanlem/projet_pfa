@@ -36,3 +36,6 @@ Légère modification des touches. Tous les identifiants des touches sont mainte
 **Préchargement des ressources** via le fichier *resources.ml*. Ce fichier charge toutes les ressources et les stocke dans une table de hachage.
 **Gestion des niveaux** via *global.ml*. Le update vérifie si un changement de niveau est demandé et si oui il charge le niveau correspondant. On peut get et set les niveaux via des fonctions dans *global.ml*.
 **Création de 02.level** pour tester.
+
+### Erwan - 10/02
+**Résolution bug des plateformes rebondissantes** en limitant la vélocité. Création d'une fonction pour restreindre les vecteurs (*clamp*). **Ajout d'un système de vie** pour le joueur (ajouter également les ennemis). **Création d'un fossé** sur *01.level*. Il reste un petit bug lorsque l'on se laisse tomber dans un trou (sans sauter) il est possible de sauter alors qu'on ne touche pas le sol.

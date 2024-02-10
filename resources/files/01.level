@@ -1,14 +1,20 @@
-3:0x1|60x1
-
-1:7x4|3x1 # bloc 2
-0:2x3|3x1 # bloc 1
-0:16x6|6x1
-100:2x2|0x0
-
-10:58x3|1x2
+3:0x3|45x1 # sol
+3:48x3|12x1 # sol
 
 
-4:0x16|1x15
-4:59x16|1x15
+
+1:7x6|3x1 # bloc 2
+0:2x5|3x1 # bloc 1
+0:16x8|6x1
+100:2x4|0x0
+
+4:44x2|1x2 # mur fosse
+4:48x2|1x2 # mur fosse
+2:45x1|3x1 # sol fosse
+
+10:58x5|1x2 # fin niveau
+
+4:0x18|1x15 # limite gauche
+4:59x18|1x15 # limite droite
 
 # blocId:posXxposY|WidthxHeight

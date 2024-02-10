@@ -1,16 +1,22 @@
 
 open Ecs
 
+module Collision_system = System.Make(Collisions)
+(* Use a functor to define the new system *)
+
+let () = System.register (module Collision_system)
+(* Register the system globally *)
+
 module Control_system = System.Make(Control)
 (* Use a functor to define the new system *)
 
 let () = System.register (module Control_system)
 (* Register the system globally *)
 
-module Collision_system = System.Make(Collisions)
+module Health_system = System.Make(Health)
 (* Use a functor to define the new system *)
 
-let () = System.register (module Collision_system)
+let () = System.register (module Health_system)
 (* Register the system globally *)
 
 module Force_system = System.Make(Force)
@@ -25,10 +31,10 @@ module Move_system = System.Make(Move)
 let () = System.register (module Move_system)
 (* Register the system globally *)
 
-module Vision_system = System.Make(Vision)
+module View_system = System.Make(View)
 (* Use a functor to define the new system *)
 
-let () = System.register (module Vision_system)
+let () = System.register (module View_system)
 (* Register the system globally *)
 
 

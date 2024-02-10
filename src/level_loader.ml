@@ -87,7 +87,8 @@ let read_line line =
 
 (* Charge le fichier au chemin donné en paramètre et renvoie la liste des lignes *)
 let load_map (map : string) =
-  let l = Hashtbl.find Resources.resources map in
+  let l = try Hashtbl.find Resources.resources map 
+        with Not_found -> (Gfx.debug "Map file not found\n%!"); exit 0 in
   let l = Gfx.get_resource l in
   let l = String.split_on_char '\n' l in
   print_map l;
