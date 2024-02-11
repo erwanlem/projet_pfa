@@ -37,6 +37,12 @@ class color =
     method color = color
   end
 
+class text =
+  object
+    val text = Component.def ("")
+    method text = text
+  end
+
 class mass =
   object
     val mass = Component.def (0.0)
@@ -150,4 +156,11 @@ class camera =
     val focus = Component.def (new box)
     method focus = focus
     method position = focus#get#pos#get
+  end
+
+class button =
+  object
+    inherit id
+    inherit drawable
+    inherit text
   end
