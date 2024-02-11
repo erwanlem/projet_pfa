@@ -39,3 +39,6 @@ Légère modification des touches. Tous les identifiants des touches sont mainte
 
 ### Erwan - 10/02
 **Résolution bug des plateformes rebondissantes** en limitant la vélocité. Création d'une fonction pour restreindre les vecteurs (*clamp*). **Ajout d'un système de vie** pour le joueur (ajouter également les ennemis). **Création d'un fossé** sur *01.level*. Il reste un petit bug lorsque l'on se laisse tomber dans un trou (sans sauter) il est possible de sauter alors qu'on ne touche pas le sol.
+
+### Erwan - 11/02
+Création d'un fichier **menu.ml** pour le menu du jeu. Création de *button.ml* pour **créer des boutons** qui redirigent vers un niveau. Le bouton est activé grâce à la touche *return* (voir pour utiliser la souris plus tard). Création d'un fichier *map.md* pour noter les identifiants des blocs.

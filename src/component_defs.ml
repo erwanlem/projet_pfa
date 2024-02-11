@@ -163,4 +163,5 @@ class button =
     inherit id
     inherit drawable
     inherit text
+    inherit! controlable
   end

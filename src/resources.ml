@@ -4,7 +4,7 @@ let resources = Hashtbl.create 2
 
 let res = ref None
 
-let input = ["resources/files/01.level"; "resources/files/02.level"; 
+let input = ["resources/files/menu.level"; "resources/files/01.level"; "resources/files/02.level"; 
             "resources/files/03.level"; "resources/files/04.level"]
 
 let load_resources dt =

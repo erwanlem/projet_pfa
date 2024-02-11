@@ -24,7 +24,7 @@ let camera () = match !camera with Some c -> c | None -> failwith "Uninitialized
 
 
 (* Gestion des niveaux *)
-let level = ref "resources/files/01.level"
+let level = ref "resources/files/menu.level"
 let switch_level = ref true
 
 let level_switch () =

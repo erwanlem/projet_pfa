@@ -9,10 +9,11 @@ let large_platform_w = 80  (* grande plateforme *)
 let platform_h = 10     (* hauteur des plateformes *)
 
 
+(* Table de hachage des paramètres *)
 let settings_table = Hashtbl.create 10 
 
 
-(* Affichage console de la map *)
+(* Affichage console du fichier lu *)
 let rec print_map map =
   match map with
   | [] -> ()
@@ -21,18 +22,7 @@ let rec print_map map =
 
 
 
-(* Place un élément à partir d'un caractère *)
-(*
-  Identifiants de bloc
-  0 -> plateforme
-  1 -> jump box
-  2 -> kill box 
-  3 -> sol
-  4 -> mur
-  10 -> bloc changement niveau
-  100 -> joueur  
-*)
-
+(* Crée l'élément donné par l'id *)
 let draw_element id x y w h =
   match id with
   | 0 ->
@@ -58,6 +48,16 @@ let draw_element id x y w h =
   | 10 ->
     ignore ( Exit_box.create "exit" (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
     (Hashtbl.find settings_table "destination") )
+  
+  | 20 ->
+    ignore ( Button.create "button" (x*basic_block_w) (600-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
+    (Gfx.color 0 0 0 255) (Hashtbl.find settings_table "link"))
+
+  | 21 ->
+    let c = (Box.create "camera"
+    (x*basic_block_w) (600-y*basic_block_h) 0 0 (Gfx.color 0 0 0 0) infinity)
+    in let cam = Camera.create c
+    in Global.init_camera cam
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (600-y*basic_block_h) 40 40 (Gfx.color 255 0 0 255) 50. 0. in
@@ -66,6 +66,7 @@ let draw_element id x y w h =
   | _ -> ()
 
 
+(* Lecture des paramètres et ajout dans la table de hachage  *)
 let read_settings s =
   let l = String.split_on_char ',' s in
   let add_setting s =
@@ -90,13 +91,14 @@ let read_line line =
     let cut = String.split_on_char '|' (List.nth cut 1) in
     let pos = List.nth cut 0 in
     let size =List.nth cut 1 in
-    let settings = try List.nth cut 2 with Failure n -> Gfx.debug "nth set"; exit 0  in
+    let settings = List.nth cut 2 in
     let x = int_of_string (List.nth (String.split_on_char 'x' pos) 0) in
     let y = int_of_string (List.nth (String.split_on_char 'x' pos) 1) in
     let w = int_of_string (List.nth (String.split_on_char 'x' size) 0) in
     let h = int_of_string (List.nth (String.split_on_char 'x' size) 1) in
     read_settings settings;
     draw_element id x y w h
+
 
 (* Charge le fichier au chemin donné en paramètre et renvoie la liste des lignes *)
 let load_map (map : string) =
