@@ -1,19 +1,33 @@
+let game_resources = ref None
+
+let game_textures = ref None
+
+let input_files = ["resources/files/menu.level"; "resources/files/01.level"; "resources/files/02.level"; "resources/files/03.level";
+              "resources/files/04.level"]
+
+let input_images = ["resources/images/arthur.png"]
+
+let get_resources () =
+  match !game_resources with
+  None -> failwith "Error"
+  | Some h -> h
+
+let get_textures () =
+  match !game_textures with
+  None -> failwith "Error"
+  | Some h -> h
 
 
-let resources = Hashtbl.create 2
+let load_resources () =
+  game_resources := Some (Hashtbl.create 10);
+  game_textures := Some (Hashtbl.create 10);
+  let h = get_resources () in
+  let textures = get_textures () in
+  let ctx = Gfx.get_context (Global.window ()) in
+  List.iter (fun f -> Hashtbl.replace h f (Gfx.load_file f)) input_files;
+  List.iter (fun f -> Hashtbl.replace textures f (Gfx.load_image ctx f)) input_images
 
-let res = ref None
 
-let input = ["resources/files/menu.level"; "resources/files/01.level"; "resources/files/02.level"; 
-            "resources/files/03.level"; "resources/files/04.level"]
-
-let load_resources dt =
-  if !res = None then
-    (res := Some (List.fold_left (fun acc e -> (e, (Gfx.load_file e)) :: acc) [] input);
-    true)
-  else
-    let res = match !res with Some r -> r | None -> [] in
-    let ready = List.fold_left (fun acc (e, l) -> Gfx.resource_ready l && acc) true res in
-    if not ready then true
-    else (List.iter (fun (e, l) -> Hashtbl.replace resources e l) res; 
-    Gfx.debug "false -> %d\n%!" (Hashtbl.length resources); false)
+let wait_resources dt =
+  let ready = Hashtbl.fold (fun a b acc -> (Gfx.resource_ready b) && acc ) (get_resources ()) true in
+  not ready

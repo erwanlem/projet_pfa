@@ -103,6 +103,12 @@ class level =
     val level = Component.def 0
     method level = level
   end
+
+class texture =
+  object
+    val texture = Component.def (Texture.color (Gfx.color 0 0 0 0))
+    method texture = texture
+  end
   
 (* Some complex components *)
 
@@ -131,6 +137,7 @@ class drawable =
     inherit rect
     inherit color
     inherit camera_position
+    inherit texture
   end
 
 class box =

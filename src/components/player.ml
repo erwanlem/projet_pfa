@@ -48,11 +48,22 @@ let player_collision player collide pos =
 
 
 
-let create id x y w h color mass elas lvl =
+let create id x y w h mass elas lvl texture =
   let player = new player in
   player # pos # set Vector.{ x = float x; y = float y };
   player # rect # set Rect.{width = w; height = h};
-  player # color # set color;
+  (match texture with 
+  None -> 
+    let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/arthur.png") in
+    let ctx = Gfx.get_context (Global.window ()) in
+    
+    let w, h = Gfx.surface_size res in
+    Gfx.debug "DIMENSIONS: %d, %d\n%!" w h;
+
+    let texture = Texture.anim_from_surface ctx res 9 64 64 40 40 3 3 in 
+    player # texture # set texture
+
+  | Some t -> player # texture # set t);
   player # id # set id;
   player # mass # set mass;
   player # elasticity # set elas;

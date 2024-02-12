@@ -20,8 +20,8 @@ let create id x y w h color link =
   let btn = new button in
   btn # pos # set Vector.{ x = float x; y = float y };
   btn # rect # set Rect.{width = w; height = h};
-  btn # color # set color;
   btn # id # set id;
+  btn # texture # set (Color (Gfx.color 0 0 0 255));
   btn # control # set (onAction btn link);
   btn # camera_position # set Vector.{ x = float x; y = float y };
   Draw_system.register (btn :> drawable);
