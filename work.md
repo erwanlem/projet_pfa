@@ -42,3 +42,6 @@ Légère modification des touches. Tous les identifiants des touches sont mainte
 
 ### Erwan - 11/02
 Création d'un fichier **menu.ml** pour le menu du jeu. Création de *button.ml* pour **créer des boutons** qui redirigent vers un niveau. Le bouton est activé grâce à la touche *return* (voir pour utiliser la souris plus tard). Création d'un fichier *map.md* pour noter les identifiants des blocs.
+
+### Ewen - 12/02
+Création d'un systeme **Ennemy.ml** pour gerer les ennemis. Création de arch.ml pour **créer des archers qui tire suivant un patern qui leur est défini**. Création de knight.ml pour **créer des ennemis de types knight**. Il faut encore definir la maniere de faire apparaitre un knight dans le level loader et definir une ia correcte pour chaque mob.

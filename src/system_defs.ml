@@ -19,6 +19,9 @@ module Health_system = System.Make(Health)
 let () = System.register (module Health_system)
 (* Register the system globally *)
 
+module Ennemy_system = System.Make(Ennemy)
+let () = System.register (module Ennemy_system)
+
 module Force_system = System.Make(Force)
 (* Use a functor to define the new system *)
 
@@ -44,5 +47,3 @@ module Draw_system = System.Make(Draw)
 let () = System.register (module Draw_system)
 (* Register the system globally *)
 
-module Ennemy_system = System.Make(Ennemy)
-let () = System.register (module Ennemy_system)

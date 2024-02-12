@@ -2,9 +2,9 @@ open Component_defs
 open System_defs
 
 let arch_pattern arch dt =
-  if (int_of_float dt) mod 2000 = 0 then ignore(
-    Bullet.create "arrow" (Vector.get_x arch # pos # get)
-    ((Vector.get_y arch#pos#get) -.10.) 10 10 (Const.arrow_speed) 0. (Gfx.color 0 0 0 255)
+  if (int_of_float dt) mod 1000 = 0 then ignore(
+    Bullet.create "arrow" (Vector.get_x arch # pos # get -. 10.)
+    ((Vector.get_y arch#pos#get) +.10.) 10 10 (Const.arrow_speed) 0. (Gfx.color 0 0 0 255)
   )
 
 let arch_collision arch collide pos =
@@ -21,7 +21,7 @@ let create id x y w h =
   arch # grounded # set false;
   arch # rect # set Rect.{width = w; height = h};
   arch # mass # set Const.arch_stats.mass;
-  arch # color# set (Gfx.color 0 0 0 255);
+  arch # color# set (Gfx.color 255 0 255 255);
   arch # elasticity # set Const.arch_stats.elas;
   arch # health # set Const.arch_stats.health;
   arch # damage # set Const.arch_stats.damage;
@@ -31,4 +31,5 @@ let create id x y w h =
   Collision_system.register (arch:>collidable);
   Move_system.register (arch :> movable);
   Ennemy_system.register (arch :> mob);
+  View_system.register (arch :> drawable);
   arch

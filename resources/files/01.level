@@ -10,6 +10,8 @@
 0:16x8|6x1|
 100:2x4|0x0|
 
+101:10x4|1x1|
+
 4:44x2|1x2| # mur fosse
 4:48x2|1x2| # mur fosse
 2:45x1|3x1| # sol fosse

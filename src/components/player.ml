@@ -42,7 +42,9 @@ let player_collision player collide pos =
     && (int_of_float vect_y_collision) >= 0 && not player#grounded#get then 
     player # grounded # set true;
   
-  if collide = "death_box" then player#health#set 0.0
+  if collide = "death_box" then player#health#set 0.0;
+
+  if collide = "arrow" then player#health#set (player#health#get -. Const.arch_stats.damage)
 
 
 

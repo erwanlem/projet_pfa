@@ -20,3 +20,4 @@ Les lignes ont la structure suivante:
 |20|Bloc bouton|Crée un bouton avec un texte et un lien utilisé lorsqu'on clique dessus|*link*: le fichier de destination|
 |21|Caméra|Crée une caméra. **Attention**, utiliser seulement s'il n'y a pas de joueur| - |
 |100|Joueur| Crée un joueur ainsi qu'une caméra qui suit le joueur. Les dimensions données sont ignorées car le joueur est de taille fixe| - |
+|101|Archer| Permet de créer un ennemi de type archer |-|-|
