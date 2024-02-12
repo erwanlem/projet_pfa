@@ -11,6 +11,7 @@ let onCollide box dest collide pos =
   Collision_system.remove_all ();
   Move_system.remove_all ();
   View_system.remove_all ();
+  Ennemy_system.remove_all ();
   Global.set_level dest
   end
   

@@ -48,7 +48,7 @@ let player_collision player collide pos =
 
 
 
-let create id x y w h color mass elas =
+let create id x y w h color mass elas lvl =
   let player = new player in
   player # pos # set Vector.{ x = float x; y = float y };
   player # rect # set Rect.{width = w; height = h};
@@ -61,7 +61,7 @@ let create id x y w h color mass elas =
   player # onCollideEvent # set (player_collision player);
   player # grounded # set false;
   player # direction # set 1.;
-  player # level # set 1;
+  player # level # set lvl;
   player # spawn_position # set Vector.{x = float x;y = float y};
   player # camera_position # set Vector.{ x = float x; y = float y };
   Force_system.register (player:>collidable);

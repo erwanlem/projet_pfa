@@ -16,30 +16,6 @@ let init_objects () =
   let obj = Box.create "object" 100 100 40 40 (Gfx.color 255 0 0 255) 50.0 in
   obj # sum_forces # set Vector.{ x=0.2; y=(-0.2) }
 
-let init_player () =
-  let player = Player.create "player" (100) 100 40 40 (Gfx.color 255 0 0 255) 50. 0. in
-  Global.init_camera (Camera.create (player:>box))
-  (*in player # sum_forces # set Vector.{x =((Random.float 2.)-.1.);y = ((Random.float 2.)-.1.)}*)
-
-(*let ball = Box.create "ball" 50 295 10 10 (Gfx.color 0 0 0 255)
-let () = Move_system.register (ball :> movable)
-
-
-let random_v b =
-  let a = Random.float (Float.pi/.2.0) -. (Float.pi /. 4.0) in
-  let v = Vector.{x = cos a; y = sin a} in
-  let v = Vector.mult 5.0 (Vector.normalize v) in
-  if b then v else Vector.{ v with x = -. v.x }
-let () = Random.self_init ()
-let () = ball # velocity # set Vector.zero
-
-let player1 = Box.create "player1" 30 (300-50) 10 100 (Gfx.color 0 0 0 255)
-let () = Move_system.register (player1 :> movable)
-
-let player2 = Box.create "player2" 760 (300-50) 10 100 (Gfx.color 0 0 0 255)
-let () = Move_system.register (player2 :> movable)*)
-
-
 let init dt =
   Ecs.System.init_all dt;
   false

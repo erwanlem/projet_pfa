@@ -60,7 +60,8 @@ let draw_element id x y w h =
     in Global.init_camera cam
 
   | 100 ->
-    let player = Player.create "player" (x*basic_block_w) (600-y*basic_block_h) 40 40 (Gfx.color 255 0 0 255) 50. 0. in
+    let player = Player.create "player" (x*basic_block_w) (600-y*basic_block_h) 
+    40 40 (Gfx.color 255 0 0 255) 50. 0. (int_of_string (Hashtbl.find settings_table "level")) in
     Global.init_camera (Camera.create (player:>box))
 
   | 101 -> 
