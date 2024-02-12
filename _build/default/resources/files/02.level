@@ -1,0 +1,14 @@
+3:0x1|60x1|      # sol
+
+1:3x5|3x1|       # tremplin
+0:7x3|3x1|      # plateforme
+0:16x6|6x1|      # plateforme
+100:2x2|0x0|     # joueur
+
+10:58x3|1x2|destination=resources/files/03.level     # bloc sortie
+
+
+4:0x16|1x15|    # mur gauche
+4:59x16|1x15|   # mur droit
+
+# blocId:posXxposY|WidthxHeight
