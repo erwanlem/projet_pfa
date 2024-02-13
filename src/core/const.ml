@@ -8,6 +8,9 @@ let jump = Vector.{x = 0.; y = -0.6}
 
 let player_health = 50.
 
+let window_width = 800
+let window_height = 600
+
 
 let sword_damage = 10.
 let exclbr_rgd_atk=7.5

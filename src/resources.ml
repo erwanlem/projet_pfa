@@ -6,7 +6,7 @@ let input_files = ["resources/files/menu.level"; "resources/files/01.level"; "re
               "resources/files/04.level"]
 
 let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"; "resources/images/grass.png"; 
-                  "resources/images/night.png"; "resources/images/snow.png"]
+                  "resources/images/night.png"; "resources/images/snow.png"; "resources/images/menu_image.png"]
 
 let get_resources () =
   match !game_resources with
