@@ -3,7 +3,8 @@ type t = Color of Gfx.color
   | Animation of { frames : Gfx.surface array;
                    frame_duration :int;
                    mutable current_frame : int;
-                   mutable current_time : int }
+                   mutable current_time : int;
+                   mutable pause : bool }
 
 let color c = Color c
 
@@ -21,4 +22,11 @@ let anim_from_surface ctx surface n w h dw dh frame_duration column =
       Gfx.blit_full ctx dst surface (i*w) (column*h) w h 0 0 dw dh;
       dst)
     in
-    Animation { frames; frame_duration; current_time = frame_duration; current_frame = 0 }
+    Animation { frames; frame_duration; current_time = frame_duration; current_frame = 0; pause=false }
+
+
+
+let pause_animation a b =
+  match a with
+  | Animation r -> r.pause <- b
+  | _ -> assert false

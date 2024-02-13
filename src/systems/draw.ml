@@ -29,8 +29,8 @@ let update _dt el =
         | Texture.Image img ->
             Gfx.blit_scale ctx surface img x y width height
         | Texture.Animation r ->
-
-          r.current_time <- r.current_time - 1;
+          if not r.pause then
+            r.current_time <- r.current_time - 1;
 
           if r.current_time = 0 then begin
             r.current_time <- r.frame_duration;

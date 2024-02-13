@@ -1,11 +1,8 @@
 open Component_defs
 
 (* Réglages des tailles *)
-let basic_block_w = 40 (* largeur bloc classique *)
-let basic_block_h = 40 (* hauteur bloc classique *)
-let little_platform_w = 40 (* petite plateforme *)
-let medium_platform_w = 40 (* moyenne plateforme *)
-let large_platform_w = 80  (* grande plateforme *)
+let basic_block_w = 64 (* largeur bloc classique *)
+let basic_block_h = 64 (* hauteur bloc classique *)
 let platform_h = 10     (* hauteur des plateformes *)
 
 

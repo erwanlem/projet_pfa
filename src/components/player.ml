@@ -8,15 +8,25 @@ let cfg = Config.get_config ()
 let player_control player keys =
   (* Déplacement vers la gauche *)
   if Hashtbl.mem keys cfg.key_left then
-      (player # velocity # set (Vector.add (Vector.mult (-1.) Const.horz_vel)
+    (if (player # direction # get) <> (-1.) then
+      (player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
+      player # direction # set (-1.) );
+      player # velocity # set (Vector.add (Vector.mult (-1.) Const.horz_vel)
       (Vector.{x=0.; y=(player#velocity#get).y}));
-      player # direction # set (-1.) )
+      Texture.pause_animation (player#texture#get) false
+    )
 
   (* Déplacement vers la droite *)
   else if Hashtbl.mem keys cfg.key_right then 
-      (player # velocity # set (Vector.add (Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
-      player # direction # set (1.) )
-  else player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} );
+    (if (player # direction # get) <> (1.) then
+      (player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_left_walk");
+      player # direction # set (1.) );
+      player # velocity # set (Vector.add (Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
+      Texture.pause_animation (player#texture#get) false
+    )
+  else
+    (Texture.pause_animation (player#texture#get) true;
+    player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
   (* Shoot *)
   if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then
@@ -60,8 +70,13 @@ let create id x y w h mass elas lvl texture =
     let w, h = Gfx.surface_size res in
     Gfx.debug "DIMENSIONS: %d, %d\n%!" w h;
 
-    let texture = Texture.anim_from_surface ctx res 9 64 64 40 40 3 3 in 
-    player # texture # set texture
+    let texture1 = Texture.anim_from_surface ctx res 9 64 64 40 40 3 3 in 
+    let texture2 = Texture.anim_from_surface ctx res 9 64 64 40 40 3 1 in 
+    let h = Hashtbl.create 2 in
+    Hashtbl.replace h "texture_left_walk" texture1;
+    Hashtbl.replace h "texture_right_walk" texture2;
+    player # modifiable_texture # set h;
+    player # texture # set texture1
 
   | Some t -> player # texture # set t);
   player # id # set id;

@@ -109,6 +109,12 @@ class texture =
     val texture = Component.def (Texture.color (Gfx.color 0 0 0 0))
     method texture = texture
   end
+
+class modifiable_texture =
+  object
+    val modifiable_texture = Component.def (Hashtbl.create 1 : (string, Texture.t) Hashtbl.t)
+    method modifiable_texture = modifiable_texture
+  end
   
 (* Some complex components *)
 
@@ -189,6 +195,7 @@ class player =
     inherit direction
     inherit spawn_position
     inherit level
+    inherit modifiable_texture
   end
 
 class camera =
