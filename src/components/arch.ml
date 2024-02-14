@@ -13,7 +13,7 @@ let arch_collision arch collide pos =
   if collide = "exclbr_mel" then arch # take_dmg Const.exclbr_mel_atk;
   if collide = "exclbr_rgd" then arch # take_dmg Const.exclbr_rgd_atk
 
-let create id x y w h =
+let create id x y w h texture =
   let arch = new arch in
   arch # pos # set Vector.{ x = float x; y = float y };
   arch # id # set id;
@@ -21,7 +21,9 @@ let create id x y w h =
   arch # grounded # set false;
   arch # rect # set Rect.{width = w; height = h};
   arch # mass # set Const.arch_stats.mass;
-  arch # color# set (Gfx.color 255 0 255 255);
+  (match texture with 
+  None -> arch # texture # set (Color (Gfx.color 255 0 255 255))
+  | Some t -> arch # texture # set t);
   arch # elasticity # set Const.arch_stats.elas;
   arch # health # set Const.arch_stats.health;
   arch # damage # set Const.arch_stats.damage;
