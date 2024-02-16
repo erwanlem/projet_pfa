@@ -1,14 +1,14 @@
-3:0x1|60x1|      # sol
+3:0x3|60x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
 
-1:3x5|3x1|       # tremplin
-0:7x3|3x1|      # plateforme
-0:16x6|6x1|      # plateforme
-100:2x2|0x0|level=1     # joueur
+1:3x7|3x1|       # tremplin
+0:7x5|3x1|      # plateforme
+0:16x8|6x1|      # plateforme
+100:2x4|0x0|level=1     # joueur
 
-10:58x3|1x2|destination=resources/files/03.level     # bloc sortie
+10:58x5|1x2|destination=resources/files/03.level     # bloc sortie
 
 
-4:0x16|1x15|    # mur gauche
-4:59x16|1x15|   # mur droit
+4:0x18|1x15|    # mur gauche
+4:59x18|1x15|   # mur droit
 
 # blocId:posXxposY|WidthxHeight

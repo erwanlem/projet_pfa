@@ -1,10 +1,10 @@
-3:0x1|60x1|      # sol
+3:0x3|60x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
 
-100:2x2|0x0|level=2     # joueur
+100:2x4|0x0|level=2     # joueur
 
-10:58x3|1x2|destination=resources/files/04.level     # bloc sortie
+10:58x5|1x2|destination=resources/files/04.level     # bloc sortie
 
-4:0x16|1x15|    # mur gauche
-4:59x16|1x15|   # mur droit
+4:0x18|1x15|    # mur gauche
+4:59x18|1x15|   # mur droit
 
 # blocId:posXxposY|WidthxHeight

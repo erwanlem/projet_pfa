@@ -14,7 +14,6 @@ let onCollide box dest collide pos =
   Ennemy_system.remove_all ();
   Global.set_level dest
   end
-  
 
 
 let create id x y w h dest =
