@@ -1,14 +1,21 @@
 type settings = 
-  { t_x : int; t_y : int; t_w : int; t_h : int; texture : string option;
-  link : string; }
+  { 
+    t_x : int; 
+    t_y : int; 
+    t_w : int; 
+    t_h : int; 
+    texture : string option;
+    link : string;
+    animation : int;
+    color : Gfx.color }
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 
-let gravity = Vector.{x=0.; y = 0.01}
+let gravity = Vector.{x=0.; y = 0.05}
 
-let horz_vel = Vector.{x = 0.2; y =0.}
+let horz_vel = Vector.{x = 0.3; y =0.}
 
-let jump = Vector.{x = 0.; y = -0.8}
+let jump = Vector.{x = 0.; y = -1.6}
 
 let player_health = 50.
 
@@ -25,3 +32,17 @@ let arrow_speed = -0.15
 let knight_stats = {health = 50.; damage = 10.; mass = 10.; elas = 1.}
 let arch_stats = {health = 30.; damage = 5.; mass = infinity; elas = 0.}
 let icespirit_stats = {health = infinity; damage = 10.; mass = 2.; elas = 1.}
+
+
+let colors =
+  let h = Hashtbl.create 10 in
+  Hashtbl.add h "red" (Gfx.color 255 0 0 255);
+  Hashtbl.add h "green" (Gfx.color 0 255 0 255);
+  Hashtbl.add h "blue" (Gfx.color 0 0 255 255);
+  Hashtbl.add h "transparent" (Gfx.color 0 0 0 0);
+  Hashtbl.add h "yellow" (Gfx.color 255 255 0 255);
+  Hashtbl.add h "cyan" (Gfx.color 0 255 255 255);
+  Hashtbl.add h "white" (Gfx.color 255 255 255 255);
+  Hashtbl.add h "black" (Gfx.color 0 0 0 255);
+  Hashtbl.add h "pink" (Gfx.color 255 0 255 255);
+  h

@@ -99,8 +99,8 @@ let update _dt el =
               let new_v2 = Vector.sub v2 (Vector.mult (j/. m2) n) in
 
               (* Limitation de la force *)
-              let new_v1 = Vector.clamp new_v1 (-0.3) 0.3 in
-              let new_v2 = Vector.clamp new_v2 (-0.3) 0.3 in 
+              let new_v1 = Vector.clamp new_v1 (-0.6) 0.6 in
+              let new_v2 = Vector.clamp new_v2 (-0.6) 0.6 in 
 
               (* [9] mise à jour des vitesses *)
 

@@ -48,3 +48,6 @@ Création d'un systeme **Ennemy.ml** pour gerer les ennemis. Création de arch.m
 
 ### Erwan - 13/02
 Ajout **mouvement du joueur** et ajout des textures pour les maps.
+
+### Erwan - 19/02
+Travail sur l'**ajout des textures**. Amélioration du **système de paramètres** avec la création d'un type *settings* qui contient les différents paramètres possibles. On crée une enregistrement de settings à partir de la table de hachage. Les niveaux ont été adapté pour les textures. Amélioration de la hitbox du joueur.

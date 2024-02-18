@@ -17,7 +17,10 @@ let load_settings () =
     t_w = (try int_of_string (Hashtbl.find settings_table "texture_w") with Not_found -> 1);
     t_h = (try int_of_string (Hashtbl.find settings_table "texture_h") with Not_found -> 1);
     texture = (try Some (Hashtbl.find settings_table "texture") with Not_found -> None);
-    link = (try Hashtbl.find settings_table "link" with Not_found -> "")
+    link = (try Hashtbl.find settings_table "link" with Not_found -> "");
+    animation = (try int_of_string (Hashtbl.find settings_table "animation") with Not_found -> 0);
+    color = let c = (try Hashtbl.find settings_table "color" with Not_found -> "black") in
+            try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255
   }  
 
 

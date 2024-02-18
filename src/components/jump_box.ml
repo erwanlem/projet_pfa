@@ -7,7 +7,7 @@ let onCollide box collide pos =
   let vect_y_collision = (Vector.get_y pos) -. (Vector.get_y box#pos#get) in
   if (int_of_float vect_y_collision) > 0 then 
     (box # elasticity # set 0.)
-  else (box # elasticity # set 2.)
+  else (box # elasticity # set 4.)
 
 
 let create id x y w h mass settings =

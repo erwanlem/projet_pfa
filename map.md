@@ -23,6 +23,15 @@ Les lignes ont la structure suivante:
 |101|Archer| Permet de créer un ennemi de type archer |-|-|
 
 
+Les différents paramètres utilisables sont:
+- *color* : une des couleurs prédéfinies. La liste des couleurs disponibles est red, green, blue, transparent, white, black, pink
+- *texture* : le chemin vers un fichier de texture
+- *texture_x* : la position x sur le fichier de texture (par bloc de taille 64). Exemples : 0 donne la position 0, 1 donne la position 64, 2 pour 128, etc... 
+- *texture_y* : la position y sur le fichier de texture (par bloc de taille 64). Exemples : 0 donne la position 0, 1 donne la position 64, 2 pour 128, etc... 
+- *texture_w* : la largeur sur le fichier de texture (par bloc de taille 64). Exemples : 1 donne la largeur 64, 2 pour 128, etc... 
+- *texture_h* : la hauteur sur le fichier de texture (par bloc de taille 64). Exemples : 1 donne la hauteur 64, 2 pour 128, etc... 
+- *animation* : le nombre de frame à récupérer sur un fichier animation
+
 
 ## Textures
 
