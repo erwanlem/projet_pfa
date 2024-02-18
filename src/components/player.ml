@@ -70,8 +70,8 @@ let create id x y w h mass elas lvl texture =
     let w, h = Gfx.surface_size res in
     Gfx.debug "DIMENSIONS: %d, %d\n%!" w h;
 
-    let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 
-    let texture2 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 1 in 
+    let texture1 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 3 in 
+    let texture2 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 1 in 
     let h = Hashtbl.create 2 in
     Hashtbl.replace h "texture_left_walk" texture1;
     Hashtbl.replace h "texture_right_walk" texture2;

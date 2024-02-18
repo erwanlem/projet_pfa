@@ -73,7 +73,7 @@ let draw_element id x y w h =
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
-    64 64 50. 0. (int_of_string (Hashtbl.find settings_table "level")) None in
+    44 64 50. 0. (int_of_string (Hashtbl.find settings_table "level")) None in
     Global.init_camera (Camera.create (player:>box))
 
   | 101 -> 
@@ -87,7 +87,7 @@ let read_settings s =
   Hashtbl.clear settings_table;
   let l = String.split_on_char ',' s in
   let add_setting s =
-    Gfx.debug "%s\n" s;
+    (*Gfx.debug "%s\n" s;*)
     let cut = String.split_on_char '=' s in
     let setting_name = List.nth cut 0 in
     let setting_value = List.nth cut 1 in
