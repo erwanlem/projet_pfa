@@ -15,6 +15,8 @@ let update dt el =
                 if Hashtbl.mem keys s then ()
                 else Hashtbl.replace keys s true
     | Gfx.KeyUp s -> Hashtbl.remove keys s
+    | Gfx.MouseButton (b, true, x, y) -> Hashtbl.replace keys "mouse1" true
+    | Gfx.MouseButton (b, false, x, y) -> Hashtbl.remove keys "mouse1"
     | _ -> ()
   in
   Seq.iter (fun m ->

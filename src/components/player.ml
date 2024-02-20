@@ -32,10 +32,10 @@ let player_control player keys =
   if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then
     (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
-      else (Vector.get_x player#pos#get)-.15. in
+      else (Vector.get_x player#pos#get)-.64. in
 
     (ignore (Bullet.create "bullet" x 
-    (Vector.get_y player#pos#get+.10.) 10 10 (Const.bullet_speed *. player#direction#get) 0. (Gfx.color 0 0 0 255)));
+    (Vector.get_y player#pos#get+.25.) 64 25 (Const.bullet_speed *. player#direction#get) 0.));
     Hashtbl.replace keys cfg.key_space false);
 
   (* Jump *)
@@ -65,6 +65,7 @@ let create id x y w h mass elas lvl texture =
   (match texture with 
   None -> 
     let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/arthur.png") in
+    let res2 = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png") in
     let ctx = Gfx.get_context (Global.window ()) in
     
     let w, h = Gfx.surface_size res in
@@ -72,9 +73,13 @@ let create id x y w h mass elas lvl texture =
 
     let texture1 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 3 in 
     let texture2 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 1 in 
+    let texture3 = Texture.anim_from_surface ctx res2 9 64 64 44 64 3 3 in 
+    let texture4 = Texture.anim_from_surface ctx res2 9 64 64 44 64 3 1 in 
     let h = Hashtbl.create 2 in
     Hashtbl.replace h "texture_left_walk" texture1;
     Hashtbl.replace h "texture_right_walk" texture2;
+    Hashtbl.replace h "texture_left_attack" texture3;
+    Hashtbl.replace h "texture_right_attack" texture4;
     player # modifiable_texture # set h;
     player # texture # set texture1
 

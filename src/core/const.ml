@@ -7,7 +7,9 @@ type settings =
     texture : string option;
     link : string;
     animation : int;
-    color : Gfx.color }
+    color : Gfx.color;
+    text : string;
+    font : string }
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 
@@ -26,7 +28,7 @@ let window_height = 800
 let sword_damage = 10.
 let exclbr_rgd_atk=7.5
 let exclbr_mel_atk = 15.
-let bullet_speed = 0.2
+let bullet_speed = 0.35
 let arrow_speed = -0.15
 
 let knight_stats = {health = 50.; damage = 10.; mass = 10.; elas = 1.}

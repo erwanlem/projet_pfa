@@ -19,8 +19,10 @@ let load_settings () =
     texture = (try Some (Hashtbl.find settings_table "texture") with Not_found -> None);
     link = (try Hashtbl.find settings_table "link" with Not_found -> "");
     animation = (try int_of_string (Hashtbl.find settings_table "animation") with Not_found -> 0);
-    color = let c = (try Hashtbl.find settings_table "color" with Not_found -> "black") in
-            try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255
+    color = (let c = (try Hashtbl.find settings_table "color" with Not_found -> "black") in
+            try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255);
+    text = (try Hashtbl.find settings_table "text" with Not_found -> "");
+    font = (try Hashtbl.find settings_table "font" with Not_found -> "")
   }  
 
 
@@ -56,13 +58,17 @@ let draw_element id x y w h =
     ignore (Box.create "wall"
     (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
 
+  | 5 ->
+    ignore (Decor.create "decor"
+    (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (load_settings ()))
+
   | 10 ->
     ignore ( Exit_box.create "exit" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
-    (Hashtbl.find settings_table "destination") )
+    (load_settings ()) )
   
   | 20 ->
     ignore ( Button.create "button" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
-    (Gfx.color 0 0 0 255) (Hashtbl.find settings_table "link"))
+    (Gfx.color 0 0 0 255) (load_settings ()))
 
   | 21 ->
     let c = (Box.create "camera"

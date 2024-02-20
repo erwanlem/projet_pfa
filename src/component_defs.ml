@@ -44,12 +44,6 @@ class color =
     method color = color
   end
 
-class text =
-  object
-    val text = Component.def ("")
-    method text = text
-  end
-
 class mass =
   object
     val mass = Component.def (0.0)
@@ -115,6 +109,12 @@ class modifiable_texture =
     val modifiable_texture = Component.def (Hashtbl.create 1 : (string, Texture.t) Hashtbl.t)
     method modifiable_texture = modifiable_texture
   end
+
+class layer =
+  object
+    val layer = Component.def 0
+    method layer = layer
+  end
   
 (* Some complex components *)
 
@@ -144,6 +144,7 @@ class drawable =
     inherit color
     inherit camera_position
     inherit texture
+    inherit layer
   end
 
 class box =
@@ -206,10 +207,18 @@ class camera =
     method position = focus#get#pos#get
   end
 
+class text =
+  object
+    inherit drawable
+    val text = Component.def ("")
+    method text = text
+    val font = Component.def ("")
+    method font = font
+  end
+
 class button =
   object
     inherit id
     inherit drawable
-    inherit text
     inherit! controlable
   end

@@ -4,7 +4,7 @@ open System_defs
 let arch_pattern arch dt =
   if (int_of_float dt) mod 1000 = 0 then ignore(
     Bullet.create "arrow" (Vector.get_x arch # pos # get -. 10.)
-    ((Vector.get_y arch#pos#get) +.10.) 10 10 (Const.arrow_speed) 0. (Gfx.color 0 0 0 255)
+    ((Vector.get_y arch#pos#get) +.10.) 10 10 (Const.arrow_speed) 0.
   )
 
 let arch_collision arch collide pos =

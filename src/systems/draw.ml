@@ -17,7 +17,7 @@ let update _dt el =
   let ww, wh = Gfx.get_context_logical_size ctx in
   Gfx.set_color ctx white;
   Gfx.fill_rect ctx surface 0 0 ww wh;
-  Seq.iter (fun (e : t) ->
+  List.iter (fun (e : t) ->
       let Rect.{width; height} = e # rect # get in
       let Vector.{x; y} = e # camera_position # get in
       let x = int_of_float x in
@@ -38,5 +38,7 @@ let update _dt el =
           end;
           let f = r.frames.(r.current_frame) in
           Gfx.blit_scale ctx surface f x y width height
-    ) el;
+    ) (List.sort (fun a b -> if (a # layer # get) > (b # layer # get) then 1 
+                          else if (a # layer # get) = (b # layer # get) then 0
+                          else -1) (List.of_seq el));
   Gfx.commit ctx
