@@ -7,12 +7,7 @@ open Const
 let onCollide box dest collide pos =
   (* On reset tous les systèmes *)
   if collide = "player" then begin
-  Force_system.remove_all ();
-  Draw_system.remove_all ();
-  Collision_system.remove_all ();
-  Move_system.remove_all ();
-  View_system.remove_all ();
-  Ennemy_system.remove_all ();
+  reset_systems ();
   Global.set_level dest
   end
 

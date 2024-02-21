@@ -25,8 +25,10 @@ let player_control player keys =
       Texture.pause_animation (player#texture#get) false
     )
   else
+    ((*let Vector.{x;y} = player#velocity#get in
+    if x <> 0. then player#velocity#set ( Vector.{x=x/.1.02; y=(player#velocity#get).y} );*)
     (Texture.pause_animation (player#texture#get) true;
-    player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
+    player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} )));
 
   (* Shoot *)
   if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then
@@ -40,7 +42,7 @@ let player_control player keys =
 
   (* Jump *)
   if Hashtbl.mem keys cfg.key_up && player#grounded#get 
-    && Hashtbl.find keys cfg.key_up then
+    && Hashtbl.find keys cfg.key_up && (Vector.get_y (player#velocity#get)) = 0. then
     (player # grounded # set false;
     player # sum_forces # set (Vector.add (player#sum_forces#get) (Const.jump));
     Hashtbl.replace keys cfg.key_up false)
@@ -67,9 +69,6 @@ let create id x y w h mass elas lvl texture =
     let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/arthur.png") in
     let res2 = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png") in
     let ctx = Gfx.get_context (Global.window ()) in
-    
-    let w, h = Gfx.surface_size res in
-    Gfx.debug "DIMENSIONS: %d, %d\n%!" w h;
 
     let texture1 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 3 in 
     let texture2 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 1 in 
@@ -84,6 +83,7 @@ let create id x y w h mass elas lvl texture =
     player # texture # set texture1
 
   | Some t -> player # texture # set t);
+
   player # id # set id;
   player # mass # set mass;
   player # elasticity # set elas;
@@ -92,6 +92,7 @@ let create id x y w h mass elas lvl texture =
   player # onCollideEvent # set (player_collision player);
   player # grounded # set false;
   player # direction # set 1.;
+  player # layer # set 10;
   player # level # set lvl;
   player # spawn_position # set Vector.{x = float x;y = float y};
   player # camera_position # set Vector.{ x = float x; y = float y };

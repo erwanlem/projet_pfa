@@ -47,3 +47,6 @@ module Draw_system = System.Make(Draw)
 let () = System.register (module Draw_system)
 (* Register the system globally *)
 
+
+let reset_systems () =
+  System.remove_all ()

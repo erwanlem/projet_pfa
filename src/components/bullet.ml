@@ -21,6 +21,7 @@ let create id x y w h dir_x dir_y =
   box # velocity # set Vector.{x=dir_x; y=dir_y};
   box # onCollideEvent # set (bullet_collide box);
   box # camera_position # set Vector.{ x; y };
+  box # layer # set 9;
 
   let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame.png") in
   let ctx = Gfx.get_context (Global.window ()) in
