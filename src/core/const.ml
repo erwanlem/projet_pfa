@@ -9,7 +9,8 @@ type settings =
     animation : int;
     color : Gfx.color;
     text : string;
-    font : string }
+    font : string;
+    layer : int }
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 

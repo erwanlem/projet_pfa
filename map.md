@@ -16,6 +16,7 @@ Les lignes ont la structure suivante:
 |2|Bloc de mort| Un bloc qui tue le joueur lorsqu'il est en collision avec| - |
 |3|Sol| Un bloc utilisé pour le sol| - |
 |4|Mur| Un bloc permettant de créer un mur| - |
+|5|Element de décor| Crée un élément de décor qui n'a aucun effet sur le joueur| - |
 |10|Bloc changement de niveau|Change de niveau lorsque le bloc est en collision avec le joueur|*destination*: le lien de niveau de destination|
 |20|Bloc bouton|Crée un bouton avec un texte et un lien utilisé lorsqu'on clique dessus|*link*: le fichier de destination|
 |21|Caméra|Crée une caméra. **Attention**, utiliser seulement s'il n'y a pas de joueur| - |

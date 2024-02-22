@@ -22,7 +22,8 @@ let load_settings () =
     color = (let c = (try Hashtbl.find settings_table "color" with Not_found -> "black") in
             try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255);
     text = (try Hashtbl.find settings_table "text" with Not_found -> "");
-    font = (try Hashtbl.find settings_table "font" with Not_found -> "")
+    font = (try Hashtbl.find settings_table "font" with Not_found -> "");
+    layer = (try int_of_string (Hashtbl.find settings_table "layer") with Not_found -> 0)
   }  
 
 

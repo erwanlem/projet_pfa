@@ -7,14 +7,9 @@ let cfg = Config.get_config ()
 (* Pour l'instant on utilise la touche entrée pour cliquer *)
 let onAction button link key =
   if Hashtbl.mem key cfg.key_return 
-    then (Global.set_level link;
-          Force_system.remove_all ();
-          Draw_system.remove_all ();
-          Collision_system.remove_all ();
-          Move_system.remove_all ();
-          View_system.remove_all ();
+    then (reset_systems ();
+          Global.set_level link;
           Hashtbl.remove key cfg.key_return)
-
 
 
 let create id x y w h color settings =

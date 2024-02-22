@@ -8,6 +8,7 @@ let create id x y w h mass settings =
   box # rect # set Rect.{width = w; height = h};
   box # id # set id;
   box # mass # set mass;
+  box # layer # set settings.layer;
   (match settings.texture with 
   None -> box # texture # set (Color settings.color)
   | Some t -> 

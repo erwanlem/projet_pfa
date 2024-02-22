@@ -5,12 +5,18 @@
 
 
 
-1:7x6|2x1|texture=resources/images/grass.png,texture_x=5,texture_y=0,texture_w=2,texture_h=1 # tremplin
-0:2x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
-0:16x8|6x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 3
+1:15x6|2x1|texture=resources/images/grass.png,texture_x=5,texture_y=0,texture_w=2,texture_h=1 # tremplin
+0:10x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+#0:16x8|6x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 3
+
+0:22x6|6x3|texture=resources/images/grass.png,texture_x=0,texture_y=1,texture_w=3,texture_h=3
+5:22x4|6x2|texture=resources/images/grass.png,texture_x=0,texture_y=2,texture_w=3,texture_h=2,layer=5
+
+0:41x4|1x1|texture=resources/images/grass.png,texture_x=7,texture_y=0,texture_w=1,texture_h=1 # rocher
+
 100:2x4|0x0|level=3 # joueur
 
-101:10x4|1x1|
+101:40x4|1x1| # ennemi
 
 2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse

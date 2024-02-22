@@ -12,7 +12,6 @@ let bullet_collide bullet collide pos =
 
 
 let create id x y w h dir_x dir_y =
-  Gfx.debug "New bullet\n%!";
   let box = new box in
   box # pos # set Vector.{ x;y };
   box # rect # set Rect.{width = w; height = h};
@@ -25,9 +24,6 @@ let create id x y w h dir_x dir_y =
 
   let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame.png") in
   let ctx = Gfx.get_context (Global.window ()) in
-    
-  let w, h = Gfx.surface_size res in
-  Gfx.debug "Bullet Dimensions: %d, %d\n%!" w h;
 
   let texture = 
     if dir_x > 0. then Texture.anim_from_surface ctx res 6 512 197 128 49 5 1

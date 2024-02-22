@@ -9,6 +9,7 @@ let create id x y w h settings =
   box # rect # set Rect.{width = w; height = h};
   box # id # set id;
   box # mass # set infinity;
+  box # layer # set settings.layer;
   box # camera_position # set Vector.{ x = float x; y = float y };
 
   (match settings.texture with 
