@@ -54,3 +54,10 @@ Travail sur l'**ajout des textures**. Amélioration du **système de paramètres
 
 ### Erwan - 20/02
 Ajout d'une **entité *text*** pour écrire en utilisant le paramètre text (par exemple avec button). Ajout d'une **entité *decor*** pour créer des éléments de décor qui n'intéragissent pas avec le joueur. Ajout **animation tir** avec une boule de feu. 
+
+### Ewen - 3/03
+Ajout de **vision.ml**. Ce fichier permet de detecter si le joueur est dans le champ de vision d'un ennemi. Amélioration du patterne de l'archer : il ne se base plus par rapport au temps pour tirer toute les secondes, il ne tire que si le joueur a ete dans son champs de vision récement.
+
+**BUG trouvé:** si l'on met 2 ennemis sur le meme layer, il y a des soucis avec la vision. 
+
+**A faire:** faire en sorte que l'archer se retourne si le joueur est derriere lui et tirer dans sa direction.

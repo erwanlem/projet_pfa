@@ -16,7 +16,10 @@
 
 100:2x4|0x0|level=3 # joueur
 
-101:40x4|1x1| # ennemi
+101:5x4|1x1| # ennemi
+
+
+
 
 2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse

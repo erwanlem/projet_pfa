@@ -1,0 +1,28 @@
+# dune build prog/game_sdl.exe
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /home/ewen/.cache/dune/db
+# Workspace root: /home/ewen/Etudes/projet_pfa
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Release
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" : "/home/ewen/Etudes/projet_pfa/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; instrument_with = []
+#  }
+$ /home/ewen/.opam/def/bin/ocamlc.opt -config > /tmp/dune_32570e_output
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamldep.opt -modules -impl src/components/arch.ml) > _build/default/src/.game.objs/game__Arch.impl.d
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlc.opt -w -40 -g -bin-annot -I src/.game.objs/byte -I lib/ecs/.ecs.objs/byte -I lib/gfx/.gfx.objs/byte -no-alias-deps -open Game__ -o src/.game.objs/byte/game__Arch.cmo -c -impl src/components/arch.ml)
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlopt.opt -w -40 -g -I src/.game.objs/byte -I src/.game.objs/native -I lib/ecs/.ecs.objs/byte -I lib/ecs/.ecs.objs/native -I lib/gfx/.gfx.objs/byte -I lib/gfx/.gfx.objs/native -intf-suffix .ml -no-alias-deps -open Game__ -o src/.game.objs/native/game__Arch.cmx -c -impl src/components/arch.ml)
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlopt.opt -w -40 -g -a -o src/game.cmxa src/.game.objs/native/game__.cmx src/.game.objs/native/game__Vector.cmx src/.game.objs/native/game__Rect.cmx src/.game.objs/native/game__Texture.cmx src/.game.objs/native/game__Component_defs.cmx src/.game.objs/native/game__Collisions.cmx src/.game.objs/native/game__Config.cmx src/.game.objs/native/game__Const.cmx src/.game.objs/native/game__Control.cmx src/.game.objs/native/game__Global.cmx src/.game.objs/native/game__Draw.cmx src/.game.objs/native/game__Ennemy.cmx src/.game.objs/native/game__Force.cmx src/.game.objs/native/game__Health.cmx src/.game.objs/native/game__Move.cmx src/.game.objs/native/game__View.cmx src/.game.objs/native/game__System_defs.cmx src/.game.objs/native/game__Vision.cmx src/.game.objs/native/game__Resources.cmx src/.game.objs/native/game__Text.cmx src/.game.objs/native/game__Bullet.cmx src/.game.objs/native/game__Player.cmx src/.game.objs/native/game__Arch.cmx src/.game.objs/native/game__Background.cmx src/.game.objs/native/game__Box.cmx src/.game.objs/native/game__Button.cmx src/.game.objs/native/game__Camera.cmx src/.game.objs/native/game__Decor.cmx src/.game.objs/native/game__Exit_box.cmx src/.game.objs/native/game__Jump_box.cmx src/.game.objs/native/game__Level_loader.cmx src/.game.objs/native/game__Knight.cmx src/.game.objs/native/game.cmx)
+$ (cd _build/default && /home/ewen/.opam/def/bin/ocamlopt.opt -w -40 -g -o prog/game_sdl.exe lib/ecs/ecs.cmxa /home/ewen/.opam/def/lib/stdlib-shims/stdlib_shims.cmxa /home/ewen/.opam/def/lib/integers/integers.cmxa -I /home/ewen/.opam/def/lib/integers /home/ewen/.opam/def/lib/bigarray-compat/bigarray_compat.cmxa /home/ewen/.opam/def/lib/ctypes/ctypes.cmxa -I /home/ewen/.opam/def/lib/ctypes /home/ewen/.opam/def/lib/ocaml/unix.cmxa -I /home/ewen/.opam/def/lib/ocaml /home/ewen/.opam/def/lib/ocaml/threads/threads.cmxa -I /home/ewen/.opam/def/lib/ocaml /home/ewen/.opam/def/lib/ctypes-foreign/ctypes_foreign.cmxa -I /home/ewen/.opam/def/lib/ctypes-foreign /home/ewen/.opam/def/lib/tsdl/tsdl.cmxa -I /home/ewen/.opam/def/lib/tsdl /home/ewen/.opam/def/lib/tsdl-image/tsdl_image.cmxa /home/ewen/.opam/def/lib/tsdl-ttf/tsdl_ttf.cmxa lib/gfx/gfx_sdl/gfx_sdl.cmxa src/game.cmxa prog/.game_sdl.eobjs/native/dune__exe__Game_sdl.cmx)
+# Promoting "_build/default/prog/game_sdl.exe" to "prog/game_sdl.exe"
