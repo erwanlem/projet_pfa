@@ -87,7 +87,7 @@ let draw_element id x y w h =
     Global.init_camera (Camera.create (player:>box))
 
   | 101 -> 
-    ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) 44 64 None)
+    ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) 64 64 None)
 
   | _ -> ()
 

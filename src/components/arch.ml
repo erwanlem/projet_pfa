@@ -13,9 +13,7 @@ let arch_pattern arch dt =
   ))
   else if arch#cld#get > 0 then( arch#cld#set (arch#cld#get - 1))
   
-      
-
-
+    
 let arch_collision arch collide pos =
   if collide = "ground" then arch # grounded # set true;
   if collide = "sword_left" || collide = "sword_right" then 
@@ -29,15 +27,17 @@ let create id x y w h texture  =
   arch # id # set id;
   arch # pattern # set (arch_pattern arch);
   arch # grounded # set false;
+  arch # hitbox_rect # set Rect.{width = w; height =  h} ;
   arch # rect # set Rect.{width = w; height = h};
   arch # mass # set Const.arch_stats.mass;
-  arch #vs# set (Vision.create "vs" (x-44) (y) 64 132);
+  arch #vs# set (Vision.create "vs" (x-64) (y) 64 192);
   (match texture with 
   None -> arch # texture # set (Color (Gfx.color 255 0 255 255))
   | Some t -> arch # texture # set t);
   arch # elasticity # set Const.arch_stats.elas;
   arch # health # set Const.arch_stats.health;
   arch # damage # set Const.arch_stats.damage;
+  arch # layer # set 9;
   arch # onCollideEvent # set (arch_collision arch);
   Force_system.register (arch:>collidable);
   Draw_system.register (arch :> drawable);
