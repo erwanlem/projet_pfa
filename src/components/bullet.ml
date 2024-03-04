@@ -16,6 +16,7 @@ let create id x y w h dir_x dir_y =
   let box = new box in
   box # pos # set Vector.{ x;y };
   box # rect # set Rect.{width = w; height = h};
+  box # hitbox_rect # set Rect.{width = w; height = h};
   box # id # set id;
   box # mass # set 10.;
   box # velocity # set Vector.{x=dir_x; y=dir_y};

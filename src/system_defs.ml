@@ -13,10 +13,10 @@ module Control_system = System.Make(Control)
 let () = System.register (module Control_system)
 (* Register the system globally *)
 
-module Health_system = System.Make(Health)
+module Alive_system = System.Make(Alive)
 (* Use a functor to define the new system *)
 
-let () = System.register (module Health_system)
+let () = System.register (module Alive_system)
 (* Register the system globally *)
 
 module Ennemy_system = System.Make(Ennemy)

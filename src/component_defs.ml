@@ -117,14 +117,16 @@ class layer =
     val layer = Component.def 0
     method layer = layer
   end
+
+class hitbox =
+  object
+    val hitbox_position = Component.def Vector.zero
+    method hitbox_position = hitbox_position
+    val hitbox_rect = Component.def Rect.{width = 0; height = 0}
+    method hitbox_rect = hitbox_rect
+  end
   
 (* Some complex components *)
-
-class movable =
-  object
-    inherit position
-    inherit velocity
-  end
 
 class collidable =
   object
@@ -139,6 +141,7 @@ class collidable =
     inherit onCollideEvent
     val isTransparent = Component.def false
     method isTransparent = isTransparent
+    inherit hitbox
   end
 
 class drawable =
@@ -156,6 +159,12 @@ class box =
     inherit drawable
     inherit! collidable
     inherit! id
+  end
+
+class movable =
+  object
+    inherit position
+    inherit velocity
   end
 
 class controlable =
@@ -198,7 +207,7 @@ class knight=
 
 class arch=
   object
-    inherit mob
+    inherit mob 
   end
 
 class icespirit=
@@ -206,14 +215,21 @@ class icespirit=
     inherit mob
   end
 
+class alive =
+  object
+    val attack_time = Component.def (-1)
+    method attack_time = attack_time
+    inherit position
+    inherit health
+    inherit spawn_position
+  end
 
 class player = 
   object
     inherit box
     inherit! controlable
-    inherit health
+    inherit! alive
     inherit direction
-    inherit spawn_position
     inherit level
     inherit modifiable_texture
   end

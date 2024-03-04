@@ -9,8 +9,8 @@ let update _dt el =
   Seq.iteri
     (fun i (e1 : t) ->
       (* les composants du rectangle r1 *)
-      let pos1 = e1#pos#get in
-      let box1 = e1#rect#get in
+      let pos1 = Vector.add e1#pos#get e1#hitbox_position#get in
+      let box1 = e1#hitbox_rect#get in
       let v1 = e1#velocity#get in
       let m1 = e1#mass#get in
       Seq.iteri
@@ -22,8 +22,8 @@ let update _dt el =
           *)
           if j > i && (Float.is_finite m1 || Float.is_finite m2) then begin
             (* les composants du rectangle r2 *)
-            let pos2 = e2#pos#get in
-            let box2 = e2#rect#get in
+            let pos2 = Vector.add e2#pos#get e2#hitbox_position#get in
+            let box2 = e2#hitbox_rect#get in
             (* les vitesses *)
             let v2 = e2#velocity#get in
             (* [1] la soustraction de Minkowski *)
@@ -31,7 +31,7 @@ let update _dt el =
             (* [2] si intersection et un des objets et mobile, les objets rebondissent *)
             if
               Rect.has_origin s_pos s_rect
-              && not (Vector.is_zero v1 && Vector.is_zero v2)
+              && (not (Vector.is_zero v1 && Vector.is_zero v2) || e1#isTransparent#get || e2#isTransparent#get )
             then begin
               e1#onCollideEvent#get (e2#id#get) (e2#pos#get);
               e2#onCollideEvent#get (e1#id#get) (e1#pos#get);
@@ -64,8 +64,8 @@ let update _dt el =
                 Gfx.debug "%f, %f, %d x %d\n" s_pos.Vector.x s_pos.Vector.y
                   s_rect.Rect.width s_rect.Rect.height
               end;
-              e1#pos#set pos1;
-              e2#pos#set pos2;
+              e1#pos#set (Vector.sub pos1 e1#hitbox_position#get);
+              e2#pos#set (Vector.sub pos2 e2#hitbox_position#get);
 
               (* [5] On normalise n (on calcule un vecteur de même direction mais de norme 1) *)
               let n = Vector.normalize n in

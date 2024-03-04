@@ -11,16 +11,30 @@ let init dt =
   false
 
 
-let fps = ref 0
+let chain_functions l =
+  let todo = ref l in
+  (fun dt ->
+    match !todo with
+      [] -> false
+      | f :: ll ->
+        let res = f dt in
+        if res then true
+        else begin
+          todo := ll;
+          true
+        end)
 
+
+let fps = ref 0
+let d = ref 0.
 
 let update dt =
   (* Affiche FPS *)
-  (*(if (int_of_float dt) mod 1000 <= 5 then
-    (Gfx.debug "%d\n%!" !fps;
+  (if (int_of_float dt) mod 1000 <= 5 then
+    (Gfx.debug "%d FPS\n%!" !fps;
     fps := 0)
   else
-    fps := !fps + 1);*)
+    fps := !fps + 1);
 
   if Global.level_switch () then
     Level_loader.load_map (Global.get_level ());
@@ -30,7 +44,5 @@ let update dt =
 
 let run () =
   Resources.load_resources ();
-  Gfx.main_loop Resources.wait_resources;
 
-  Gfx.main_loop init;
-  Gfx.main_loop update
+  Gfx.main_loop (chain_functions [Resources.wait_resources; init; update])

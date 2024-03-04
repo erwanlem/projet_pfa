@@ -14,6 +14,7 @@ let create id x y w h mass settings =
   let box = new box in
   box # pos # set Vector.{ x = float x; y = float y };
   box # rect # set Rect.{width = w; height = h};
+  box # hitbox_rect # set Rect.{width = w; height = h};
   (match settings.texture with 
   None -> box # texture # set (Color (Gfx.color 0 255 128 255))
   | Some t -> 

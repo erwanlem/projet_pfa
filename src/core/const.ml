@@ -49,3 +49,18 @@ let colors =
   Hashtbl.add h "black" (Gfx.color 0 0 0 255);
   Hashtbl.add h "pink" (Gfx.color 255 0 255 255);
   h
+
+
+
+let empty_settings = {
+  t_x = 0; 
+  t_y = 0; 
+  t_w = 0; 
+  t_h = 0; 
+  texture = None;
+  link = "";
+  animation = 0;
+  color = Hashtbl.find colors "red";
+  text = "";
+  font = "";
+  layer = 0}

@@ -6,6 +6,9 @@ let create id x y w h mass settings =
   let box = new box in
   box # pos # set Vector.{ x = float x; y = float y };
   box # rect # set Rect.{width = w; height = h};
+  box # hitbox_rect # set Rect.{width = w; height = h};
+  box # hitbox_position # set Vector.{x=0.;y=0.};
+
   box # id # set id;
   box # mass # set mass;
   box # layer # set settings.layer;

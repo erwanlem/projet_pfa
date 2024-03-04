@@ -45,11 +45,26 @@ let player_control player keys =
     && Hashtbl.find keys cfg.key_up && (Vector.get_y (player#velocity#get)) = 0. then
     (player # grounded # set false;
     player # sum_forces # set (Vector.add (player#sum_forces#get) (Const.jump));
-    Hashtbl.replace keys cfg.key_up false)
+    Hashtbl.replace keys cfg.key_up false);
+
+  (* sword *)
+  if Hashtbl.mem keys cfg.key_return then
+    if player#direction#get = -1. then
+      (player#rect#set Rect.{width=64;height=64};
+      player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_left_attack");
+      Texture.pause_animation (player#texture#get) false)
+    else
+      (player#rect#set Rect.{width=64;height=64};
+      player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_attack");
+      Texture.pause_animation (player#texture#get) false)
     
 
+(* Player collision *)
 let player_collision player collide pos =
-  let vect_y_collision = (Vector.get_y pos) -. ((Vector.get_y player#pos#get) +. float (Rect.get_height player#rect#get)) in
+  (*Gfx.debug "%a - %a\n%!" Vector.pp player#pos#get Vector.pp player#camera_position#get;*)
+  let vect_y_collision = 
+    (Vector.get_y pos) -. ((Vector.get_y (Vector.add player#pos#get player#hitbox_position#get))
+     +. float (Rect.get_height player#hitbox_rect#get)) in
   if (collide="ground" || collide="platform") && (Vector.get_y player#sum_forces#get) >= 0. 
     && (int_of_float vect_y_collision) >= 0 && not player#grounded#get then 
     player # grounded # set true;
@@ -59,11 +74,16 @@ let player_collision player collide pos =
   if collide = "arrow" then player#health#set (player#health#get -. Const.arch_stats.damage)
 
 
-
+(* Create player *)
 let create id x y w h mass elas lvl texture =
   let player = new player in
+  (* position joueur *)
   player # pos # set Vector.{ x = float x; y = float y };
   player # rect # set Rect.{width = w; height = h};
+  (* Position hitbox relative *)
+  player # hitbox_rect # set Rect.{width = w-8; height = h-12};
+  player # hitbox_position # set Vector.{x=0.;y=6.};
+  (* Chargement des textures *)
   (match texture with 
   None -> 
     let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/arthur.png") in
@@ -72,8 +92,8 @@ let create id x y w h mass elas lvl texture =
 
     let texture1 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 3 in 
     let texture2 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 1 in 
-    let texture3 = Texture.anim_from_surface ctx res2 9 64 64 44 64 3 3 in 
-    let texture4 = Texture.anim_from_surface ctx res2 9 64 64 44 64 3 1 in 
+    let texture3 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 3 in 
+    let texture4 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 1 in 
     let h = Hashtbl.create 2 in
     Hashtbl.replace h "texture_left_walk" texture1;
     Hashtbl.replace h "texture_right_walk" texture2;
@@ -84,6 +104,8 @@ let create id x y w h mass elas lvl texture =
 
   | Some t -> player # texture # set t);
 
+  ignore (Hitbox.create "player" player);
+
   player # id # set id;
   player # mass # set mass;
   player # elasticity # set elas;
@@ -91,17 +113,19 @@ let create id x y w h mass elas lvl texture =
   player # control # set (player_control player);
   player # onCollideEvent # set (player_collision player);
   player # grounded # set false;
-  player # direction # set 1.;
+  player # direction # set 1.; 
   player # layer # set 10;
   player # level # set lvl;
   player # spawn_position # set Vector.{x = float x;y = float y};
   player # camera_position # set Vector.{ x = float x; y = float y };
+
+  (* Enregistrement dans les systèmes *)
   Force_system.register (player:>collidable);
   Draw_system.register (player :> drawable);
   Collision_system.register (player:>collidable);
   Move_system.register (player :> movable);
   Control_system.register (player :> controlable);
   View_system.register (player :> drawable);
-  Health_system.register (player);
+  Alive_system.register (player :> alive);
   player
   

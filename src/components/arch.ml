@@ -18,7 +18,8 @@ let arch_pattern arch dt =
 
 let arch_collision arch collide pos =
   if collide = "ground" then arch # grounded # set true;
-  if collide = "sword" then arch # take_dmg Const.sword_damage;
+  if collide = "sword_left" || collide = "sword_right" then 
+    (arch # take_dmg Const.sword_damage; Gfx.debug "COLLIDE SWORD\n%!");
   if collide = "exclbr_mel" then arch # take_dmg Const.exclbr_mel_atk;
   if collide = "exclbr_rgd" then arch # take_dmg Const.exclbr_rgd_atk
 
