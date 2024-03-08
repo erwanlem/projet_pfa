@@ -1,2 +1,4 @@
 _build/
 .vscode/
+prog/game_js.bc-for-jsoo
+prog/game_js.bc.js
