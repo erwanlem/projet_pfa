@@ -5,30 +5,42 @@ open Config
 
 let cfg = Config.get_config ()
 
+
+let update_sword_anim i frame maxframe dir =
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png"
+                                    with Not_found -> failwith "In alive.ml : Resource not found" ) in
+  let ctx = Gfx.get_context (Global.window ()) in
+  if frame mod (maxframe/6) = 0 then
+    i := !i+1;
+  if dir = -1. then
+    Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64
+  else
+    Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
+
+
 let player_control player keys =
   (* Déplacement vers la gauche *)
   if Hashtbl.mem keys cfg.key_left then
     (if (player # direction # get) <> (-1.) then
       (player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
-      player # direction # set (-1.) );
+      player # direction # set (-1.));
+      Texture.pause_animation (player#texture#get) false;
       player # velocity # set (Vector.add (Vector.mult (-1.) Const.horz_vel)
       (Vector.{x=0.; y=(player#velocity#get).y}));
-      Texture.pause_animation (player#texture#get) false
     )
 
   (* Déplacement vers la droite *)
   else if Hashtbl.mem keys cfg.key_right then 
     (if (player # direction # get) <> (1.) then
       (player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_left_walk");
-      player # direction # set (1.) );
+      player # direction # set (1.)
+      );
+      Texture.pause_animation (player#texture#get) false;
       player # velocity # set (Vector.add (Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
-      Texture.pause_animation (player#texture#get) false
     )
   else
-    ((*let Vector.{x;y} = player#velocity#get in
-    if x <> 0. then player#velocity#set ( Vector.{x=x/.1.02; y=(player#velocity#get).y} );*)
     (Texture.pause_animation (player#texture#get) true;
-    player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} )));
+    player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
   (* Shoot *)
   if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then
@@ -48,16 +60,18 @@ let player_control player keys =
     Hashtbl.replace keys cfg.key_up false);
 
   (* sword *)
-  if Hashtbl.mem keys cfg.key_return then
-    if player#direction#get = -1. then
-      (player#rect#set Rect.{width=64;height=64};
-      player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_left_attack");
-      Texture.pause_animation (player#texture#get) false)
+  if Hashtbl.mem keys cfg.key_return && (State.get_state player#state#get) = 0 then
+    (player#anim_recover#set player#texture#get;
+    let i = ref (-1) in
+    if player#direction#get = 1. then
+      (player#state#set (State.create_state 1 12 (update_sword_anim i)))
     else
-      (player#rect#set Rect.{width=64;height=64};
-      player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_attack");
-      Texture.pause_animation (player#texture#get) false)
+      (player#state#set (State.create_state 1 12 (update_sword_anim i))))
     
+
+
+
+
 
 (* Player collision *)
 let player_collision player collide pos =
@@ -74,6 +88,11 @@ let player_collision player collide pos =
   if collide = "arrow" then player#health#set (player#health#get -. Const.arch_stats.damage)
 
 
+
+
+
+
+
 (* Create player *)
 let create id x y w h mass elas lvl texture =
   let player = new player in
@@ -81,8 +100,8 @@ let create id x y w h mass elas lvl texture =
   player # pos # set Vector.{ x = float x; y = float y };
   player # rect # set Rect.{width = w; height = h};
   (* Position hitbox relative *)
-  player # hitbox_rect # set Rect.{width = w-8; height = h-12};
-  player # hitbox_position # set Vector.{x=0.;y=6.};
+  player # hitbox_rect # set Rect.{width = w-36; height = h-14};
+  player # hitbox_position # set Vector.{x=18.;y=10.};
   (* Chargement des textures *)
   (match texture with 
   None -> 
@@ -90,8 +109,8 @@ let create id x y w h mass elas lvl texture =
     let res2 = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png") in
     let ctx = Gfx.get_context (Global.window ()) in
 
-    let texture1 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 3 in 
-    let texture2 = Texture.anim_from_surface ctx res 9 44 64 44 64 3 1 in 
+    let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 
+    let texture2 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 1 in 
     let texture3 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 3 in 
     let texture4 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 1 in 
     let h = Hashtbl.create 2 in
@@ -113,7 +132,7 @@ let create id x y w h mass elas lvl texture =
   player # control # set (player_control player);
   player # onCollideEvent # set (player_collision player);
   player # grounded # set false;
-  player # direction # set 1.; 
+  player # direction # set 1.;
   player # layer # set 10;
   player # level # set lvl;
   player # spawn_position # set Vector.{x = float x;y = float y};
@@ -126,6 +145,6 @@ let create id x y w h mass elas lvl texture =
   Move_system.register (player :> movable);
   Control_system.register (player :> controlable);
   View_system.register (player :> drawable);
-  Alive_system.register (player :> alive);
+  Alive_system.register (player);
   player
   

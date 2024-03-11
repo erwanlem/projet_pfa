@@ -22,8 +22,8 @@ let jump = Vector.{x = 0.; y = -1.6}
 
 let player_health = 50.
 
-let window_width = 1000
-let window_height = 800
+let window_width = 800
+let window_height = 600
 
 
 let sword_damage = 10.

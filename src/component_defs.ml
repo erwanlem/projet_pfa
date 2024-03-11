@@ -3,8 +3,9 @@ open Ecs
 (* Some basic components *)
 class position =
   object
-    val pos = Component.def Vector.zero
+    val mutable pos = Component.def Vector.zero
     method pos = pos
+    method set_mutable_pos p = pos <- p
   end
 
 class damage = 
@@ -12,6 +13,21 @@ object
   val damage = Component.def 0.
   method damage = damage
 end 
+
+
+class anim_recover =
+  object
+    val anim_recover = Component.def (Texture.Color (Gfx.color 0 0 0 0))
+    method anim_recover = anim_recover
+  end
+
+
+class state =
+  object 
+    inherit anim_recover
+    val state = Component.def (State.create_state 0 (-1) (fun a b c -> Texture.Color (Gfx.color 0 0 0 0)))
+    method state = state
+  end
 
 
 class rect =
@@ -125,7 +141,13 @@ class hitbox =
     val hitbox_rect = Component.def Rect.{width = 0; height = 0}
     method hitbox_rect = hitbox_rect
   end
-  
+
+class hitbox_display =
+  object
+    val hitbox_display = Component.def Vector.zero
+    method hitbox_display = hitbox_display
+  end
+
 (* Some complex components *)
 
 class collidable =
@@ -152,6 +174,7 @@ class drawable =
     inherit camera_position
     inherit texture
     inherit layer
+    inherit hitbox_display
   end
 
 class box =
@@ -217,8 +240,7 @@ class icespirit=
 
 class alive =
   object
-    val attack_time = Component.def (-1)
-    method attack_time = attack_time
+    inherit state
     inherit position
     inherit health
     inherit spawn_position
@@ -233,6 +255,7 @@ class player =
     inherit level
     inherit modifiable_texture
   end
+
 
 class camera =
   object

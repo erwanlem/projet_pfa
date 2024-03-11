@@ -8,7 +8,6 @@ type t = Color of Gfx.color
 
 let color c = Color c
 
-
 let image_from_surface ctx surface x y w h dw dh =
   let dst = Gfx.create_surface ctx dw dh in
   Gfx.blit_full ctx dst surface x y w h 0 0 dw dh;
@@ -29,4 +28,5 @@ let anim_from_surface ctx surface n w h dw dh frame_duration column =
 let pause_animation a b =
   match a with
   | Animation r -> r.pause <- b
-  | _ -> assert false
+  | Color c -> ()
+  | _ -> ()

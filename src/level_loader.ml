@@ -77,13 +77,11 @@ let draw_element id x y w h =
     in let cam = Camera.create c
     in Global.init_camera cam
 
-  | 22 ->
-    let bgnd = try Some (Hashtbl.find settings_table "image") with Not_found -> None in
-    ignore (Background.create "menu_background" bgnd)
+  | 22 -> ignore (Background.create "menu_background" (load_settings ()))
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
-    44 64 50. 0. (int_of_string (Hashtbl.find settings_table "level")) None in
+    64 64 50. 0. (int_of_string (Hashtbl.find settings_table "level")) None in
     Global.init_camera (Camera.create (player:>box))
 
   | 101 -> 

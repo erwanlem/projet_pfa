@@ -14,7 +14,7 @@ let js = {  key_left = "ArrowLeft";
             key_right = "ArrowRight"; 
             key_up = "ArrowUp";
             key_down = "ArrowDown";
-            key_space = "";
+            key_space = "Control";
             key_return = "Enter"}
 
 let sdl = { key_left = "left"; key_right = "right"; key_up = "up"; key_down = "down";key_space = "space"; key_return="return"}

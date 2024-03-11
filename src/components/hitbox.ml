@@ -6,9 +6,10 @@ open Const
 
 let create id master_obj =
   let box = new box in
-  box # pos # set (master_obj#pos#get);
+  box # set_mutable_pos master_obj#pos;
   box # rect # set (master_obj#hitbox_rect#get);
   box # id # set id;
+  box # hitbox_display # set (master_obj#hitbox_position # get);
   box # mass # set 50.;
   box # layer # set 20;
   box # texture # set (Texture.Color (Gfx.color 255 0 0 128));
