@@ -33,6 +33,7 @@ let update _dt el =
               Rect.has_origin s_pos s_rect
               && (not (Vector.is_zero v1 && Vector.is_zero v2) || e1#isTransparent#get || e2#isTransparent#get )
             then begin
+              Gfx.debug "%s collide %s\n%!" (e1#id#get) (e2#id#get);
               e1#onCollideEvent#get (e2#id#get) (e2#pos#get);
               e2#onCollideEvent#get (e1#id#get) (e1#pos#get);
               (*Gfx.debug "%s : %a, %s : %a\n%!" (e2#id#get) Vector.pp e2#pos#get (e1#id#get) Vector.pp e1#pos#get;*)

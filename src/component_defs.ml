@@ -176,6 +176,13 @@ class box =
     inherit! id
   end
 
+class state_box =
+  object
+    inherit box
+    val remove_box = Component.def (fun () -> ())
+    method remove_box = remove_box
+  end
+
 class movable =
   object
     inherit position
@@ -194,8 +201,8 @@ class state =
     inherit anim_recover
     val state = Component.def (State.create_state 0 (-1) (fun a b c -> Texture.Color (Gfx.color 0 0 0 0)))
     method state = state
-    val state_box = Component.def (None : box option)
-    method state_box = state_box 
+    val state_box = Component.def (None : state_box option)
+    method state_box = state_box
   end
 
 class vision =

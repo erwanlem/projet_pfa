@@ -13,6 +13,9 @@ let update dt el =
           (m#texture#set (s.update s.curframe s.maxframe (m#direction#get)))
         else if s.curframe = 0 then
           (m#texture#set (m#anim_recover#get);
+          (*(match m#state_box#get with
+          | Some b -> b#remove_box#get (); m#state_box#set None
+          | None -> ());*)
           s.kind <- 0);
         s.curframe <- s.curframe - 1;
         );

@@ -65,9 +65,11 @@ let player_control player keys =
     (player#anim_recover#set player#texture#get;
     let i = ref (-1) in
     if player#direction#get = 1. then
-      (player#state#set (State.create_state 1 12 (update_sword_anim player i)))
+      (player#state#set (State.create_state 1 12 (update_sword_anim player i));
+      player#state_box#set (Some (Sword_box.create "sword" player (80.) 10.)))
     else
-      (player#state#set (State.create_state 1 12 (update_sword_anim player i))))
+      (player#state#set (State.create_state 1 12 (update_sword_anim player i));
+      player#state_box#set (Some (Sword_box.create "sword" player (-15.) 10.))))
     
 
 
