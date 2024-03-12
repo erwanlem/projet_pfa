@@ -22,14 +22,6 @@ class anim_recover =
   end
 
 
-class state =
-  object 
-    inherit anim_recover
-    val state = Component.def (State.create_state 0 (-1) (fun a b c -> Texture.Color (Gfx.color 0 0 0 0)))
-    method state = state
-  end
-
-
 class rect =
   object
     val rect = Component.def Rect.{width = 0; height = 0}
@@ -197,7 +189,16 @@ class controlable =
     method control = control
   end
 
-  class vision =
+class state =
+  object 
+    inherit anim_recover
+    val state = Component.def (State.create_state 0 (-1) (fun a b c -> Texture.Color (Gfx.color 0 0 0 0)))
+    method state = state
+    val state_box = Component.def (None : box option)
+    method state_box = state_box 
+  end
+
+class vision =
   object 
    inherit collidable 
    inherit !drawable

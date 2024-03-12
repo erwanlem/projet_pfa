@@ -10,7 +10,7 @@ type t =
   state 1 -> attack state   
 *)
 let create_state stateid frames update =
-  { curframe = frames; maxframe = frames; kind = stateid; update = update }
+  { curframe = frames; maxframe = frames; kind = stateid; update = update; }
 
 
 (* Returns state id *)
