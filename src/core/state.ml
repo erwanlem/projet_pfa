@@ -1,5 +1,9 @@
 type t =
-  { mutable curframe : int; mutable maxframe : int; mutable kind : int; update : int -> int -> float -> Texture.t }
+  { mutable curframe : int; 
+  mutable maxframe : int; 
+  mutable kind : int; 
+  update : int -> int -> float -> Texture.t;
+  }
 
 (*
   state 0 -> default state, no action

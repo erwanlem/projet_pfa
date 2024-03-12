@@ -10,7 +10,7 @@ let update dt el =
       let s = m#state#get in
       if s.kind = 1 then
         (if s.curframe > 0 then
-          ((*m#texture#set (s.update s.curframe s.maxframe (m#direction#get))*))
+          (m#texture#set (s.update s.curframe s.maxframe (m#direction#get)))
         else if s.curframe = 0 then
           (m#texture#set (m#anim_recover#get);
           s.kind <- 0);

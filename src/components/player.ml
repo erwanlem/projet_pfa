@@ -6,14 +6,15 @@ open Config
 let cfg = Config.get_config ()
 
 
-let update_sword_anim i frame maxframe dir =
+let update_sword_anim player i frame maxframe dir =
   let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png"
                                     with Not_found -> failwith "In alive.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/6) = 0 then
     i := !i+1;
   if dir = -1. then
-    Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64
+    (
+      Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
   else
     Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
 
@@ -64,9 +65,9 @@ let player_control player keys =
     (player#anim_recover#set player#texture#get;
     let i = ref (-1) in
     if player#direction#get = 1. then
-      (player#state#set (State.create_state 1 12 (update_sword_anim i)))
+      (player#state#set (State.create_state 1 12 (update_sword_anim player i)))
     else
-      (player#state#set (State.create_state 1 12 (update_sword_anim i))))
+      (player#state#set (State.create_state 1 12 (update_sword_anim player i))))
     
 
 
