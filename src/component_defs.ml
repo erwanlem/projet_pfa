@@ -246,19 +246,22 @@ class icespirit=
     inherit mob
   end
 
-class alive =
+class real_time =
   object
-    inherit state
-    inherit position
-    inherit health
-    inherit spawn_position
+    val real_time_fun = Component.def (fun (():unit) -> (():unit))
+    method real_time_fun = real_time_fun
   end
+
+
 
 class player = 
   object
+    inherit health
+    inherit spawn_position
+    inherit state
     inherit box
     inherit! controlable
-    inherit! alive
+    inherit real_time
     inherit direction
     inherit level
     inherit modifiable_texture

@@ -1,12 +1,36 @@
-3:0x3|60x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
+3:0x3|30x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
+3:48x3|12x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
 
-1:3x7|2x1|texture=resources/images/grass.png,texture_x=5,texture_y=0,texture_w=2,texture_h=1       # tremplin
-0:7x5|3x1|      # plateforme
-0:16x8|6x1|      # plateforme
+
 100:2x4|0x0|level=1     # joueur
 
 10:58x5|1x2|link=resources/files/03.level                                                     # fin niveau
 5:57x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
+
+
+2:30x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:31x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:32x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:33x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:34x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:35x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:36x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:37x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:38x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:39x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:40x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:41x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:42x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:43x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:46x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:47x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+
+0:33x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+
+
+
 
 4:-1x18|1x15|    # mur gauche
 4:59x18|1x15|   # mur droit

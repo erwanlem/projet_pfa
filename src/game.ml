@@ -30,14 +30,15 @@ let d = ref 0.
 
 let update dt =
   (* Affiche FPS *)
-  (if (int_of_float dt) mod 1000 <= 5 then
+  (*(if (int_of_float dt) mod 1000 <= 5 then
     (Gfx.debug "%d FPS\n%!" !fps;
     fps := 0)
   else
-    fps := !fps + 1);
+    fps := !fps + 1);*)
 
-  if Global.level_switch () then
-    Level_loader.load_map (Global.get_level ());
+  if Global.level_switch () then begin
+    ignore (Superuser.create ());
+    Level_loader.load_map (Global.get_level ()) end;
   Ecs.System.update_all dt;
   true
 

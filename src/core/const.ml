@@ -16,7 +16,7 @@ type mob_stat={health : float; damage: float; mass:float; elas : float}
 
 let gravity = Vector.{x=0.; y = 0.05}
 
-let horz_vel = Vector.{x = 0.3; y =0.}
+let horz_vel = ref Vector.{x = 0.3; y =0.}
 
 let jump = Vector.{x = 0.; y = -1.6}
 

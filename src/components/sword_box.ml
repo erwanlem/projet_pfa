@@ -18,13 +18,14 @@ let collision_function sword collide pos =
 let create id master_obj x y =
   let box = new state_box in
   box # set_mutable_pos master_obj#pos;
-  box # hitbox_position # set Vector.{x;y};
-  box # hitbox_rect # set Rect.{width=10;height=10};
-  box # rect # set Rect.{width=10;height=10};
+  box # hitbox_position # set (Vector.add master_obj#hitbox_position#get Vector.{x;y});
+  box # hitbox_rect # set Rect.{width=18;height=40};
+  box # rect # set Rect.{width=18;height=40};
   box # id # set id;
   box # hitbox_display # set (Vector.add (master_obj#hitbox_position # get) Vector.{x;y});
-  box # mass # set 0.;
+  box # mass # set 1.;
   box # layer # set 20;
+  box # isTransparent # set true;
   box # onCollideEvent # set (collision_function box);
   box # remove_box # set (remove_sword box); 
   box # texture # set (Texture.Color (Gfx.color 0 0 0 128));

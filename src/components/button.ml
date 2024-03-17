@@ -4,9 +4,8 @@ open Const
 
 let cfg = Config.get_config ()
 
-(* Pour l'instant on utilise la touche entrée pour cliquer *)
 let onAction button link key =
-  if Hashtbl.mem key cfg.key_return 
+  if Hashtbl.mem key "mouse1" 
     then (reset_systems ();
           Global.set_level link;
           Hashtbl.remove key cfg.key_return)

@@ -1,6 +1,7 @@
 open Component_defs
 open System_defs
 open Config
+open State
 
 
 let cfg = Config.get_config ()
@@ -19,6 +20,27 @@ let update_sword_anim player i frame maxframe dir =
     Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
 
 
+let player_framed_call player () : unit =
+  let s = player#state#get in
+      if s.kind = 1 then
+        (if s.curframe > 0 then
+          (player#texture#set (s.update s.curframe s.maxframe (player#direction#get)))
+        else if s.curframe = 0 then
+          (player#texture#set (player#anim_recover#get);
+          (match player#state_box#get with
+          | Some b -> b#remove_box#get (); player#state_box#set None
+          | None -> ());
+          s.kind <- 0);
+        s.curframe <- s.curframe - 1;
+        );
+        
+      if player#health#get <= 0.0 then 
+        (player#pos#set (player#spawn_position#get);
+        player#health#set Const.player_health
+      )
+
+
+
 let player_control player keys =
   (* Déplacement vers la gauche *)
   if Hashtbl.mem keys cfg.key_left then
@@ -26,7 +48,7 @@ let player_control player keys =
       (player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
       player # direction # set (-1.));
       Texture.pause_animation (player#texture#get) false;
-      player # velocity # set (Vector.add (Vector.mult (-1.) Const.horz_vel)
+      player # velocity # set (Vector.add (Vector.mult (-1.) !Const.horz_vel)
       (Vector.{x=0.; y=(player#velocity#get).y}));
     )
 
@@ -37,7 +59,7 @@ let player_control player keys =
       player # direction # set (1.)
       );
       Texture.pause_animation (player#texture#get) false;
-      player # velocity # set (Vector.add (Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
+      player # velocity # set (Vector.add (!Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
     )
   else
     (Texture.pause_animation (player#texture#get) true;
@@ -66,10 +88,10 @@ let player_control player keys =
     let i = ref (-1) in
     if player#direction#get = 1. then
       (player#state#set (State.create_state 1 12 (update_sword_anim player i));
-      player#state_box#set (Some (Sword_box.create "sword" player (80.) 10.)))
+      player#state_box#set (Some (Sword_box.create "sword" player (30.) 0.)))
     else
       (player#state#set (State.create_state 1 12 (update_sword_anim player i));
-      player#state_box#set (Some (Sword_box.create "sword" player (-15.) 10.))))
+      player#state_box#set (Some (Sword_box.create "sword" player (-22.) 0.))))
     
 
 
@@ -132,8 +154,11 @@ let create id x y w h mass elas lvl texture =
   player # mass # set mass;
   player # elasticity # set elas;
   player # health # set Const.player_health;
+
   player # control # set (player_control player);
   player # onCollideEvent # set (player_collision player);
+  player # real_time_fun # set (player_framed_call player);
+
   player # grounded # set false;
   player # direction # set 1.;
   player # layer # set 10;
@@ -148,6 +173,6 @@ let create id x y w h mass elas lvl texture =
   Move_system.register (player :> movable);
   Control_system.register (player :> controlable);
   View_system.register (player :> drawable);
-  Alive_system.register (player);
+  Real_time_system.register (player:>real_time);
   player
   
