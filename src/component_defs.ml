@@ -222,7 +222,7 @@ class mob =
     inherit damage
     inherit direction 
     val vs =  Component.def (new vision)
-    val pattern = Component.def (fun (_:float)->())
+    val pattern = Component.def (fun  (_:float)->())
     val cld = Component.def 0
     method cld = cld
     method vs = vs

@@ -19,6 +19,7 @@ let arch_collision arch collide pos =
   if collide = "sword_left" || collide = "sword_right" then 
     (arch # take_dmg Const.sword_damage; Gfx.debug "COLLIDE SWORD\n%!");
   if collide = "exclbr_mel" then arch # take_dmg Const.exclbr_mel_atk;
+  if collide = 
   if collide = "exclbr_rgd" then arch # take_dmg Const.exclbr_rgd_atk
 
 let create id x y w h texture  =
@@ -27,13 +28,29 @@ let create id x y w h texture  =
   arch # id # set id;
   arch # pattern # set (arch_pattern arch);
   arch # grounded # set false;
-  arch # hitbox_rect # set Rect.{width = w; height =  h} ;
+  arch # hitbox_rect # set Rect.{width = w - 36; height =  h-14} ;
+  arch # hitbox_position # set Vector.{x=18.;y=10.};
   arch # rect # set Rect.{width = w; height = h};
   arch # mass # set Const.arch_stats.mass;
   arch #vs# set (Vision.create "vs" (x-64) (y) 64 192);
-  (match texture with 
-  None -> arch # texture # set (Color (Gfx.color 255 0 255 255))
-  | Some t -> arch # texture # set t);
+  (
+    match texture with 
+  None -> 
+    let res =Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png" ) in
+    let ctx = Gfx.get_context (Global.window () )in
+
+    let reposG = Texture.anim_from_surface ctx res 1 64 64 64 64 60 1 in
+    let reposD = Texture.anim_from_surface ctx res 1 64 64 64 64 60 3 in
+    let attackG = Texture.anim_from_surface ctx res 12 64 64 64 64 10 1 in
+    let attackD = Texture.anim_from_surface ctx res 12 64 64 64 64 10 13 in
+    let h = Hashtbl.create 4 in
+    Hashtbl.replace h "textReposG" reposG;
+    Hashtbl.replace h "textReposD" reposD;
+    Hashtbl.replace h "textAttackG" attackG;
+    Hashtbl.replace h "textAttackD" attackD;
+    arch # texture # set reposG
+  | Some t -> arch # texture # set t
+  );
   arch # elasticity # set Const.arch_stats.elas;
   arch # health # set Const.arch_stats.health;
   arch # damage # set Const.arch_stats.damage;

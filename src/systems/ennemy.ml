@@ -6,6 +6,6 @@ let init _ = ()
 
 let update dt el =
   Seq.iter (fun (e:t) -> 
-    (e#pattern#get) dt
+    (e#pattern#get) dt 
     )
   el

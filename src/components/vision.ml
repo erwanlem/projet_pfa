@@ -13,7 +13,7 @@ if collide = "player" then begin
 let create id x y h w  = 
   let vs = new vision in
   vs#id#set id;
-  vs#texture#set (Texture.color (Hashtbl.find colors "red"));
+  
   vs#pos#set Vector.{x = float x; y = float y};
   vs#rect# set Rect.{width = w; height = h};
   vs#hitbox_rect# set Rect.{width = w; height = h};

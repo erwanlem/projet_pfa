@@ -27,6 +27,16 @@ let camera () = match !camera with Some c -> c | None -> failwith "Uninitialized
 let level = ref "resources/files/menu.level"
 let switch_level = ref true
 
+(* Position du player*)
+
+let ply = ref None
+
+let init_player pl=
+  ply := Some (pl)
+  
+let ply () = match !ply  with Some p -> p | None -> failwith "Unitialized player"
+
+
 let level_switch () =
   !switch_level
 let get_level () =
