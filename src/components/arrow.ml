@@ -3,11 +3,11 @@ open System_defs
 
 let arrow_collide arrow collide pos=
 if not (collide = "vs" ) then
-  (Force_system.unregister (bullet :> collidable);
-  Draw_system.unregister (bullet :> drawable);
-  Collision_system.unregister (bullet :> collidable);
-  Move_system.unregister (bullet :> movable);
-  View_system.unregister (bullet :> drawable))
+  (Force_system.unregister (arrow :> collidable);
+  Draw_system.unregister (arrow :> drawable);
+  Collision_system.unregister (arrow :> collidable);
+  Move_system.unregister (arrow :> movable);
+  View_system.unregister (arrow :> drawable))
 
 
   let create id x y w h dir_x dir_y =
@@ -18,7 +18,7 @@ if not (collide = "vs" ) then
   box # id # set id;
   box # mass # set 10.;
   box # velocity # set Vector.{x=dir_x; y=dir_y};
-  box # onCollideEvent # set (bullet_collide box);
+  box # onCollideEvent # set (arrow_collide box);
   box # camera_position # set Vector.{ x; y };
   box # layer # set 9;
 

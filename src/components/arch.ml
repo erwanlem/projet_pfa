@@ -13,13 +13,32 @@ let arch_pattern arch dt =
   ))
   else if arch#cld#get > 0 then( arch#cld#set (arch#cld#get - 1))
   
+let archer_call arch () : unit =
+  if not(arch # alive) then  
+    (
+      Real_time_system.unregister (arch:> real_time);
+      Force_system.unregister (arch:>collidable);
+      Draw_system.unregister (arch :> drawable);
+      Collision_system.unregister (arch:>collidable);
+      Move_system.unregister (arch :> movable);
+      Ennemy_system.unregister (arch: Component_defs.arch :> mob);
+      View_system.unregister (arch :> drawable)
+    )
+else
+  let playerpos = (Global.ply())#pos#get in
+  if playerpos.x > (arch # pos#get ).x then(
+    arch #direction # set 1.;
+    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposD"))
+  else (arch #direction #set (-1.);
+    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposG"))
+
     
 let arch_collision arch collide pos =
   if collide = "ground" then arch # grounded # set true;
   if collide = "sword_left" || collide = "sword_right" then 
     (arch # take_dmg Const.sword_damage; Gfx.debug "COLLIDE SWORD\n%!");
   if collide = "exclbr_mel" then arch # take_dmg Const.exclbr_mel_atk;
-  if collide = 
+  if collide = "player_fb" then arch # take_dmg Const.fbdamage;
   if collide = "exclbr_rgd" then arch # take_dmg Const.exclbr_rgd_atk
 
 let create id x y w h texture  =
@@ -48,6 +67,7 @@ let create id x y w h texture  =
     Hashtbl.replace h "textReposD" reposD;
     Hashtbl.replace h "textAttackG" attackG;
     Hashtbl.replace h "textAttackD" attackD;
+    arch # modifiable_texture # set h;
     arch # texture # set reposG
   | Some t -> arch # texture # set t
   );
@@ -55,6 +75,8 @@ let create id x y w h texture  =
   arch # health # set Const.arch_stats.health;
   arch # damage # set Const.arch_stats.damage;
   arch # layer # set 9;
+  arch # direction # set (-1.);
+  arch # real_time_fun # set (archer_call arch);
   arch # onCollideEvent # set (arch_collision arch);
   Force_system.register (arch:>collidable);
   Draw_system.register (arch :> drawable);
@@ -62,4 +84,5 @@ let create id x y w h texture  =
   Move_system.register (arch :> movable);
   Ennemy_system.register (arch :> mob);
   View_system.register (arch :> drawable);
+  Real_time_system.register(arch:> real_time);
   arch

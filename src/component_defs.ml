@@ -215,20 +215,29 @@ class vision =
    method ppos = ppos
   end
 
+class real_time =
+  object
+    val real_time_fun = Component.def (fun (():unit) -> (():unit))
+    method real_time_fun = real_time_fun
+  end
+
 class mob =
   object 
     inherit box
     inherit health
     inherit damage
     inherit direction 
+    inherit real_time
+    inherit modifiable_texture
     val vs =  Component.def (new vision)
     val pattern = Component.def (fun  (_:float)->())
     val cld = Component.def 0
     method cld = cld
     method vs = vs
     method pattern = pattern
-    method alive = (health#get) <0. 
-    method take_dmg dmg = health#set ((health#get)-.dmg)
+    method alive = (health#get) > 0. 
+    method take_dmg dmg = (Gfx.debug "Archer life = %f\n%!" (health#get); health#set ((health#get)-.dmg))
+                          
   end 
 
 class knight=
@@ -246,11 +255,6 @@ class icespirit=
     inherit mob
   end
 
-class real_time =
-  object
-    val real_time_fun = Component.def (fun (():unit) -> (():unit))
-    method real_time_fun = real_time_fun
-  end
 
 
 

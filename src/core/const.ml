@@ -33,6 +33,8 @@ let exclbr_mel_atk = 15.
 let bullet_speed = 0.35
 let arrow_speed = -0.15
 
+let fbdamage = 5.
+
 let knight_stats = {health = 50.; damage = 10.; mass = 10.; elas = 1.}
 let arch_stats = {health = 30.; damage = 5.; mass = infinity; elas = 0.}
 let icespirit_stats = {health = infinity; damage = 10.; mass = 2.; elas = 1.}
