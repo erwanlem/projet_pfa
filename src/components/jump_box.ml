@@ -30,6 +30,7 @@ let create id x y w h mass settings =
     box # texture # set (Image surface_tmp)
     );
   box # id # set id;
+  box # layer # set 5;
   box # mass # set mass;
   box # elasticity # set 0.;
   box # camera_position # set Vector.{ x = float x; y = float y };

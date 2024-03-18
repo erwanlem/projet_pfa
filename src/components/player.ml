@@ -71,7 +71,7 @@ let player_control player keys =
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.64. in
 
-    (ignore (Bullet.create "bullet" x 
+    (ignore (Bullet.create "player_fb" x 
     (Vector.get_y player#pos#get+.25.) 64 25 (Const.bullet_speed *. player#direction#get) 0.));
     Hashtbl.replace keys cfg.key_space false);
 

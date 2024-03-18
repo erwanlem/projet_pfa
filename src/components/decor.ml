@@ -25,7 +25,8 @@ let create id x y w h settings =
         (Gfx.blit_full ctx surface_tmp res (settings.t_x*64) (settings.t_y*64) (settings.t_w*64)
         (settings.t_h*64) (i*64) 0 (settings.t_w*64) (settings.t_h*64);
         loop (i+settings.t_w));
-    in loop 0; 
+    in loop 0;
+
     box # texture # set (Image surface_tmp)
     );
 

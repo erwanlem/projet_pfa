@@ -32,4 +32,6 @@
 4:-1x18|1x15|color=transparent # limite gauche
 4:59x18|1x15|color=transparent # limite droite
 
+5:0x12|60x16|texture=resources/images/sky.png,texture_w=8,texture_h=8,layer=0 # background
+
 # blocId:posXxposY|WidthxHeight

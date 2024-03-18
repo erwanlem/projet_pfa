@@ -4,6 +4,7 @@ type settings =
     t_y : int; 
     t_w : int; 
     t_h : int; 
+    resize : int * int;
     texture : string option;
     link : string;
     animation : int;
@@ -22,8 +23,8 @@ let jump = Vector.{x = 0.; y = -1.6}
 
 let player_health = 50.
 
-let window_width = 800
-let window_height = 600
+let window_width = 1000
+let window_height = 800
 
 
 let sword_damage = 10.
@@ -59,6 +60,7 @@ let empty_settings = {
   t_h = 0; 
   texture = None;
   link = "";
+  resize = (0, 0);
   animation = 0;
   color = Hashtbl.find colors "red";
   text = "";
