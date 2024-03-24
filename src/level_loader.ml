@@ -24,7 +24,8 @@ let load_settings () =
             try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255);
     text = (try Hashtbl.find settings_table "text" with Not_found -> "");
     font = (try Hashtbl.find settings_table "font" with Not_found -> "");
-    layer = (try int_of_string (Hashtbl.find settings_table "layer") with Not_found -> 5)
+    layer = (try int_of_string (Hashtbl.find settings_table "layer") with Not_found -> 5);
+    fixed = (try bool_of_string (Hashtbl.find settings_table "fixed") with Not_found -> false)
   }  
 
 
@@ -67,7 +68,7 @@ let draw_element id x y w h =
   | 10 ->
     ignore ( Exit_box.create "exit" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
     (load_settings ()) )
-  
+
   | 20 ->
     ignore ( Button.create "button" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
     (Gfx.color 0 0 0 255) (load_settings ()))

@@ -11,7 +11,8 @@ type settings =
     color : Gfx.color;
     text : string;
     font : string;
-    layer : int }
+    layer : int;
+    fixed : bool }
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 
@@ -67,4 +68,5 @@ let empty_settings = {
   color = Hashtbl.find colors "red";
   text = "";
   font = "";
-  layer = 0}
+  layer = 0;
+  fixed = false }

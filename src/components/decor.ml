@@ -23,7 +23,7 @@ let create id x y w h settings =
     let rec loop i =
       if i <= (w/(settings.t_w*64)*settings.t_w) then
         (Gfx.blit_full ctx surface_tmp res (settings.t_x*64) (settings.t_y*64) (settings.t_w*64)
-        (settings.t_h*64) (i*64) 0 (settings.t_w*64) (settings.t_h*64);
+        (settings.t_h*64) (i*64) 0 (settings.t_w*64) h;
         loop (i+settings.t_w));
     in loop 0;
 
@@ -31,5 +31,7 @@ let create id x y w h settings =
     );
 
   Draw_system.register (box:>drawable);
-  View_system.register (box:>drawable);
+
+  if not settings.fixed then
+    View_system.register (box :> drawable);
   box
