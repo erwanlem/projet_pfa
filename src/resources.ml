@@ -12,6 +12,7 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
                   "resources/images/water.png";"resources/images/flame.png";"resources/images/flame2.png";
                   "resources/images/player_attack.png";"resources/images/archer.png"; "resources/images/sky.png"]
 
+
 let input_fonts = ["resources/fonts/Seagram.ttf"; "resources/fonts/Mono.ttf"]
 
 let get_resources () =

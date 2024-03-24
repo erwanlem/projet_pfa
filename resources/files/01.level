@@ -16,10 +16,6 @@
 
 100:2x4|0x0|level=3 # joueur
 
- 101:5x4|1x1| # ennemi
-
-
-
 
 2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
@@ -32,6 +28,6 @@
 4:-1x18|1x15|color=transparent # limite gauche
 4:59x18|1x15|color=transparent # limite droite
 
-5:0x12|60x16|texture=resources/images/sky.png,texture_w=8,texture_h=8,layer=0 # background
+5:0x18|60x16|texture=resources/images/sky.png,texture_w=8,texture_h=16,layer=0 # background
 
 # blocId:posXxposY|WidthxHeight

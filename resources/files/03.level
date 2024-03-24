@@ -9,4 +9,6 @@
 4:-1x18|1x15|    # mur gauche
 4:59x18|1x15|   # mur droit
 
+5:0x18|60x16|texture=resources/images/sky.png,texture_w=8,texture_h=16,layer=0 # background
+
 # blocId:posXxposY|WidthxHeight

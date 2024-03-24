@@ -41,6 +41,7 @@ let arch_collision arch collide pos =
   if collide = "player_fb" then arch # take_dmg Const.fbdamage;
   if collide = "exclbr_rgd" then arch # take_dmg Const.exclbr_rgd_atk
 
+
 let create id x y w h texture  =
   let arch = new arch in
   arch # pos # set Vector.{ x = float x; y = float y };
