@@ -211,16 +211,6 @@ class state =
     method state_box = state_box
   end
 
-class vision =
-  object 
-   inherit collidable 
-   inherit !drawable
-   val seen = Component.def 0
-   method seen = seen
-   val ppos = Component.def Vector.{x = -1.; y = -1.}
-   method ppos = ppos
-  end
-
 class real_time =
   object
     val real_time_fun = Component.def (fun (():unit) -> (():unit))
@@ -235,11 +225,9 @@ class mob =
     inherit direction 
     inherit real_time
     inherit modifiable_texture
-    val vs =  Component.def (new vision)
     val pattern = Component.def (fun  (_:float)->())
     val cld = Component.def 0
     method cld = cld
-    method vs = vs
     method pattern = pattern
     method alive = (health#get) > 0. 
     method take_dmg dmg = (Gfx.debug "Archer life = %f\n%!" (health#get); health#set ((health#get)-.dmg))

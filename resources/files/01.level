@@ -16,7 +16,7 @@
 
 100:2x4|0x0|level=3 # joueur
 
-#101:4x4|0x0|        # archer
+101:4x4|0x0|level=3        # archer
 
 2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse

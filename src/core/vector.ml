@@ -10,6 +10,9 @@ let norm a = sqrt (dot a a)
 let normalize a = mult (1.0 /. norm a) a
 let pp fmt a = Format.fprintf fmt "(%f, %f)" a.x a.y
 
+let dist a b =
+  sqrt (((b.x -. a.x) *. (b.x -. a.x) ) +. ((b.y -. a.y) *. (b.y -. a.y) ))
+
 let get_x vect = vect.x
 let get_y vect = vect.y
 
