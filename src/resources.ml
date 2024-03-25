@@ -11,7 +11,7 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
                   "resources/images/night.png"; "resources/images/snow.png"; "resources/images/menu_image.png";
                   "resources/images/water.png";"resources/images/flame.png";"resources/images/flame2.png";
                   "resources/images/player_attack.png";"resources/images/archer.png";
-                  "resources/images/snow_fixed.png"; 
+                  "resources/images/snow_fixed.jpg"; 
                   "resources/images/layer-1.png"; "resources/images/layer-2.png"; "resources/images/layer-3.png";
                   "resources/images/layer-6.png"; "resources/images/snow_layer1.png"; 
                   "resources/images/snow_layer2.png" ]
