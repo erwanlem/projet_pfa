@@ -1,12 +1,21 @@
 open Component_defs
 open System_defs
+open State
 
 let arch_pattern arch dt = 
-  if arch # cld # get > 0 then 
+  if arch # cld # get = -1 then 
     begin
+      (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
+      if arch#direction#get > 0. then (Vector.get_x arch#pos#get)+.(float (Rect.get_width arch#rect#get)) 
+      else (Vector.get_x arch#pos#get)-.4. in
+
+      ignore (Arrow.create "arrow" x 
+      (Vector.get_y arch#pos#get+.25.) 64 25 (Const.bullet_speed *. arch#direction#get)));
+      arch # cld # set 60
+(*
       ignore(Arrow.create "arrow" (Vector.get_x arch # hitbox_position # get +. (arch # direction # get *. 20.) )
     ((Vector.get_y arch#hitbox_position#get) +.20.) 10 10 (arch # direction # get )) ;
-    arch#cld#set (arch#cld#get - 1);
+    arch#cld#set (arch#cld#get - 1);*)
     end;
   ()
   (*Permet de verifier que le joueur est toujours de le champs de vision*)(*
@@ -22,7 +31,7 @@ let arch_pattern arch dt =
     *)
   
 let archer_call arch () : unit =
-  if not(arch # alive) then  
+  if not (arch # alive) then  
     (
       Real_time_system.unregister (arch:> real_time);
       Force_system.unregister (arch:>collidable);
@@ -32,22 +41,24 @@ let archer_call arch () : unit =
       Ennemy_system.unregister (arch: Component_defs.arch :> mob);
       View_system.unregister (arch :> drawable)
     )
-else(
-  let playerpos = (Global.ply())#pos#get in
-  if arch # cld # get  = 0 && ((Vector.dist playerpos (arch#pos#get))  < 100.0) && (abs_float (playerpos.y -. (arch # pos # get).y) < 5.) then
-    begin
-    Gfx.debug "Test \n %!";
-    arch # cld # set 60;
-    end;
-  
+  else begin
+    let playerpos = (Global.ply())#pos#get in
+    if arch # cld # get = 0 && ((Vector.dist playerpos (arch#pos#get))  < 350.0) && (abs_float (playerpos.y -. (arch # pos # get).y) < 5.) then
+      begin
+      Gfx.debug "Test \n %!";
+      arch # cld # set (-1);
+      end
+    else if arch # cld # get > 0 then
+      arch # cld # set (arch # cld # get - 1);
+    
 
-  if arch # cld # get = 0 then (
-  if playerpos.x > (arch # pos#get ).x then(
-    arch #direction # set 1.;
-    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposD"))
-  else  
-    (arch #direction #set (-1.);
-    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposG"))))
+    if playerpos.x > (arch # pos#get ).x then(
+      arch #direction # set 1.;
+      arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposD"))
+    else  
+      (arch #direction #set (-1.);
+      arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposG"))
+    end
   
 
 
@@ -90,7 +101,10 @@ let create id x y w h texture  =
     arch # texture # set reposG
   | Some t -> arch # texture # set t
   );
+
+  (* show hitbox *)
   ignore (Hitbox.create "archer" arch);
+
   arch # elasticity # set Const.arch_stats.elas;
   arch # health # set Const.arch_stats.health;
   arch # damage # set Const.arch_stats.damage;

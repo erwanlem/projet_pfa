@@ -9,8 +9,8 @@
 4:-1x18|1x15|    # mur gauche
 4:59x18|1x15|   # mur droit
 
-5:0x14|20x14|texture=resources/images/snow_fixed.png,texture_w=18,texture_h=11,layer=0,parallax=0.06 # background
-5:0x5|60x3|texture=resources/images/snow_layer1.png,texture_w=23,texture_h=3,layer=1,parallax=0.4 # background
-5:0x6|60x15|texture=resources/images/snow_layer2.png,texture_w=23,texture_h=15,layer=1,parallax=0.4 # background
+5:0x16|20x14|texture=resources/images/snow_fixed.png,texture_w=23,texture_h=12,layer=0,parallax=0.06 # background
+5:0x5|60x3|texture=resources/images/snow_layer1.png,texture_w=15,texture_h=2,layer=2,parallax=0.5 # background
+5:0x15|60x14|texture=resources/images/snow_layer2.png,texture_w=23,texture_h=15,layer=1,parallax=0.4 # background
 
 # blocId:posXxposY|WidthxHeight

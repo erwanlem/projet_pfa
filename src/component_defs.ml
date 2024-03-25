@@ -222,6 +222,7 @@ class mob =
     inherit box
     inherit health
     inherit damage
+    inherit state
     inherit direction 
     inherit real_time
     inherit modifiable_texture
@@ -272,6 +273,10 @@ class camera =
     val focus = Component.def (new box)
     method focus = focus
     method position = focus#get#pos#get
+
+    (* Max x position of the camera *)
+    val max_x = Component.def 0
+    method max_x = max_x
   end
 
 class text =

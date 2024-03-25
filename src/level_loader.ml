@@ -76,7 +76,7 @@ let draw_element id x y w h =
   | 21 ->
     let c = (Box.create "camera"
     (x*basic_block_w) (Const.window_height-y*basic_block_h) 0 0 infinity (load_settings ()))
-    in let cam = Camera.create c
+    in let cam = Camera.create c (64*30)
     in Global.init_camera cam
 
   | 22 -> ignore (Background.create "menu_background" (load_settings ()))
@@ -84,7 +84,7 @@ let draw_element id x y w h =
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
     64 64 50. 0. (int_of_string (Hashtbl.find settings_table "level")) None in
-    Global.init_camera (Camera.create (player:>box));
+    Global.init_camera (Camera.create (player:>box) (64*30));
     Global.init_player player
 
   | 101 -> 

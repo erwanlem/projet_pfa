@@ -33,7 +33,7 @@ let exclbr_rgd_atk=7.5
 let exclbr_mel_atk = 15.
 let bullet_speed = 0.35
 let arrow_speed = -0.15
-let arrow_speed = Vector.{x = 0.15; y = 0.}
+let arrow_speed = Vector.{x = 0.5; y = 0.}
 let arrow_size = Rect.{width = 10; height=5}
 
 let fbdamage = 5.
