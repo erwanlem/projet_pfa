@@ -12,6 +12,7 @@ let create id x y w h mass settings =
   box # id # set id;
   box # mass # set mass;
   box # layer # set settings.layer;
+  box # parallax # set settings.parallax;
   (match settings.texture with 
   None -> box # texture # set (Color settings.color)
   | Some t -> 

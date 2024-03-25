@@ -11,6 +11,7 @@ let create id x y w h settings =
   box # mass # set infinity;
   box # layer # set settings.layer;
   box # camera_position # set Vector.{ x = float x; y = float y };
+  box # parallax # set settings.parallax;
 
   (match settings.texture with 
   None -> box # texture # set (Color settings.color)
@@ -31,7 +32,5 @@ let create id x y w h settings =
     );
 
   Draw_system.register (box:>drawable);
-
-  if not settings.fixed then
-    View_system.register (box :> drawable);
+  View_system.register (box :> drawable);
   box

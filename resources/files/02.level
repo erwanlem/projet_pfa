@@ -29,8 +29,10 @@
 
 0:33x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
 
-5:0x18|60x24|texture=resources/images/sky.png,texture_w=48,texture_h=24,layer=0 # background
-
+5:0x18|60x24|texture=resources/images/layer-1.png,texture_w=48,texture_h=24,layer=0,parallax=0.0 # background
+5:0x18|60x24|texture=resources/images/layer-6.png,texture_w=48,texture_h=24,layer=1,parallax=0.1 # background
+5:0x18|60x24|texture=resources/images/layer-2.png,texture_w=48,texture_h=24,layer=2,parallax=0.4 # background
+5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=3,parallax=0.5 # background
 
 4:-1x18|1x15|    # mur gauche
 4:59x18|1x15|   # mur droit

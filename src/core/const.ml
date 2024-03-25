@@ -12,7 +12,7 @@ type settings =
     text : string;
     font : string;
     layer : int;
-    fixed : bool }
+    parallax : float }
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 
@@ -69,4 +69,4 @@ let empty_settings = {
   text = "";
   font = "";
   layer = 0;
-  fixed = false }
+  parallax = 1. }

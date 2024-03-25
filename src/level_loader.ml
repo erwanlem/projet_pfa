@@ -25,7 +25,7 @@ let load_settings () =
     text = (try Hashtbl.find settings_table "text" with Not_found -> "");
     font = (try Hashtbl.find settings_table "font" with Not_found -> "");
     layer = (try int_of_string (Hashtbl.find settings_table "layer") with Not_found -> 5);
-    fixed = (try bool_of_string (Hashtbl.find settings_table "fixed") with Not_found -> false)
+    parallax = (try float_of_string (Hashtbl.find settings_table "parallax") with Not_found -> 1.)
   }  
 
 

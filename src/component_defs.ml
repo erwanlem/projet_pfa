@@ -76,6 +76,11 @@ class id =
     method id = id
   end
 
+class parallax =
+  object
+    val parallax = Component.def (1.)
+    method parallax = parallax
+  end
 
 
 class spawn_position =
@@ -167,6 +172,7 @@ class drawable =
     inherit texture
     inherit layer
     inherit hitbox_display
+    inherit parallax
   end
 
 class box =
