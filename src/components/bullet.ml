@@ -28,8 +28,8 @@ let create id x y w h dir_x dir_y =
   let ctx = Gfx.get_context (Global.window ()) in
 
   let texture = 
-    if dir_x > 0. then Texture.anim_from_surface ctx res 6 512 197 128 49 5 1
-    else Texture.anim_from_surface ctx res 6 512 197 128 49 5 0 in
+    if dir_x > 0. then Texture.anim_from_surface ctx res 6 128 50 128 49 5 1
+    else Texture.anim_from_surface ctx res 6 128 50 128 49 4 0 in
   box # texture # set texture;
 
   Draw_system.register (box :> drawable);

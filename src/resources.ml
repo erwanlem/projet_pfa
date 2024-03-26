@@ -8,7 +8,7 @@ let input_files = ["resources/files/menu.level"; "resources/files/01.level"; "re
               "resources/files/04.level"]
 
 let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"; "resources/images/grass.png"; 
-                  "resources/images/night.png"; "resources/images/snow.png"; "resources/images/menu_image.png";
+                  "resources/images/night.png"; "resources/images/snow.png"; "resources/images/menu_image.jpg";
                   "resources/images/water.png";"resources/images/flame.png";"resources/images/flame2.png";
                   "resources/images/player_attack.png";"resources/images/archer.png";
                   "resources/images/snow_fixed.jpg"; 
@@ -17,7 +17,7 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
                   "resources/images/snow_layer2.png" ]
 
 
-let input_fonts = ["resources/fonts/Seagram.ttf"; "resources/fonts/Mono.ttf"]
+let input_fonts = [("resources/fonts/Seagram.ttf","serif"); ("resources/fonts/Mono.ttf", "serif")]
 
 let get_resources () =
   match !game_resources with
@@ -44,7 +44,8 @@ let load_resources () =
   let fonts = get_fonts () in
   let ctx = Gfx.get_context (Global.window ()) in
   List.iter (fun f -> Hashtbl.replace h f (Gfx.load_file f)) input_files;
-  List.iter (fun f -> Hashtbl.replace fonts f (Gfx.load_font f "" 80)) input_fonts;
+  List.iter (fun (f1, f2) -> if Gfx.backend = "js" then Hashtbl.replace fonts f1 (Gfx.load_font f2 "" 100)
+                            else Hashtbl.replace fonts f1 (Gfx.load_font f1 "" 80)) input_fonts;
   List.iter (fun f -> Hashtbl.replace textures f (Gfx.load_image ctx f)) input_images
 
 
