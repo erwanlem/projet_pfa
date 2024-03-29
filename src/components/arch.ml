@@ -11,7 +11,7 @@ let arch_pattern arch dt =
 
       ignore (Arrow.create "arrow" x 
       (Vector.get_y arch#pos#get+.25.) 64 25 (Const.bullet_speed *. arch#direction#get)));
-      arch # cld # set 60
+      arch # cld # set 10
 (*
       ignore(Arrow.create "arrow" (Vector.get_x arch # hitbox_position # get +. (arch # direction # get *. 20.) )
     ((Vector.get_y arch#hitbox_position#get) +.20.) 10 10 (arch # direction # get )) ;

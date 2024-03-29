@@ -87,10 +87,10 @@ let player_control player keys =
     (player#anim_recover#set player#texture#get;
     let i = ref (-1) in
     if player#direction#get = 1. then
-      (player#state#set (State.create_state 1 12 (update_sword_anim player i));
+      (player#state#set (State.create_state 1 6 (update_sword_anim player i));
       player#state_box#set (Some (Sword_box.create "sword" player (30.) 0.)))
     else
-      (player#state#set (State.create_state 1 12 (update_sword_anim player i));
+      (player#state#set (State.create_state 1 6 (update_sword_anim player i));
       player#state_box#set (Some (Sword_box.create "sword" player (-22.) 0.))))
     
 
@@ -148,7 +148,8 @@ let create id x y w h mass elas lvl texture =
 
   | Some t -> player # texture # set t);
 
-  ignore (Hitbox.create "player" player);
+  (* Hitbox *)
+  (*ignore (Hitbox.create "player" player);*)
 
   player # id # set id;
   player # mass # set mass;

@@ -4,7 +4,7 @@ type settings =
     t_y : int; 
     t_w : int; 
     t_h : int; 
-    resize : int * int;
+    width : int;
     texture : string option;
     link : string;
     animation : int;
@@ -22,12 +22,15 @@ let horz_vel = ref Vector.{x = 0.3; y =0.}
 
 let jump = Vector.{x = 0.; y = -1.6}
 
-let player_health = 50.
 
-let window_width = 1000
+let window_width = 960
 let window_height = 800
+let block_size = window_width/16
+let map_width = ref (60*block_size)
+let max_gap = float (!map_width - window_width)
 
 
+let player_health = 50.
 let sword_damage = 10.
 let exclbr_rgd_atk=7.5
 let exclbr_mel_atk = 15.
@@ -65,7 +68,7 @@ let empty_settings = {
   t_h = 0; 
   texture = None;
   link = "";
-  resize = (0, 0);
+  width = 0;
   animation = 0;
   color = Hashtbl.find colors "red";
   text = "";

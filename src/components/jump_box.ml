@@ -15,6 +15,7 @@ let create id x y w h mass settings =
   box # pos # set Vector.{ x = float x; y = float y };
   box # rect # set Rect.{width = w; height = h};
   box # hitbox_rect # set Rect.{width = w; height = h};
+
   (match settings.texture with 
   None -> box # texture # set (Color (Gfx.color 0 255 128 255))
   | Some t -> 
@@ -23,14 +24,14 @@ let create id x y w h mass settings =
     
 
     let surface_tmp = Gfx.create_surface ctx w h in
-    for i = 0 to (w/(settings.t_w*64))-1 do
+    for i = 0 to (w/(settings.t_w*block_size))-1 do
       Gfx.blit_full ctx surface_tmp res (settings.t_x*64) (settings.t_y*64) (settings.t_w*64)
-                   (settings.t_h*64) (i*64) 0 (settings.t_w*64) (settings.t_h*64);
+                   (settings.t_h*64) (i*block_size) 0 (settings.t_w*block_size) (settings.t_h*block_size);
     done;
     box # texture # set (Image surface_tmp)
     );
   box # id # set id;
-  box # layer # set 5;
+  box # layer # set 8;
   box # mass # set mass;
   box # elasticity # set 0.;
   box # camera_position # set Vector.{ x = float x; y = float y };

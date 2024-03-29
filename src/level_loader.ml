@@ -2,8 +2,8 @@ open Component_defs
 open Const
 
 (* Réglages des tailles *)
-let basic_block_w = 64 (* largeur bloc classique *)
-let basic_block_h = 64 (* hauteur bloc classique *)
+let basic_block_w = block_size (* largeur bloc classique *)
+let basic_block_h = block_size (* hauteur bloc classique *)
 
 
 (* Table de hachage des paramètres *)
@@ -16,7 +16,7 @@ let load_settings () =
     t_y = (try int_of_string (Hashtbl.find settings_table "texture_y") with Not_found -> 0);
     t_w = (try int_of_string (Hashtbl.find settings_table "texture_w") with Not_found -> 1);
     t_h = (try int_of_string (Hashtbl.find settings_table "texture_h") with Not_found -> 1);
-    resize = (0,0);
+    width = (try int_of_string (Hashtbl.find settings_table "width") with Not_found -> 60);
     texture = (try Some (Hashtbl.find settings_table "texture") with Not_found -> None);
     link = (try Hashtbl.find settings_table "link" with Not_found -> "");
     animation = (try int_of_string (Hashtbl.find settings_table "animation") with Not_found -> 0);
@@ -89,6 +89,10 @@ let draw_element id x y w h =
 
   | 101 -> 
     ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) 64 64 None)
+
+  | 1000 ->
+    let s = load_settings () in
+    map_width := s.width * block_size
 
   | _ -> ()
 

@@ -58,6 +58,38 @@ Ajout d'une **entité *text*** pour écrire en utilisant le paramètre text (par
 ### Ewen - 3/03
 Ajout de **vision.ml**. Ce fichier permet de detecter si le joueur est dans le champ de vision d'un ennemi. Amélioration du patterne de l'archer : il ne se base plus par rapport au temps pour tirer toute les secondes, il ne tire que si le joueur a ete dans son champs de vision récement.
 
-**BUG trouvé:** si l'on met 2 ennemis sur le meme layer, il y a des soucis avec la vision. 
+### Erwan - 04/03
+**Création de hitbox** pour toutes les entités. Permet de régler précisément la zone de collision des objets.
+Cet outil est seulement là pour le débogage. Retirer lorsque plus nécessaire car coûteux en calculs.
 
-**A faire:** faire en sorte que l'archer se retourne si le joueur est derriere lui et tirer dans sa direction.
+### Erwan - 11/03
+**Animation de l'épée** du joueur. L'épée est créé via une seconde entité qui accède directement à la position 
+du joueur pour le suivre. Création d'un état `State` qui permet de gérer l'attaque du joueur. 
+
+### Erwan - 18/03
+Ajout des arrières plans. On utilise des *decor* pour créer les arrières plans. Création d'un système `real_time`
+ qui est appelé à intervalle régulier pour les actions nécessitant du temps réel.
+
+### Erwan - 24/03
+**Ajout effet parallax** sur l'arrière plan. On réduit la vitesse du décalage des arrières plans par rapport à la 
+caméra. Création d'un composant parallax pour chaque objet. Les arrières plans sont découpés en plusieurs parties 
+avec des vitesses différentes.
+
+### Erwan - 25/03
+La taille des images a été optimisé afin d'optimiser la vitesse de chargement des données notamment en javascript.
+
+### Erwan - 29/03
+Trvail sur l'arrêt de la caméra au bout de la map. L'arrêt est calculé en fonction de la largeur de la largeur 
+de la map. Par défaut largeur de 60. Attention si changement de taille de la map, il est necéssaire de l'indiquer 
+avec la création d'un objet d'identifiant *1000* avec le paramètre width.
+La taille des blocs s'adapte maintenant à la largeur de la fenêtre. La fenêtre contient **16 blocs de largeur**.
+La hauteur est donc relative à la hauteur des blocs. 
+**ATTENTION** : La largeur de la fenêtre doit être un multiple de 16. Si 
+cette condition n'est pas respectéé les arrondis vont créer des espaces visibles.
+
+#### Note importante
+J'ai pu remarquer que `real_time` provoque une réduction non négligeable des performances du jeu (SDL et JavaScript). Cela est notamment dû au nombre d'appels trop élevé. Je vais travailler à l'adaptation de la 
+fréquence d'appels en fonction des tâches effectuées. 
+**De plus** j'ai pu remarquer que le système `ennemy` fait exactement la même chose que le système `real_time` 
+à la différence que les fonctions appelées ne sont pas les mêmes. Il serait préférable de regrouper tout dans le 
+système `real_time`.
