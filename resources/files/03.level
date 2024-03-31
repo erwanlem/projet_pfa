@@ -1,13 +1,15 @@
 3:0x3|60x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
+3:18x4|15x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=2,layer=6      # sol
 
 100:2x4|0x0|level=2     # joueur
 
 10:58x5|1x2|link=resources/files/04.level                                                     # fin niveau
 5:57x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
 
-
 4:-1x18|1x15|    # mur gauche
-4:59x18|1x15|   # mur droit
+4:60x18|1x15|   # mur droit
+
+0:25x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
 
 5:0x16|20x14|texture=resources/images/snow_fixed.jpg,texture_w=23,texture_h=12,layer=0,parallax=0.06 # background
 5:0x5|60x3|texture=resources/images/snow_layer1.png,texture_w=15,texture_h=2,layer=2,parallax=0.5 # background

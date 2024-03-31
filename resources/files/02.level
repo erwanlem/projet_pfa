@@ -8,6 +8,16 @@
 5:57x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
 
 
+
+0:8x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+
+0:12x7|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
+0:18x8|8x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
+
+0:33x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 3
+
+0:40x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 4
+
 2:30x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:31x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:32x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
@@ -27,14 +37,12 @@
 2:46x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:47x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 
-0:33x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
-
 5:0x18|60x24|texture=resources/images/layer-1.png,texture_w=48,texture_h=24,layer=0,parallax=0.0 # background
 5:0x18|60x24|texture=resources/images/layer-6.png,texture_w=48,texture_h=24,layer=1,parallax=0.1 # background
 5:0x18|60x24|texture=resources/images/layer-2.png,texture_w=48,texture_h=24,layer=2,parallax=0.4 # background
 5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=3,parallax=0.5 # background
 
 4:-1x18|1x15|    # mur gauche
-4:59x18|1x15|   # mur droit
+4:60x18|1x15|   # mur droit
 
 # blocId:posXxposY|WidthxHeight

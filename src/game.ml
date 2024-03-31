@@ -10,6 +10,10 @@ let init dt =
   Ecs.System.init_all dt;
   false
 
+let init_sound dt =
+  let a = Hashtbl.find (Resources.get_audio ()) "resources/audio/The_Bards_Tale_.mp3" in
+  Gfx.play_sound a;
+  false
 
 let chain_functions l =
   let todo = ref l in
@@ -46,4 +50,4 @@ let update dt =
 let run () =
   Resources.load_resources ();
 
-  Gfx.main_loop (chain_functions [Resources.wait_resources; init; update])
+  Gfx.main_loop (chain_functions [Resources.wait_resources; init_sound; init; update])

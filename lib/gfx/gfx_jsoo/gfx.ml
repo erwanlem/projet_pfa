@@ -13,6 +13,7 @@ let () =
 type window = Dom_html.canvasElement Js.t
 type context = Dom_html.canvasRenderingContext2D Js.t
 type surface = Dom_html.canvasElement Js.t
+type sound = Dom_html.audioElement Js.t
 type color = Js.js_string Js.t
 type font = Js.js_string Js.t
 
@@ -197,6 +198,27 @@ let load_image ctx src =
     canvas
   in
   { get; is_ready }
+
+
+let load_sound path =
+  let sound = Dom_html.createAudio Dom_html.document in
+  sound##.src := Js.string path;
+  let is_ready () = 
+    match sound##.readyState with
+    | HAVE_ENOUGH_DATA -> true
+    | _ -> false
+  in
+  let get () =
+    if not (is_ready ()) then failwith "Sound is not ready";
+    sound
+  in
+    { get; is_ready }
+
+let play_sound (sound : Dom_html.audioElement Js.t resource) =
+  ignore((sound.get ())##play)
+
+let pause_sound sound =
+  ignore ((sound.get ())##pause)
 
 let load_font fn extra size =
   let extra = if extra <> "" then extra ^ " " else extra in
