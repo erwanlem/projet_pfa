@@ -5,6 +5,8 @@ let backend = "sdl"
 
 type surface = Sdl.texture
 
+type sound = Tsdl_mixer.Mixer.music
+
 type context = {
   renderer : Sdl.renderer;
   texture : Sdl.texture;
@@ -26,6 +28,7 @@ type color = int * int * int * int
 type font = Tsdl_ttf.Ttf.font
 type 'a resource = 'a
 
+let audio_initialized = ref false
 let resource_ready _ = true
 let get_resource r = r
 let initialized = ref false
@@ -300,6 +303,36 @@ let load_image ctx path =
     prepare_texture txt
   | Error (`Msg s) ->
     gfx_error "Cannot open image %s (internal error: %s)" path s
+
+
+let load_sound path =
+  if not !audio_initialized then begin
+    debug "Initializing audio\n%!";
+    let _ =
+      (match Tsdl_mixer.Mixer.init  Tsdl_mixer.Mixer.Init.mp3 with
+      | Ok a -> a
+      | Error (`Msg s) ->
+        failwith (Format.sprintf "Error while initialazing audio %s" s) )
+    in
+      (match Tsdl_mixer.Mixer.open_audio 44100 0 0 1024 with
+      | Ok dev -> dev
+      | Error (`Msg s) ->
+        failwith (Format.sprintf "Cannot open audio device %s" s) );
+      audio_initialized := true
+      end;
+  match Tsdl_mixer.Mixer.load_mus path with
+  | Ok s -> s
+  | Error (`Msg s) ->
+    gfx_error "Cannot open sound %s (internal error: %s)" path s
+
+let play_sound sound =
+  match Tsdl_mixer.Mixer.play_music sound (-1) with
+  | Ok i -> if i = 0 then () else failwith "Cannot play sound"
+  | Error (`Msg s) ->
+    gfx_error "Cannot play sound (internal error: %s)" s
+
+let pause_sound sound =
+  ignore (Tsdl_mixer.Mixer.pause_music ())
 
 let init_ttf_sdl () =
   if not (Tsdl_ttf.Ttf.was_init ()) then result @@ Tsdl_ttf.Ttf.init ()

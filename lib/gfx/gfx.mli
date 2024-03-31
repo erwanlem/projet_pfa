@@ -12,6 +12,11 @@ type surface
     one can draw, blit, etc…
 *)
 
+type sound
+(** 
+    type of sounds
+*)
+
 type context
 (**
     type of rendering context.
@@ -139,6 +144,20 @@ val load_image : context -> string -> surface resource
     Common image types are supported (PNG, JPEG, …).
     The returned resource may not be extracted used until [resource_ready] returns [true].
     *)
+
+val load_sound : string -> sound resource
+(** [load_sound path] loads a sound located at [path].
+    MP3 is the only supported type.
+    *)
+
+val play_sound : sound resource -> unit
+(** [play_sound sound] plays the sound given in parameter
+    *)
+
+val pause_sound : sound resource -> unit
+(** [pause_sound sound] pauses the sound given un parameter
+    *)
+
 
 val load_font : string -> string -> int -> font
 (**
