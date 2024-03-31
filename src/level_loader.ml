@@ -89,6 +89,9 @@ let draw_element id x y w h =
 
   | 101 -> 
     ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) 64 64 None)
+    
+  | 102 -> 
+      ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) 64 64 None)
 
   | 1000 ->
     let s = load_settings () in

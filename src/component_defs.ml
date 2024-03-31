@@ -238,6 +238,7 @@ class mob =
 class knight=
   object 
     inherit mob
+    inherit !state 
   end
 
 class arch=
