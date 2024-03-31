@@ -6,6 +6,8 @@ let game_fonts = ref None
 
 let game_audio = ref None
 
+let text_resources = Hashtbl.create 10
+
 let input_files = ["resources/files/menu.level"; "resources/files/01.level"; "resources/files/02.level"; "resources/files/03.level";
               "resources/files/04.level"]
 
@@ -21,7 +23,6 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
                   "resources/images/night/night-layer0.jpg"]
 
 let audio_input = ["resources/audio/The_Bards_Tale_.mp3"]
-
 
 let input_fonts = [("resources/fonts/Seagram.ttf","serif"); ("resources/fonts/Mono.ttf", "serif")]
 
@@ -46,6 +47,12 @@ let get_audio () =
   | Some h -> h
 
 
+(* Load text resources and put them in text_resources hashtable *)
+let load_text_resources () =
+  Hashtbl.replace text_resources "title1" "Arthur";
+  Hashtbl.replace text_resources "title2" "La quête de la cuillère"
+
+
 let load_resources () =
   game_resources := Some (Hashtbl.create 10);
   game_textures := Some (Hashtbl.create 10);
@@ -60,7 +67,8 @@ let load_resources () =
   List.iter (fun (f1, f2) -> if Gfx.backend = "js" then Hashtbl.replace fonts f1 (Gfx.load_font f2 "" 100)
                             else Hashtbl.replace fonts f1 (Gfx.load_font f1 "" 80)) input_fonts;
   List.iter (fun f -> Hashtbl.replace textures f (Gfx.load_image ctx f)) input_images;
-  List.iter (fun f -> Hashtbl.replace sounds f (Gfx.load_sound f)) audio_input
+  List.iter (fun f -> Hashtbl.replace sounds f (Gfx.load_sound f)) audio_input;
+  load_text_resources ()
 
 
 let wait_resources dt =

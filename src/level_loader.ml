@@ -23,6 +23,7 @@ let load_settings () =
     color = (let c = (try Hashtbl.find settings_table "color" with Not_found -> "black") in
             try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255);
     text = (try Hashtbl.find settings_table "text" with Not_found -> "");
+    text_key = (try Hashtbl.find settings_table "text_key" with Not_found -> "");
     font = (try Hashtbl.find settings_table "font" with Not_found -> "");
     layer = (try int_of_string (Hashtbl.find settings_table "layer") with Not_found -> 5);
     parallax = (try float_of_string (Hashtbl.find settings_table "parallax") with Not_found -> 1.)
@@ -68,6 +69,9 @@ let draw_element id x y w h =
   | 10 ->
     ignore ( Exit_box.create "exit" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
     (load_settings ()) )
+
+  | 19 ->
+    ignore ( Text.create (x*block_size) (y*block_size) (w*block_size) (h*block_size) (load_settings ()) )
 
   | 20 ->
     ignore ( Button.create "button" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 

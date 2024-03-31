@@ -10,6 +10,7 @@ type settings =
     animation : int;
     color : Gfx.color;
     text : string;
+    text_key : string;
     font : string;
     layer : int;
     parallax : float }
@@ -57,6 +58,7 @@ let colors =
   Hashtbl.add h "white" (Gfx.color 255 255 255 255);
   Hashtbl.add h "black" (Gfx.color 0 0 0 255);
   Hashtbl.add h "pink" (Gfx.color 255 0 255 255);
+  Hashtbl.add h "gold" (Gfx.color 212 172 13 255);
   h
 
 
@@ -70,6 +72,7 @@ let empty_settings = {
   link = "";
   width = 0;
   animation = 0;
+  text_key = "";
   color = Hashtbl.find colors "red";
   text = "";
   font = "";

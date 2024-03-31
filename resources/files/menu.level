@@ -1,4 +1,7 @@
-20:3x5|7x3|color=white,link=resources/files/01.level,text=Jouer,font=resources/fonts/Seagram.ttf # Bouton
+19:5x1|6x3|color=gold,text_key=title1,font=resources/fonts/Seagram.ttf,layer=10 # Bouton
+19:2x3|12x2|color=gold,text_key=title2,font=resources/fonts/Seagram.ttf,layer=10 # Bouton
+
+20:5x5|6x2|color=gold,link=resources/files/01.level,text=Jouer,font=resources/fonts/Seagram.ttf # Bouton
 21:0x0|0x0|
 
 22:0x0|0x0|texture=resources/images/menu_image.jpg

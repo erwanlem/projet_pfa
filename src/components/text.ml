@@ -10,10 +10,16 @@ let create x y w h settings =
   txt # camera_position # set Vector.{ x = float x; y = float y };
   txt # rect # set Rect.{width=w; height=h};
 
-  let res = Hashtbl.find (Resources.get_fonts ()) settings.font in
+  let res = try (Hashtbl.find (Resources.get_fonts ()) settings.font) with Not_found -> failwith (Format.sprintf "Font not %s found" settings.font) in
   let ctx = Gfx.get_context (Global.window ()) in
-  Gfx.set_color ctx (Gfx.color 255 0 0 255);
-  let surf_font = Gfx.render_text ctx settings.text res in
+  Gfx.set_color ctx settings.color;
+
+  let surf_font =
+    if settings.text_key <> "" then
+      Gfx.render_text ctx (Hashtbl.find Resources.text_resources settings.text_key) res 
+    else
+      Gfx.render_text ctx settings.text res
+  in
 
   let fw, fh = Gfx.surface_size surf_font in
   Gfx.debug "Font size = %d, %d\n%!" fw fh;
