@@ -16,7 +16,9 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
                   "resources/images/snow_fixed.jpg"; 
                   "resources/images/layer-1.png"; "resources/images/layer-2.png"; "resources/images/layer-3.png";
                   "resources/images/layer-6.png"; "resources/images/snow_layer1.png"; 
-                  "resources/images/snow_layer2.png" ]
+                  "resources/images/snow_layer2.png"; "resources/images/night/night-layer1.png";
+                  "resources/images/night/night-layer4.png"; "resources/images/night/night-layer3.png";
+                  "resources/images/night/night-layer0.jpg"]
 
 let audio_input = ["resources/audio/The_Bards_Tale_.mp3"]
 

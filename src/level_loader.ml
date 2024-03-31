@@ -83,7 +83,9 @@ let draw_element id x y w h =
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
-    64 64 50. 0. (int_of_string (Hashtbl.find settings_table "level")) None in
+    64 64 50. 0. (int_of_string (
+      try (Hashtbl.find settings_table "level") 
+      with Not_found -> failwith "Level not found")) None in
     Global.init_camera (Camera.create (player:>box) (64*30));
     Global.init_player player
 
@@ -134,7 +136,7 @@ let read_line line =
 
 (* Charge le fichier au chemin donné en paramètre et renvoie la liste des lignes *)
 let load_map (map : string) =
-  let l = Hashtbl.find (Resources.get_resources ()) map in
+  let l = try (Hashtbl.find (Resources.get_resources ()) map) with Not_found -> failwith "Map not found\n" in
   let l = Gfx.get_resource l in
   let l = String.split_on_char '\n' l in
   print_map l;

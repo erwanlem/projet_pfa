@@ -66,14 +66,16 @@ let player_control player keys =
     player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
   (* Shoot *)
-  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then
+  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then begin
     (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.64. in
 
     (ignore (Bullet.create "player_fb" x 
     (Vector.get_y player#pos#get+.25.) 64 25 (Const.bullet_speed *. player#direction#get) 0.));
-    Hashtbl.replace keys cfg.key_space false);
+    Hashtbl.replace keys cfg.key_space false)
+  end;
+
 
   (* Jump *)
   if Hashtbl.mem keys cfg.key_up && player#grounded#get 
@@ -83,7 +85,7 @@ let player_control player keys =
     Hashtbl.replace keys cfg.key_up false);
 
   (* sword *)
-  if Hashtbl.mem keys cfg.key_return && (State.get_state player#state#get) = 0 then
+  if Hashtbl.mem keys cfg.key_return && (State.get_state player#state#get) = 0 then begin
     (player#anim_recover#set player#texture#get;
     let i = ref (-1) in
     if player#direction#get = 1. then
@@ -92,6 +94,11 @@ let player_control player keys =
     else
       (player#state#set (State.create_state 1 6 (update_sword_anim player i));
       player#state_box#set (Some (Sword_box.create "sword" player (-22.) 0.))))
+    (*if player#direction#get > 0. then
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=3.5;y=0.})
+    else
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-3.5);y=0.})*)
+    end
     
 
 

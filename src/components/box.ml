@@ -16,7 +16,9 @@ let create id x y w h mass settings =
   (match settings.texture with 
   None -> box # texture # set (Color settings.color)
   | Some t -> 
-    let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) t) in
+    let res = Gfx.get_resource (
+      try (Hashtbl.find (Resources.get_textures ()) t) 
+      with Not_found -> failwith "In box.ml - Texture not found") in
     let ctx = Gfx.get_context (Global.window ()) in
     
     if settings.animation > 0 then
