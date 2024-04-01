@@ -7,6 +7,14 @@
 4:-1x18|1x15|    # mur gauche
 4:60x18|1x15|   # mur droit
 
+#5:10x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=5 # decor
+#5:13x4|2x1|texture=resources/images/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=5 # decor
+
+# tree
+5:8x7|3x4|texture=resources/images/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=5
+5:11x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=5
+
+
 5:0x18|60x24|texture=resources/images/night/night-layer0.jpg,texture_w=48,texture_h=24,layer=0,parallax=0.0 # background
 5:0x9|27x5|texture=resources/images/night/night-layer1.png,texture_w=27,texture_h=5,layer=2,parallax=0.1 # background
 5:0x10|54x7|texture=resources/images/night/night-layer4.png,texture_w=27,texture_h=7,layer=3,parallax=0.3 # background

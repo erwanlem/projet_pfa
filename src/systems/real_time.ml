@@ -8,7 +8,7 @@ let init _ = ()
 (* Indique la fréquence rafraichissement
    - une fréquence trop élevée va réduire les performances du jeu
    - une fréquence trop faible va créer une latence dans les actions temps réel *)
-let reference_timer = 2
+let reference_timer = 10
 
 let timer = ref reference_timer
 
