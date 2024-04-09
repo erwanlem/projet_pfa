@@ -5,5 +5,6 @@
 [ ] gestion temps réel - Er
 [ ] implémentation niveaux
 [ ] animation type "star wars" - Er
-[ ] cooldown - 
+[X] cooldown - 
 [ ] menu - Er
+[ ] framerate constant

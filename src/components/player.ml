@@ -37,7 +37,9 @@ let player_framed_call player () : unit =
       if player#health#get <= 0.0 then 
         (player#pos#set (player#spawn_position#get);
         player#health#set Const.player_health
-      )
+      );
+
+      if player # cld # get >0 then player # cld_decr
 
 
 
@@ -66,14 +68,15 @@ let player_control player keys =
     player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
   (* Shoot *)
-  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then begin
+  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && player # cld # get = 0 then begin
     (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.64. in
 
     (ignore (Bullet.create "player_fb" x 
     (Vector.get_y player#pos#get+.25.) 64 25 (Const.bullet_speed *. player#direction#get) 0.));
-    Hashtbl.replace keys cfg.key_space false)
+    Hashtbl.replace keys cfg.key_space false;
+    player # cld # set 45)
   end;
 
 

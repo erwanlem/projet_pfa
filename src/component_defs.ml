@@ -217,6 +217,13 @@ class real_time =
     method real_time_fun = real_time_fun
   end
 
+class cld =
+object 
+  val cld = Component.def 0
+  method cld = cld
+  method cld_decr = cld # set (cld # get -1)
+end
+
 class mob =
   object 
     inherit box
@@ -227,9 +234,8 @@ class mob =
     inherit real_time
     inherit modifiable_texture
     val pattern = Component.def (fun  (_:float)->())
-    val cld = Component.def 0
-    method cld = cld
     method pattern = pattern
+    inherit cld
     method alive = (health#get) > 0. 
     method take_dmg dmg = (Gfx.debug "Archer life = %f\n%!" (health#get); health#set ((health#get)-.dmg))
                           
@@ -265,6 +271,7 @@ class player =
     inherit direction
     inherit level
     inherit modifiable_texture
+    inherit cld
   end
 
 
