@@ -46,7 +46,7 @@ let knight_vel = ref Vector.{x = 0.05; y = 0.}
 
 let knight_stats = {health = 50.; damage = 10.; mass = 10.; elas = 1.}
 let arch_stats = {health = 30.; damage = 5.; mass = 30000.; elas = 0.}
-let icespirit_stats = {health = infinity; damage = 10.; mass = 2.; elas = 1.}
+let alexandre_stats = {health = 510.; damage = 10.; mass = 2.; elas = 1.}
 
 
 let colors =

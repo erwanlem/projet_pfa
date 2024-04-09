@@ -252,7 +252,7 @@ class arch=
     inherit mob 
   end
 
-class icespirit=
+class alexandre=
   object
     inherit mob
   end
