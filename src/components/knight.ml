@@ -65,7 +65,7 @@ let knight_call knight () : unit =
  
     if knight # cld # get > 0 then knight # cld # set (knight # cld # get -1);
     let playerpos = (Global.ply())#pos#get in
-    Gfx.debug "Player pos : %f;%f \n %!" (playerpos.x) (playerpos.y);
+    (*Gfx.debug "Player pos : %f;%f \n %!" (playerpos.x) (playerpos.y);*)
     if playerpos.x > (knight # pos#get ).x then
       knight #direction # set 1.
     else  

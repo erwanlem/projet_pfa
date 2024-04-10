@@ -32,7 +32,7 @@ let alexandre_pattern alexandre _ =
     )
   else
   if (Vector.dist playerpos (alexandre#pos#get) < 350.0) && (State.get_state alexandre#state#get) = 0 (*Avancer vers le joueur*)
-  then alexandre # velocity # set (Vector.mult (alexandre # direction # get) !Const.alexandre_vel) 
+  then alexandre # velocity # set (Vector.mult (alexandre # direction # get) !Const.knight_vel) 
   else alexandre # velocity # set (Vector.zero) ;
   ()
 

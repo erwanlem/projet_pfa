@@ -39,7 +39,7 @@ let player_framed_call player () : unit =
         player#health#set Const.player_health
       );
 
-      if player # cld # get >0 then player # cld_decr
+      if player # cld # get > 0 then player # cld_decr
 
 
 
