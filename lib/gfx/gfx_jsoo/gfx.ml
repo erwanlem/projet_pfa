@@ -212,6 +212,7 @@ let load_sound path =
     { get; is_ready }
 
 let play_sound (sound : Dom_html.audioElement Js.t resource) =
+  ignore((sound.get ())##.currentTime := Js.int32 0l);
   ignore((sound.get ())##play)
 
 let pause_sound (sound : sound resource) =

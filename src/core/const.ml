@@ -13,7 +13,8 @@ type settings =
     text_key : string;
     font : string;
     layer : int;
-    parallax : float }
+    parallax : float;
+    track : string; }
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 
@@ -79,4 +80,5 @@ let empty_settings = {
   text = "";
   font = "";
   layer = 0;
-  parallax = 1. }
+  parallax = 1.;
+  track = "" }

@@ -45,4 +45,6 @@
 4:-1x18|1x15|    # mur gauche
 4:60x18|1x15|   # mur droit
 
+23:0x0|0x0|track=track3 # audio
+
 # blocId:posXxposY|WidthxHeight

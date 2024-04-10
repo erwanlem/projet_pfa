@@ -22,9 +22,12 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
                   "resources/images/night/night-layer4.png"; "resources/images/night/night-layer3.png";
                   "resources/images/night/night-layer0.jpg"]
 
-let audio_input = [| "resources/audio/Tavern-Brawl.mp3"; "resources/audio/tkucza-happyflutes.mp3"; "resources/audio/The_Bards_Tale_.mp3" |]
+let audio_input = ["resources/audio/tkucza-happyflutes.mp3"; "resources/audio/The_Bards_Tale_.mp3";
+                   "resources/audio/Tavern-Brawl.mp3"; "resources/audio/Lord-McDeath.mp3"; 
+                   "resources/audio/dryad.mp3"]
 
-let input_fonts = [("resources/fonts/Seagram.ttf","serif"); ("resources/fonts/Mono.ttf", "serif")]
+(* (Sdl, JavaScript) *)
+let input_fonts = [ ("resources/fonts/Seagram.ttf","serif"); ("resources/fonts/Mono.ttf", "serif")]
 
 let get_resources () =
   match !game_resources with
@@ -67,7 +70,7 @@ let load_resources () =
   List.iter (fun (f1, f2) -> if Gfx.backend = "js" then Hashtbl.replace fonts f1 (Gfx.load_font f2 "" 100)
                             else Hashtbl.replace fonts f1 (Gfx.load_font f1 "" 80)) input_fonts;
   List.iter (fun f -> Hashtbl.replace textures f (Gfx.load_image ctx f)) input_images;
-  Array.iter (fun f -> Hashtbl.replace sounds f (Gfx.load_sound f)) audio_input;
+  List.iter (fun f -> Hashtbl.replace sounds f (Gfx.load_sound f)) audio_input;
   load_text_resources ()
 
 

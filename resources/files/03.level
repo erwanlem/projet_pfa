@@ -15,4 +15,7 @@
 5:0x5|60x3|texture=resources/images/snow_layer1.png,texture_w=15,texture_h=2,layer=2,parallax=0.5 # background
 5:0x15|60x14|texture=resources/images/snow_layer2.png,texture_w=23,texture_h=15,layer=1,parallax=0.4 # background
 
+23:0x0|0x0|track=track4 # audio
+
+
 # blocId:posXxposY|WidthxHeight

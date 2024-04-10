@@ -332,7 +332,8 @@ let play_sound sound =
     gfx_error "Cannot play sound (internal error: %s)" s
 
 let pause_sound sound =
-  ignore (Tsdl_mixer.Mixer.pause_music ())
+  (*ignore (Tsdl_mixer.Mixer.pause_music ())*)
+  ignore (Tsdl_mixer.Mixer.halt_music ())
 
 let is_playing (sound : sound resource) =
   Tsdl_mixer.Mixer.playing_music ()

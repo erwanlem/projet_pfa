@@ -26,7 +26,8 @@ let load_settings () =
     text_key = (try Hashtbl.find settings_table "text_key" with Not_found -> "");
     font = (try Hashtbl.find settings_table "font" with Not_found -> "");
     layer = (try int_of_string (Hashtbl.find settings_table "layer") with Not_found -> 5);
-    parallax = (try float_of_string (Hashtbl.find settings_table "parallax") with Not_found -> 1.)
+    parallax = (try float_of_string (Hashtbl.find settings_table "parallax") with Not_found -> 1.);
+    track = (try (Hashtbl.find settings_table "track") with Not_found -> "")
   }  
 
 
@@ -84,6 +85,8 @@ let draw_element id x y w h =
     in Global.init_camera cam
 
   | 22 -> ignore (Background.create "menu_background" (load_settings ()))
+
+  | 23 -> Gfx.debug "New Audio %s\n%!" (load_settings ()).track; ignore (Audio.create (load_settings ()).track)
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 

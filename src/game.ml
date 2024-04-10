@@ -10,10 +10,6 @@ let init dt =
   Ecs.System.init_all dt;
   false
 
-let init_sound dt =
-  Music_system.register (new audible);
-  false
-
 let chain_functions l =
   let todo = ref l in
   (fun dt ->
@@ -50,4 +46,4 @@ let update dt =
 let run () =
   Resources.load_resources ();
 
-  Gfx.main_loop (chain_functions [Resources.wait_resources; init_sound; init; update])
+  Gfx.main_loop (chain_functions [Resources.wait_resources; init; update])

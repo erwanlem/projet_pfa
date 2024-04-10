@@ -305,7 +305,7 @@ class button =
 
 class audible =
   object
-    val track = Component.def ([] : string list)
+    val track = Component.def ("track1")
     method track = track
     val index = Component.def 0
     method index = index

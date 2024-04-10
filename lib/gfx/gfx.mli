@@ -147,7 +147,7 @@ val load_image : context -> string -> surface resource
 
 val load_sound : string -> sound resource
 (** [load_sound path] loads a sound located at [path].
-    MP3 is the only supported type.
+    MP3 is the only supported format.
     *)
 
 val play_sound : sound resource -> unit
