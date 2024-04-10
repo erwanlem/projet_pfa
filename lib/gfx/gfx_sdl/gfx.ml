@@ -326,13 +326,16 @@ let load_sound path =
     gfx_error "Cannot open sound %s (internal error: %s)" path s
 
 let play_sound sound =
-  match Tsdl_mixer.Mixer.play_music sound (-1) with
+  match Tsdl_mixer.Mixer.play_music sound 1 with
   | Ok i -> if i = 0 then () else failwith "Cannot play sound"
   | Error (`Msg s) ->
     gfx_error "Cannot play sound (internal error: %s)" s
 
 let pause_sound sound =
   ignore (Tsdl_mixer.Mixer.pause_music ())
+
+let is_playing (sound : sound resource) =
+  Tsdl_mixer.Mixer.playing_music ()
 
 let init_ttf_sdl () =
   if not (Tsdl_ttf.Ttf.was_init ()) then result @@ Tsdl_ttf.Ttf.init ()

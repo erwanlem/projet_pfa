@@ -302,3 +302,11 @@ class button =
     inherit drawable
     inherit! controlable
   end
+
+class audible =
+  object
+    val track = Component.def ([] : string list)
+    method track = track
+    val index = Component.def 0
+    method index = index
+  end

@@ -1,6 +1,12 @@
 
 open Ecs
 
+module Music_system = System.Make(Music)
+(* Use a functor to define the new system *)
+
+let () = System.register (module Music_system)
+(* Register the system globally *)
+
 module Collision_system = System.Make(Collisions)
 (* Use a functor to define the new system *)
 

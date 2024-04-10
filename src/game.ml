@@ -11,8 +11,7 @@ let init dt =
   false
 
 let init_sound dt =
-  let a = Hashtbl.find (Resources.get_audio ()) "resources/audio/The_Bards_Tale_.mp3" in
-  Gfx.play_sound a;
+  Music_system.register (new audible);
   false
 
 let chain_functions l =
@@ -42,7 +41,8 @@ let update dt =
 
   if Global.level_switch () then begin
     ignore (Superuser.create ());
-    Level_loader.load_map (Global.get_level ()) end;
+    Level_loader.load_map (Global.get_level ()) 
+  end;
   Ecs.System.update_all dt;
   true
 

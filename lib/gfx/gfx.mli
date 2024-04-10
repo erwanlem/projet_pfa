@@ -151,13 +151,17 @@ val load_sound : string -> sound resource
     *)
 
 val play_sound : sound resource -> unit
-(** [play_sound sound] plays the sound given in parameter
+(** [play_sound sound] plays the sound given in parameter.
     *)
 
 val pause_sound : sound resource -> unit
-(** [pause_sound sound] pauses the sound given un parameter
+(** [pause_sound sound] pauses the sound given un parameter.
     *)
 
+val is_playing : sound resource -> bool
+(** [sound_ended sound] returns a boolean that indicates whether
+    the sound has finished playing.
+    *)
 
 val load_font : string -> string -> int -> font
 (**
