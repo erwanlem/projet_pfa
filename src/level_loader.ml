@@ -90,7 +90,7 @@ let draw_element id x y w h =
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
-    64 64 50. 0. (int_of_string (
+    block_size block_size 50. 0. (int_of_string (
       try (Hashtbl.find settings_table "level") 
       with Not_found -> failwith "Level not found")) None in
     Global.init_camera (Camera.create (player:>box) (64*30));

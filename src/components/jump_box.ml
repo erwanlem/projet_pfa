@@ -22,7 +22,6 @@ let create id x y w h mass settings =
     let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) t) in
     let ctx = Gfx.get_context (Global.window ()) in
     
-
     let surface_tmp = Gfx.create_surface ctx w h in
     for i = 0 to (w/(settings.t_w*block_size))-1 do
       Gfx.blit_full ctx surface_tmp res (settings.t_x*64) (settings.t_y*64) (settings.t_w*64)
