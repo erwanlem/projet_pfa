@@ -3,7 +3,7 @@ open System_defs
 open State
 
 let arch_pattern arch dt = 
-  if arch # cld # get = -1 then 
+  if arch # cooldown # get = -1 then 
     begin
       (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if arch#direction#get > 0. then (Vector.get_x arch#pos#get)+.(float (Rect.get_width arch#rect#get)) 
@@ -11,7 +11,7 @@ let arch_pattern arch dt =
 
       ignore (Arrow.create "arrow" x 
       (Vector.get_y arch#pos#get+.25.) 64 25 (Const.bullet_speed *. arch#direction#get)));
-      arch # cld # set 10
+      arch # cooldown # set 10
 (*
       ignore(Arrow.create "arrow" (Vector.get_x arch # hitbox_position # get +. (arch # direction # get *. 20.) )
     ((Vector.get_y arch#hitbox_position#get) +.20.) 10 10 (arch # direction # get )) ;
@@ -43,13 +43,13 @@ let archer_call arch () : unit =
     )
   else begin
     let playerpos = (Global.ply())#pos#get in
-    if arch # cld # get = 0 && ((Vector.dist playerpos (arch#pos#get))  < 350.0) && (abs_float (playerpos.y -. (arch # pos # get).y) < 5.) then
+    if arch # cooldown # get = 0 && ((Vector.dist playerpos (arch#pos#get))  < 350.0) && (abs_float (playerpos.y -. (arch # pos # get).y) < 5.) then
       begin
       Gfx.debug "Test \n %!";
-      arch # cld # set (-1);
+      arch # cooldown # set (-1);
       end
-    else if arch # cld # get > 0 then
-      arch # cld # set (arch # cld # get - 1);
+    else if arch # cooldown # get > 0 then
+      arch # cooldown # set (arch # cooldown # get - 1);
     
 
     if playerpos.x > (arch # pos#get ).x then(

@@ -43,9 +43,9 @@ let arrow_size = Rect.{width = 10; height=5}
 
 let fbdamage = 5.
 
-let knight_vel = ref Vector.{x = 0.05; y = 0.}
+let knight_vel = ref Vector.{x = 0.20; y = 0.}
 
-let knight_stats = {health = 50.; damage = 10.; mass = 10.; elas = 1.}
+let knight_stats = {health = 50.; damage = 10.; mass = 50.; elas = 1.}
 let arch_stats = {health = 30.; damage = 5.; mass = 30000.; elas = 0.}
 let alexandre_stats = {health = 510.; damage = 10.; mass = 2.; elas = 1.}
 

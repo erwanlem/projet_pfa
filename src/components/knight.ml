@@ -19,10 +19,10 @@ let update_sword_anim knight i frame maxframe dir =
 
 let knight_pattern knight _ = 
   let playerpos = (Global.ply()) # pos # get in
-  if Vector.dist playerpos (knight#pos#get) < 50.0 && knight # cld # get = 0 then
+  if Vector.dist playerpos (knight#pos#get) < 50.0 && knight # cooldown # get = 0 then
     ( if (State.get_state knight#state#get) = 0 then
         (let i = ref (-1) in
-        knight # cld # set 20;
+        knight # cooldown # set 20;
          if knight#direction#get = 1. then
            (knight#state#set (State.create_state 1 6 (update_sword_anim knight i));
             knight#state_box#set (Some (Sword_box.create "sword" knight (30.) 0.)))
@@ -31,9 +31,19 @@ let knight_pattern knight _ =
             knight#state_box#set (Some (Sword_box.create "sword" knight (-22.) 0.))))
     )
   else
-  if (Vector.dist playerpos (knight#pos#get) < 350.0) && (State.get_state knight#state#get) = 0 (*Avancer vers le joueur*)
-  then knight # velocity # set (Vector.mult (knight # direction # get) !Const.knight_vel) 
-  else knight # velocity # set (Vector.zero) ;
+  (*Avancer vers le joueur*)
+  if (Vector.dist playerpos (knight#pos#get) < 350.0) 
+    && abs (int_of_float ((Vector.get_x playerpos) -. (Vector.get_x knight#pos#get))) > 10 
+    && (State.get_state knight#state#get) = 0
+  then begin 
+    Texture.pause_animation (knight#texture#get) false;
+    knight # velocity # set (Vector.mult (knight # direction # get) !Const.knight_vel) 
+  end
+  (* Attendre *)
+  else begin
+    Texture.pause_animation (knight#texture#get) true;
+    knight#velocity#set ( Vector.{x=0.; y=(knight#velocity#get).y} ) 
+  end;
   ()
 
 
@@ -63,13 +73,17 @@ let knight_call knight () : unit =
         s.curframe <- s.curframe - 1;
         );
  
-    if knight # cld # get > 0 then knight # cld # set (knight # cld # get -1);
+    if knight # cooldown # get > 0 then knight # cooldown # set (knight # cooldown # get -1);
     let playerpos = (Global.ply())#pos#get in
     (*Gfx.debug "Player pos : %f;%f \n %!" (playerpos.x) (playerpos.y);*)
-    if playerpos.x > (knight # pos#get ).x then
+    if playerpos.x > (knight # pos#get ).x then begin
+      knight # texture # set (Hashtbl.find (knight # modifiable_texture # get) "texture_left_walk");
       knight #direction # set 1.
-    else  
+    end
+    else begin
+      knight # texture # set (Hashtbl.find (knight # modifiable_texture # get) "texture_right_walk");
       knight #direction #set (-1.)
+    end
   end
   
 
@@ -97,30 +111,28 @@ let create id x y w h texture  =
   knight # mass # set Const.knight_stats.mass;
   (
     match texture with 
-      None -> (*
-    let res =Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/knight.png" ) in
-    let ctx = Gfx.get_context (Global.window () )in
+    None -> 
+      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/knight_walk.png") in
+      let res2 = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/knight_attack.png") in
+      let ctx = Gfx.get_context (Global.window ()) in
+  
+      let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 
+      let texture2 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 1 in 
+      let texture3 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 3 in 
+      let texture4 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 1 in 
+      let h = Hashtbl.create 2 in
+      Hashtbl.replace h "texture_left_walk" texture1;
+      Hashtbl.replace h "texture_right_walk" texture2;
+      Hashtbl.replace h "texture_left_attack" texture3;
+      Hashtbl.replace h "texture_right_attack" texture4;
+      knight # modifiable_texture # set h;
+      knight # texture # set texture1
+  
+    | Some t -> knight # texture # set t);
 
-    let reposG = Texture.anim_from_surface ctx res 1 64 64 64 64 60 1 in
-    let reposD = Texture.anim_from_surface ctx res 1 64 64 64 64 60 3 in
-    let attackG = Texture.anim_from_surface ctx res 12 64 64 64 64 60 1 in
-    let attackD = Texture.anim_from_surface ctx res 12 64 64 64 64 60 1 in
-    let h = Hashtbl.create 4 in
-    Hashtbl.replace h "textReposG" reposG;
-    Hashtbl.replace h "textReposD" reposD;
-    Hashtbl.replace h "textAttackG" attackG;
-    Hashtbl.replace h "textAttackD" attackD;
-    knight # modifiable_texture # set h;
-    knight # texture # set reposG
-    *)
-      knight # texture # set (Texture.color (Gfx.color 255 255 0 255))
-    | Some t -> knight # texture # set t
-  );
-
-  (* show hitbox *)
-  (*
+  (* shows hitbox *)
   ignore (Hitbox.create "knight" knight);
-  *)
+
   knight # elasticity # set Const.knight_stats.elas;
   knight # health # set Const.knight_stats.health;
   knight # damage # set Const.knight_stats.damage;

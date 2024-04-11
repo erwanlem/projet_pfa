@@ -2,7 +2,7 @@
 [ ] skin ennemis - Ew
 [ ] collision avec méchants - Er
 [ ] mécanique téléporte - Er
-[ ] gestion temps réel - Er
+[x] gestion temps réel - Er
 [ ] implémentation niveaux - Ew
 [ ] animation type "star wars" - Er
 [X] cooldown - Ew 

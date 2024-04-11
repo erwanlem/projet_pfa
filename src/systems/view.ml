@@ -13,9 +13,9 @@ let update _dt el =
       let new_x = (x -. (Vector.get_x camera_pos) +. float (Const.window_width/3)) *. m#parallax#get in
 
       (* Seulement pour affichage hitbox, sinon retirer *)
-      (*let cam_position = Vector.add Vector.{x=new_x;y=y} m#hitbox_display#get in*)
+      let cam_position = Vector.add Vector.{x=new_x;y=y} m#hitbox_display#get in
 
-      let cam_position =Vector.{x=new_x;y=y} in
+      (*let cam_position =Vector.{x=new_x;y=y} in*)
       let position_gap = (x -. Vector.get_x cam_position) in
       if position_gap >= Const.max_gap *. m#parallax#get then
         m#camera_position#set Vector.{x=x-.Const.max_gap*.m#parallax#get; y=y}
@@ -24,4 +24,4 @@ let update _dt el =
     else
       let Vector.{x; y} = m # pos # get in
       m#camera_position#set (Vector.add Vector.{x;y} m#hitbox_display#get)
-  ) el;
+  ) el

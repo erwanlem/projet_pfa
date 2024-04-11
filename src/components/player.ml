@@ -22,24 +22,24 @@ let update_sword_anim player i frame maxframe dir =
 
 let player_framed_call player () : unit =
   let s = player#state#get in
-      if s.kind = 1 then
-        (if s.curframe > 0 then
-          (player#texture#set (s.update s.curframe s.maxframe (player#direction#get)))
-        else if s.curframe = 0 then
-          (player#texture#set (player#anim_recover#get);
-          (match player#state_box#get with
-          | Some b -> b#remove_box#get (); player#state_box#set None
-          | None -> ());
-          s.kind <- 0);
-        s.curframe <- s.curframe - 1;
-        );
-        
-      if player#health#get <= 0.0 then 
-        (player#pos#set (player#spawn_position#get);
-        player#health#set Const.player_health
+    if s.kind = 1 then
+      (if s.curframe > 0 then
+        (player#texture#set (s.update s.curframe s.maxframe (player#direction#get)))
+      else if s.curframe = 0 then
+        (player#texture#set (player#anim_recover#get);
+        (match player#state_box#get with
+        | Some b -> b#remove_box#get (); player#state_box#set None
+        | None -> ());
+        s.kind <- 0);
+      s.curframe <- s.curframe - 1;
       );
+      
+    if player#health#get <= 0.0 then 
+      (player#pos#set (player#spawn_position#get);
+      player#health#set Const.player_health
+    );
 
-      if player # cld # get > 0 then player # cld_decr
+    if player # cooldown # get > 0 then player # cooldown_decr
 
 
 
@@ -67,8 +67,15 @@ let player_control player keys =
     (Texture.pause_animation (player#texture#get) true;
     player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
+  if Hashtbl.mem keys cfg.key_teleport then
+    if  (player # direction # get) = (1.) then
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=5.; y=0.})
+    else
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-5.); y=0.});
+
+
   (* Shoot *)
-  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && player # cld # get = 0 then begin
+  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && player # cooldown # get = 0 then begin
     (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.64. in
@@ -76,7 +83,7 @@ let player_control player keys =
     (ignore (Bullet.create "player_fb" x 
     (Vector.get_y player#pos#get+.25.) 64 25 (Const.bullet_speed *. player#direction#get) 0.));
     Hashtbl.replace keys cfg.key_space false;
-    player # cld # set 45)
+    player # cooldown # set 45)
   end;
 
 
@@ -92,10 +99,10 @@ let player_control player keys =
     (player#anim_recover#set player#texture#get;
     let i = ref (-1) in
     if player#direction#get = 1. then
-      (player#state#set (State.create_state 1 6 (update_sword_anim player i));
+      (player#state#set (State.create_state 1 24 (update_sword_anim player i));
       player#state_box#set (Some (Sword_box.create "sword" player (30.) 0.)))
     else
-      (player#state#set (State.create_state 1 6 (update_sword_anim player i));
+      (player#state#set (State.create_state 1 24 (update_sword_anim player i));
       player#state_box#set (Some (Sword_box.create "sword" player (-22.) 0.))))
     (*if player#direction#get > 0. then
       player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=3.5;y=0.})
