@@ -30,7 +30,6 @@ let update _dt el =
     if sound_track_array <> [||] then begin
       let sound_track = Hashtbl.find (Resources.get_audio ()) sound_track_array.(index) in
       if not (Gfx.is_playing sound_track) then begin
-        Gfx.debug "%b\n%!" (not (Gfx.is_playing sound_track));
         (if index+1 >= Array.length sound_track_array then begin
           Gfx.debug "PLAY %d\n%!" index;
           m#index#set 0 

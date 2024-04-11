@@ -203,7 +203,7 @@ let load_image ctx src =
 let load_sound path =
   let sound = Dom_html.createAudio Dom_html.document in
   sound##.src := Js.string path;
-  let is_ready () = sound##.readyState_int >= 2
+  let is_ready () = sound##.readyState_int >= 0
   in
   let get () =
     if not (is_ready ()) then failwith "Sound is not ready";
@@ -212,14 +212,15 @@ let load_sound path =
     { get; is_ready }
 
 let play_sound (sound : Dom_html.audioElement Js.t resource) =
-  ignore((sound.get ())##.currentTime := Js.int32 0l);
-  ignore((sound.get ())##play)
+    ignore((sound.get ())##.currentTime := Js.int32 0l);
+    ignore((sound.get ())##play)
 
 let pause_sound (sound : sound resource) =
-  ignore ((sound.get ())##pause)
+    ignore ((sound.get ())##pause)
 
 let is_playing (sound : sound resource) =
-  not (Js.to_bool (sound.get ())##.ended) && not (Js.to_bool (sound.get ())##.paused)
+    not (Js.to_bool (sound.get ())##.ended) 
+    && not (Js.to_bool (sound.get ())##.paused)
 
 let load_font fn extra size =
   let extra = if extra <> "" then extra ^ " " else extra in
