@@ -97,10 +97,10 @@ let draw_element id x y w h =
     Global.init_player player
 
   | 101 -> 
-    ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) 64 64 None)
+    ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
     
   | 102 -> 
-      ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) 64 64 None)
+      ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
 
   | 1000 ->
     let s = load_settings () in

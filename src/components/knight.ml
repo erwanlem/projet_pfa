@@ -3,8 +3,6 @@ open System_defs
 open State
 
 let update_sword_anim knight i frame maxframe dir =
-  Texture.Color(Gfx.color 0 0 0 0)
-  (*
   let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/knight_attack.png"
                                     with Not_found -> failwith "In alive.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
@@ -15,14 +13,13 @@ let update_sword_anim knight i frame maxframe dir =
       Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
   else
     Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
-*)
 
 let knight_pattern knight _ = 
   let playerpos = (Global.ply()) # pos # get in
   if Vector.dist playerpos (knight#pos#get) < 50.0 && knight # cooldown # get = 0 then
     ( if (State.get_state knight#state#get) = 0 then
         (let i = ref (-1) in
-        knight # cooldown # set 20;
+        knight # cooldown # set 40;
          if knight#direction#get = 1. then
            (knight#state#set (State.create_state 1 6 (update_sword_anim knight i));
             knight#state_box#set (Some (Sword_box.create "sword" knight (30.) 0.)))

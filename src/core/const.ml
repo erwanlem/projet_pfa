@@ -18,9 +18,9 @@ type settings =
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 
-let window_width = 1280
-let window_height = 800
-let block_size = window_width/16
+let window_width = 1440
+let window_height = 810
+let block_size = window_width/20
 let map_width = ref (60*block_size)
 let max_gap = float (!map_width - window_width)
 
