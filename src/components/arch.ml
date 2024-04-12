@@ -56,7 +56,9 @@ else
   (* If player visible *)
 
   (* If close to the player : start attack *)
-  if Vector.dist playerpos (arch#pos#get) < 400.0 then begin
+  if Vector.dist playerpos (arch#pos#get) < 400.0
+  && dt -. Hashtbl.find (arch#cooldown#get) "attack" > 1000. then begin
+    Hashtbl.replace arch#cooldown#get "attack" dt;
     arch#anim_recover#set arch#texture#get;
     let i = ref (-1) in
     if arch#direction#get = 1. then
@@ -117,6 +119,8 @@ let create id x y w h texture =
 
   (* show hitbox *)
   ignore (Hitbox.create "archer" arch);
+
+  Hashtbl.replace arch#cooldown#get "attack" 0.;
 
   arch # elasticity # set Const.arch_stats.elas;
   arch # health # set Const.arch_stats.health;

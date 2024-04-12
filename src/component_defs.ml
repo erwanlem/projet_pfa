@@ -219,13 +219,13 @@ class state =
 
 class real_time =
   object
-    val real_time_fun = Component.def (fun (():unit) -> (():unit))
+    val real_time_fun = Component.def (fun (dt:float) -> (():unit))
     method real_time_fun = real_time_fun
   end
 
 class cooldown =
 object 
-  val cooldown = Component.def (Hashtbl.create 2 : (string, int) Hashtbl.t)
+  val cooldown = Component.def (Hashtbl.create 10 : (string, float) Hashtbl.t)
   method cooldown = cooldown
   method cooldown_decr c = Hashtbl.iter (fun (k:string) v -> if v > -1 then Hashtbl.replace c k (v-1)) c
 end

@@ -48,7 +48,7 @@ let fbdamage = 5.
 let knight_vel = ref Vector.{x = 0.20; y = 0.}
 
 let knight_stats = {health = 50.; damage = 10.; mass = infinity; elas = 0.}
-let arch_stats = {health = 30.; damage = 5.; mass = 30000.; elas = 0.}
+let arch_stats = {health = 30.; damage = 5.; mass = 3000000.; elas = 0.}
 let alexandre_stats = {health = 510.; damage = 10.; mass = 2.; elas = 1.}
 
 
@@ -65,22 +65,3 @@ let colors =
   Hashtbl.add h "pink" (Gfx.color 255 0 255 255);
   Hashtbl.add h "gold" (Gfx.color 212 172 13 255);
   h
-
-
-
-let empty_settings = {
-  t_x = 0; 
-  t_y = 0; 
-  t_w = 0; 
-  t_h = 0; 
-  texture = None;
-  link = "";
-  width = 0;
-  animation = 0;
-  text_key = "";
-  color = Hashtbl.find colors "red";
-  text = "";
-  font = "";
-  layer = 0;
-  parallax = 1.;
-  track = "" }

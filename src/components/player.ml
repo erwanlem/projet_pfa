@@ -69,10 +69,10 @@ let player_control player keys =
   (* Teleport *)
   if Hashtbl.mem keys cfg.key_teleport then begin
     if (player # direction # get) = (1.) then begin
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=20.; y=0.});
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=5.; y=0.});
     end
     else
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-20.); y=0.})
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-5.); y=0.})
     end;
 
 
@@ -165,6 +165,10 @@ let create id x y w h mass elas lvl texture =
 
   (* Hitbox *)
   (*ignore (Hitbox.create "player" player);*)
+
+  Hashtbl.replace player#cooldown#get "attack1" 0.;
+  Hashtbl.replace player#cooldown#get "attack2" 0.;
+  Hashtbl.replace player#cooldown#get "teleport" 0.;
 
   player # id # set id;
   player # mass # set mass;

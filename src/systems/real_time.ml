@@ -17,6 +17,6 @@ let update dt el =
   if !timer = 0 then begin
     timer := reference_timer;
     Seq.iter (fun m ->
-        m#real_time_fun#get ()
+        m#real_time_fun#get dt
       ) el
     end

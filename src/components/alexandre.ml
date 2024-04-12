@@ -17,7 +17,7 @@ let update_sword_anim alexandre i frame maxframe dir =
     Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
 *)
 
-let alexandre_pattern alexandre _ = 
+let alexandre_pattern alexandre (dt : float) = 
   let playerpos = (Global.ply()) # pos # get in
   if Vector.dist playerpos (alexandre#pos#get) < 50.0 (*&& alexandre # cooldown # get = 0*) then
     ( if (State.get_state alexandre#state#get) = 0 then
@@ -89,7 +89,7 @@ let create id x y w h texture  =
   let alexandre = new alexandre in
   alexandre # pos # set Vector.{ x = float x; y = float y };
   alexandre # id # set id;
-  alexandre # pattern # set (alexandre_pattern alexandre);
+  (*alexandre # pattern # set (alexandre_pattern alexandre);*)
   alexandre # grounded # set false;
   alexandre # hitbox_rect # set Rect.{width = w - 36; height =  h-18} ;
   alexandre # hitbox_position # set Vector.{x=18.;y=14.};
@@ -126,7 +126,7 @@ let create id x y w h texture  =
   alexandre # damage # set Const.alexandre_stats.damage;
   alexandre # layer # set 9;
   alexandre # direction # set (-1.);
-  alexandre # real_time_fun # set (alexandre_call alexandre);
+  alexandre # real_time_fun # set (alexandre_pattern alexandre);
   alexandre # onCollideEvent # set (alexandre_collision alexandre);
   Force_system.register (alexandre:>collidable);
   Draw_system.register (alexandre :> drawable);

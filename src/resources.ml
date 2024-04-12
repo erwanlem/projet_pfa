@@ -68,7 +68,7 @@ let load_resources () =
   let sounds = get_audio () in
   let ctx = Gfx.get_context (Global.window ()) in
   List.iter (fun f -> Hashtbl.replace h f (Gfx.load_file f)) input_files;
-  List.iter (fun (f1, f2) -> if Gfx.backend = "js" then Hashtbl.replace fonts f1 (Gfx.load_font f2 "" 100)
+  List.iter (fun (f1, f2) -> if Gfx.backend = "js" then Hashtbl.replace fonts f1 (Gfx.load_font f2 "" 80)
                             else Hashtbl.replace fonts f1 (Gfx.load_font f1 "" 80)) input_fonts;
   List.iter (fun f -> Hashtbl.replace textures f (Gfx.load_image ctx f)) input_images;
   List.iter (fun f -> Hashtbl.replace sounds f (Gfx.load_sound f)) audio_input;

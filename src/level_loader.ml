@@ -88,6 +88,8 @@ let draw_element id x y w h =
 
   | 23 -> Gfx.debug "New Audio %s\n%!" (load_settings ()).track; ignore (Audio.create (load_settings ()).track)
 
+  | 24 -> Gfx.debug "Create opening\n%!"; ignore (Opening.create "op1" (load_settings ()))
+
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
     block_size block_size 50. 0. (int_of_string (

@@ -15,7 +15,7 @@ let update_sword_anim knight i frame maxframe dir =
       Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
 
   
-let knight_pattern knight _ = 
+let knight_pattern knight dt = 
 
   (* Case not alive : unregistered *)
   if not (knight # alive) then begin
