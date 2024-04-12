@@ -1,10 +1,10 @@
 [ ] alexandre complet
 [ ] skin ennemis - Ew
-[ ] collision avec méchants - Er
+[x] collision avec méchants - Er
 [x] mécanique téléporte - Er
 [x] gestion temps réel - Er
 [ ] implémentation niveaux - Ew
 [ ] animation type "star wars" - Er
 [X] cooldown - Ew 
 [ ] menu - Er
-[ ] personnage petit
+[x] personnage petit

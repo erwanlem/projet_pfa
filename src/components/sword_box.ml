@@ -11,7 +11,7 @@ let remove_sword sword () =
 
 
 let collision_function sword collide pos =
-  Gfx.debug "Sword collide %s\n%!" collide
+  remove_sword sword ()
 
 
 

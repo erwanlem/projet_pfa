@@ -19,10 +19,10 @@ let update_sword_anim alexandre i frame maxframe dir =
 
 let alexandre_pattern alexandre _ = 
   let playerpos = (Global.ply()) # pos # get in
-  if Vector.dist playerpos (alexandre#pos#get) < 50.0 && alexandre # cooldown # get = 0 then
+  if Vector.dist playerpos (alexandre#pos#get) < 50.0 (*&& alexandre # cooldown # get = 0*) then
     ( if (State.get_state alexandre#state#get) = 0 then
         (let i = ref (-1) in
-        alexandre # cooldown # set 20;
+        (*alexandre # cooldown # set 20;*)
          if alexandre#direction#get = 1. then
            (alexandre#state#set (State.create_state 1 6 (update_sword_anim alexandre i));
             alexandre#state_box#set (Some (Sword_box.create "sword" alexandre (30.) 0.)))
@@ -63,7 +63,7 @@ let alexandre_call alexandre () : unit =
         s.curframe <- s.curframe - 1;
         );
  
-    if alexandre # cooldown # get > 0 then alexandre # cooldown # set (alexandre # cooldown # get -1);
+    (*if alexandre # cooldown # get > 0 then alexandre # cooldown # set (alexandre # cooldown # get -1);*)
     let playerpos = (Global.ply())#pos#get in
     Gfx.debug "Player pos : %f;%f \n %!" (playerpos.x) (playerpos.y);
     if playerpos.x > (alexandre # pos#get ).x then

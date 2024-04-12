@@ -15,12 +15,12 @@ let update_sword_anim player i frame maxframe dir =
     i := !i+1;
   if dir = -1. then
     (
-      Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
+      Texture.image_from_surface ctx res (64*(!i)) 64 64 64 (Rect.get_width player#rect#get) (Rect.get_height player#rect#get))
   else
-    Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
+      Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 (Rect.get_width player#rect#get) (Rect.get_height player#rect#get)
 
 
-let player_framed_call player () : unit =
+let player_framed_call player _ : unit =
   let s = player#state#get in
     if s.kind = 1 then
       (if s.curframe > 0 then
@@ -37,13 +37,12 @@ let player_framed_call player () : unit =
     if player#health#get <= 0.0 then 
       (player#pos#set (player#spawn_position#get);
       player#health#set Const.player_health
-    );
-
-    if player # cooldown # get > 0 then player # cooldown_decr
+    )
 
 
 
 let player_control player keys =
+
   (* Déplacement vers la gauche *)
   if Hashtbl.mem keys cfg.key_left then
     (if (player # direction # get) <> (-1.) then
@@ -67,23 +66,25 @@ let player_control player keys =
     (Texture.pause_animation (player#texture#get) true;
     player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
-  if Hashtbl.mem keys cfg.key_teleport then
-    if  (player # direction # get) = (1.) then
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=5.; y=0.})
+  (* Teleport *)
+  if Hashtbl.mem keys cfg.key_teleport then begin
+    if (player # direction # get) = (1.) then begin
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=20.; y=0.});
+    end
     else
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-5.); y=0.});
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-20.); y=0.})
+    end;
 
 
   (* Shoot *)
-  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && player # cooldown # get = 0 then begin
-    (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
+  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then begin
+    let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.64. in
 
     (ignore (Bullet.create "player_fb" x 
     (Vector.get_y player#pos#get+.25.) 64 25 (Const.bullet_speed *. player#direction#get) 0.));
     Hashtbl.replace keys cfg.key_space false;
-    player # cooldown # set 45)
   end;
 
 
@@ -104,10 +105,6 @@ let player_control player keys =
     else
       (player#state#set (State.create_state 1 24 (update_sword_anim player i));
       player#state_box#set (Some (Sword_box.create "sword" player (-22.) 0.))))
-    (*if player#direction#get > 0. then
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=3.5;y=0.})
-    else
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-3.5);y=0.})*)
     end
     
 
@@ -127,7 +124,8 @@ let player_collision player collide pos =
   
   if collide = "death_box" then player#health#set 0.0;
 
-  if collide = "arrow" then player#health#set (player#health#get -. Const.arch_stats.damage)
+  if collide = "arrow" || collide = "ennemy_sword" then 
+    player#health#set (player#health#get -. Const.knight_stats.damage)
 
 
 
@@ -151,10 +149,10 @@ let create id x y w h mass elas lvl texture =
     let res2 = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png") in
     let ctx = Gfx.get_context (Global.window ()) in
 
-    let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 
-    let texture2 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 1 in 
-    let texture3 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 3 in 
-    let texture4 = Texture.anim_from_surface ctx res2 9 64 64 64 64 3 1 in 
+    let texture1 = Texture.anim_from_surface ctx res 9 64 64 w h 3 3 in 
+    let texture2 = Texture.anim_from_surface ctx res 9 64 64 w h 3 1 in 
+    let texture3 = Texture.anim_from_surface ctx res2 9 64 64 w h 3 3 in 
+    let texture4 = Texture.anim_from_surface ctx res2 9 64 64 w h 3 1 in 
     let h = Hashtbl.create 2 in
     Hashtbl.replace h "texture_left_walk" texture1;
     Hashtbl.replace h "texture_right_walk" texture2;

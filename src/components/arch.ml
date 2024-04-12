@@ -2,35 +2,23 @@ open Component_defs
 open System_defs
 open State
 
-let arch_pattern arch dt = 
-  if arch # cooldown # get = -1 then 
-    begin
-      (let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
-      if arch#direction#get > 0. then (Vector.get_x arch#pos#get)+.(float (Rect.get_width arch#rect#get)) 
-      else (Vector.get_x arch#pos#get)-.4. in
 
-      ignore (Arrow.create "arrow" x 
-      (Vector.get_y arch#pos#get+.25.) 64 25 (Const.bullet_speed *. arch#direction#get)));
-      arch # cooldown # set 10
-(*
-      ignore(Arrow.create "arrow" (Vector.get_x arch # hitbox_position # get +. (arch # direction # get *. 20.) )
-    ((Vector.get_y arch#hitbox_position#get) +.20.) 10 10 (arch # direction # get )) ;
-    arch#cld#set (arch#cld#get - 1);*)
-    end;
-  ()
-  (*Permet de verifier que le joueur est toujours de le champs de vision*)(*
-  if arch#vs#get#seen#get > 0 then arch#vs#get#seen#set (arch#vs#get#seen#get -1 ); 
-  (* tire si le joueur a été vu récement et si l'archer n'as pas tirer depuis un moment *)
-  if arch#cld#get = 0 && arch#vs#get#seen#get > 0 then (
-    arch#cld#set 60;
-    ignore(
-    Arrow.create "arrow" (Vector.get_x arch # pos # get +. (arch # direction # get *. 20.) +. 32.)
-    ((Vector.get_y arch#pos#get) +.10.) 10 10 (arch # direction # get ) 
-  ))
-  else if arch#cld#get > 0 then( arch#cld#set (arch#cld#get - 1))
-    *)
-  
-let archer_call arch () : unit =
+let update_arc_anim knight i frame maxframe dir =
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png"
+                                    with Not_found -> failwith "In arch.ml : Resource not found" ) in
+  let ctx = Gfx.get_context (Global.window ()) in
+  if frame mod (maxframe/13) = 0 then
+    i := !i+1;
+  if dir = -1. then
+    (
+      Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
+  else
+      Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
+
+
+let arch_pattern arch dt = 
+
+  (* Case not alive : unregistered *)
   if not (arch # alive) then  
     (
       Real_time_system.unregister (arch:> real_time);
@@ -41,26 +29,52 @@ let archer_call arch () : unit =
       Ennemy_system.unregister (arch: Component_defs.arch :> mob);
       View_system.unregister (arch :> drawable)
     )
+
+else
+
+  (* Get player position *)
+  let playerpos = (Global.ply ()) # pos # get in
+
+  (* get state *)
+  let s = arch#state#get in
+
+  (* if attacking *)
+  if s.kind = 1 then begin
+    if s.curframe > 0 then
+      (arch#texture#set (s.update s.curframe s.maxframe (arch#direction#get)))
+    else if s.curframe = 0 then
+      (arch#texture#set (arch#anim_recover#get);
+      (match arch#state_box#get with
+      | Some b -> b#remove_box#get (); arch#state_box#set None
+      | None -> ());
+      s.kind <- 0);
+    s.curframe <- s.curframe - 1
+  end
+
+  (* If not attacking *)
   else begin
-    let playerpos = (Global.ply())#pos#get in
-    if arch # cooldown # get = 0 && ((Vector.dist playerpos (arch#pos#get))  < 350.0) && (abs_float (playerpos.y -. (arch # pos # get).y) < 5.) then
-      begin
-      Gfx.debug "Test \n %!";
-      arch # cooldown # set (-1);
-      end
-    else if arch # cooldown # get > 0 then
-      arch # cooldown # set (arch # cooldown # get - 1);
-    
+  (* If player visible *)
 
-    if playerpos.x > (arch # pos#get ).x then(
-      arch #direction # set 1.;
-      arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposD"))
-    else  
-      (arch #direction #set (-1.);
-      arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposG"))
-    end
-  
+  (* If close to the player : start attack *)
+  if Vector.dist playerpos (arch#pos#get) < 400.0 then begin
+    arch#anim_recover#set arch#texture#get;
+    let i = ref (-1) in
+    if arch#direction#get = 1. then
+      arch#state#set (State.create_state 1 39 (update_arc_anim arch i))
+    else
+      arch#state#set (State.create_state 1 39 (update_arc_anim arch i))
+    end;
 
+  if playerpos.x > (arch # pos#get ).x then begin
+    arch #direction # set 1.;
+    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposD")
+  end
+  else  begin
+    arch #direction #set (-1.);
+    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposG")
+  end
+
+  end
 
     
 let arch_collision arch collide pos =
@@ -72,11 +86,10 @@ let arch_collision arch collide pos =
   if collide = "exclbr_rgd" then arch # take_dmg Const.exclbr_rgd_atk
 
 
-let create id x y w h texture  =
+let create id x y w h texture =
   let arch = new arch in
   arch # pos # set Vector.{ x = float x; y = float y };
   arch # id # set id;
-  arch # pattern # set (arch_pattern arch);
   arch # grounded # set false;
   arch # hitbox_rect # set Rect.{width = w - 36; height =  h-18} ;
   arch # hitbox_position # set Vector.{x=18.;y=14.};
@@ -85,13 +98,13 @@ let create id x y w h texture  =
   (
     match texture with 
   None -> 
-    let res =Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png" ) in
+    let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png" ) in
     let ctx = Gfx.get_context (Global.window () )in
 
     let reposG = Texture.anim_from_surface ctx res 1 64 64 64 64 60 1 in
     let reposD = Texture.anim_from_surface ctx res 1 64 64 64 64 60 3 in
-    let attackG = Texture.anim_from_surface ctx res 12 64 64 64 64 60 1 in
-    let attackD = Texture.anim_from_surface ctx res 12 64 64 64 64 60 1 in
+    let attackG = Texture.anim_from_surface ctx res 13 64 64 64 64 60 1 in
+    let attackD = Texture.anim_from_surface ctx res 13 64 64 64 64 60 1 in
     let h = Hashtbl.create 4 in
     Hashtbl.replace h "textReposG" reposG;
     Hashtbl.replace h "textReposD" reposD;
@@ -110,13 +123,12 @@ let create id x y w h texture  =
   arch # damage # set Const.arch_stats.damage;
   arch # layer # set 9;
   arch # direction # set (-1.);
-  arch # real_time_fun # set (archer_call arch);
+  arch # real_time_fun # set (arch_pattern arch);
   arch # onCollideEvent # set (arch_collision arch);
   Force_system.register (arch:>collidable);
   Draw_system.register (arch :> drawable);
   Collision_system.register (arch:>collidable);
   Move_system.register (arch :> movable);
-  Ennemy_system.register (arch :> mob);
   View_system.register (arch :> drawable);
   Real_time_system.register(arch:> real_time);
   arch

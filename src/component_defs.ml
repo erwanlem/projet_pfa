@@ -145,6 +145,13 @@ class hitbox_display =
     method hitbox_display = hitbox_display
   end
 
+  (* Disable collision repultion *)
+class isTransparent =
+  object
+    val isTransparent = Component.def false
+    method isTransparent = isTransparent
+  end
+
 (* Some complex components *)
 
 class collidable =
@@ -158,8 +165,7 @@ class collidable =
     inherit elasticity
     inherit grounded
     inherit onCollideEvent
-    val isTransparent = Component.def false
-    method isTransparent = isTransparent
+    inherit isTransparent
     inherit hitbox
   end
 
@@ -219,9 +225,9 @@ class real_time =
 
 class cooldown =
 object 
-  val cooldown = Component.def 0
+  val cooldown = Component.def (Hashtbl.create 2 : (string, int) Hashtbl.t)
   method cooldown = cooldown
-  method cooldown_decr = cooldown # set (cooldown # get -1)
+  method cooldown_decr c = Hashtbl.iter (fun (k:string) v -> if v > -1 then Hashtbl.replace c k (v-1)) c
 end
 
 class mob =
