@@ -35,7 +35,7 @@ let update _dt el =
 
       let new_x, new_y =
         ((x -. (Vector.get_x camera_pos) ) *. m#parallax#get,
-        (y -. (Vector.get_y camera_pos))   *. m#parallax#get)
+        (y -. (Vector.get_y camera_pos)) )
       in
       let cam_position =Vector.{x=new_x;y=new_y} in
       m#camera_position#set cam_position
