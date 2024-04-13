@@ -78,11 +78,11 @@ let draw_element id x y w h =
     ignore ( Button.create "button" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
     (Gfx.color 0 0 0 255) (load_settings ()))
 
-  | 21 ->
-    let c = (Box.create "camera"
-    (x*basic_block_w) (Const.window_height-y*basic_block_h) 0 0 infinity (load_settings ()))
-    in let cam = Camera.create c (64*30)
-    in Global.init_camera cam
+  | 21 -> 
+    let cam = Camera.create "position" in
+    cam#pos#set Vector.{x=0.; y=0.};
+    cam#axis#set "xy";
+    Global.init_camera cam
 
   | 22 -> ignore (Background.create "menu_background" (load_settings ()))
 
@@ -95,7 +95,9 @@ let draw_element id x y w h =
     block_size block_size 50. 0. (int_of_string (
       try (Hashtbl.find settings_table "level") 
       with Not_found -> failwith "Level not found")) None in
-    Global.init_camera (Camera.create (player:>box) (64*30));
+    let cam = Camera.create "player" in
+    cam#axis#set "x";
+    Global.init_camera cam;
     Global.init_player player
 
   | 101 -> 

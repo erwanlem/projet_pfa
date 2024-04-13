@@ -5,6 +5,10 @@ open Const
 let cfg = Config.get_config ()
 
 let onAction key =
+  if Hashtbl.mem key "0" then begin
+    Gfx.debug "Switch 0\n%!";
+    reset_systems ();
+    Global.set_level "resources/files/menu.level" end;
   if Hashtbl.mem key "1" then begin
     Gfx.debug "Switch 1\n%!";
     reset_systems ();
@@ -26,7 +30,33 @@ let onAction key =
     Gfx.debug "Velocity = %a\n%!" Vector.pp (!Const.horz_vel) end;
   if Hashtbl.mem key "q" then begin
     Const.horz_vel := Vector.{x= Vector.get_x !Const.horz_vel -. 0.01 ; y= Vector.get_y !Const.horz_vel };
-    Gfx.debug "Velocity = %a\n%!" Vector.pp (!Const.horz_vel) end
+    Gfx.debug "Velocity = %a\n%!" Vector.pp (!Const.horz_vel) end;
+  if Hashtbl.mem key "p" then begin
+    let c = Global.camera () in
+    if c#focus#get = "player" then begin
+      c#focus#set "position";
+      c#pos#set ((Global.ply ())#pos#get);
+    end
+    else c#focus#set "player"
+  end;
+
+  if Hashtbl.mem key "o" then begin
+    let c = Global.camera () in
+    c#pos#set (Vector.add c#pos#get Vector.{x=0.;y=(-10.)})
+  end;
+  if Hashtbl.mem key "k" then begin
+    let c = Global.camera () in
+    c#pos#set (Vector.add c#pos#get Vector.{x=(-10.);y=0.})
+  end;
+  if Hashtbl.mem key "l" then begin
+    let c = Global.camera () in
+    c#pos#set (Vector.add c#pos#get Vector.{x=0.;y=(10.)})
+  end;
+  if Hashtbl.mem key "m" then begin
+    let c = Global.camera () in
+    c#pos#set (Vector.add c#pos#get Vector.{x=10.;y=0.})
+  end
+
 
 
 let create () =

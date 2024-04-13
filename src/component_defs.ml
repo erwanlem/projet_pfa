@@ -283,14 +283,13 @@ class player =
 
 class camera =
   object
+    inherit position
     (* Objet suivi par la camera *)
-    val focus = Component.def (new box)
+    val focus = Component.def ("player")
     method focus = focus
-    method position = focus#get#pos#get
 
-    (* Max x position of the camera *)
-    val max_x = Component.def 0
-    method max_x = max_x
+    val axis = Component.def "x"
+    method axis = axis
   end
 
 class text =
