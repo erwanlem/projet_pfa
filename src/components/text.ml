@@ -10,7 +10,8 @@ let create x y w h settings =
   txt # camera_position # set Vector.{ x = float x; y = float y };
   txt # rect # set Rect.{width=w; height=h};
 
-  let res = try (Hashtbl.find (Resources.get_fonts ()) settings.font) with Not_found -> failwith (Format.sprintf "Font not %s found" settings.font) in
+  let res = try (Hashtbl.find (Resources.get_fonts ()) settings.font) 
+            with Not_found -> failwith (Format.sprintf "Font not %s found" settings.font) in
   let ctx = Gfx.get_context (Global.window ()) in
   Gfx.set_color ctx settings.color;
 

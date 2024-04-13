@@ -186,6 +186,7 @@ let create id x y w h mass elas lvl texture =
   player # spawn_position # set Vector.{x = float x;y = float y};
   player # camera_position # set Vector.{ x = float x; y = float y };
 
+
   (* Enregistrement dans les systèmes *)
   Force_system.register (player:>collidable);
   Draw_system.register (player :> drawable);

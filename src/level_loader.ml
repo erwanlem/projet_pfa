@@ -88,7 +88,12 @@ let draw_element id x y w h =
 
   | 23 -> Gfx.debug "New Audio %s\n%!" (load_settings ()).track; ignore (Audio.create (load_settings ()).track)
 
-  | 24 -> Gfx.debug "Create opening\n%!"; ignore (Opening.create "op1" (load_settings ()))
+  | 24 -> 
+    Gfx.debug "Create opening\n%!"; ignore (Opening.create "op1" (load_settings ()) 1);
+    let cam = Camera.create "position" in
+    cam#axis#set "xy";
+    cam#pos#set Vector.{x=0.; y=float (-Const.window_height)};
+    Global.init_camera cam
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 

@@ -3,7 +3,7 @@
 3:0x3|44x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
 3:48x3|12x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
 
-
+24:0x0|0x0|     # opening
 
 1:15x6|2x1|texture=resources/images/grass.png,texture_x=5,texture_y=0,texture_w=2,texture_h=1 # tremplin
 0:10x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
@@ -14,9 +14,9 @@
 
 0:41x4|1x1|texture=resources/images/grass.png,texture_x=7,texture_y=0,texture_w=1,texture_h=1 # rocher
 
-100:2x4|0x0|level=3 # joueur
+100:2x4|0x0|level=3,opening=1 # joueur
 
-102:4x4|0x0|level=3        # knight
+# 102:4x4|0x0|level=3        # knight
 
 2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
@@ -43,7 +43,5 @@
 5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=3,parallax=0.5 # background
 
 23:0x0|0x0|track=track2
-
-24:0x0|0x0|font=resources/fonts/Seagram.ttf # Opening 1
 
 # blocId:posXxposY|WidthxHeight

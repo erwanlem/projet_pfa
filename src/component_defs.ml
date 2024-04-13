@@ -264,6 +264,12 @@ class alexandre=
   end
 
 
+class opening =
+  object
+    inherit box
+    inherit real_time
+  end
+
 
 
 class player = 
@@ -299,6 +305,8 @@ class text =
     method text = text
     val font = Component.def ("")
     method font = font
+    val margin = Component.def Vector.zero
+    method margin = margin
   end
 
 class button =

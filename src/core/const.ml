@@ -14,7 +14,7 @@ type settings =
     font : string;
     layer : int;
     parallax : float;
-    track : string; }
+    track : string}
 
 type mob_stat={health : float; damage: float; mass:float; elas : float}
 
