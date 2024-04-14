@@ -67,6 +67,11 @@ let draw_element id x y w h =
     ignore (Decor.create "decor"
               (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (load_settings ()))
 
+  | 6 ->
+    ignore (Fall_box.create "platform"
+              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
+              (load_settings ()))
+
   | 10 ->
     ignore ( Exit_box.create "exit" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
                (load_settings ()) )

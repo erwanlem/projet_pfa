@@ -93,7 +93,7 @@ let player_control player keys =
 
   (* Jump *)
   if Hashtbl.mem keys cfg.key_up && player#grounded#get 
-    && Hashtbl.find keys cfg.key_up && (Vector.get_y (player#velocity#get)) = 0. then
+    && Hashtbl.find keys cfg.key_up then
     (player # grounded # set false;
     player # sum_forces # set (Vector.add (player#sum_forces#get) (Const.jump));
     Hashtbl.replace keys cfg.key_up false);
