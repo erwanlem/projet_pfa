@@ -28,9 +28,12 @@ let update _dt el =
         m#camera_position#set Vector.{x=x-.Const.max_gap*.m#parallax#get; y=y}
       else
         m#camera_position#set cam_position
+
+
     else
-      (* Move camera without focus on the player *)
-      if camera#focus#get = "position" then 
+      (* Move camera without the focus on the player *)
+      if camera#focus#get = "position" then begin
+        Gfx.debug "%a\n%!" Vector.pp camera_pos;
       let Vector.{x; y} = m # pos # get in
 
       let new_x, new_y =
@@ -39,7 +42,8 @@ let update _dt el =
       in
       let cam_position =Vector.{x=new_x;y=new_y} in
       m#camera_position#set cam_position
-
+    
+    end
 
 
     else

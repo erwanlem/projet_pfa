@@ -4,6 +4,8 @@ type t = controlable
 
 let init _ = ()
 
+let disable = ref false
+
 let keys = Hashtbl.create 16
 
 let cfg = Config.get_config ()
@@ -19,7 +21,8 @@ let update dt el =
     | Gfx.MouseButton (b, false, x, y) -> Hashtbl.remove keys "mouse1"
     | _ -> ()
   in
-  Seq.iter (fun m ->
-      let control_fun = m # control # get in
-      control_fun keys;
-    ) el
+  if not !disable then
+    Seq.iter (fun m ->
+        let control_fun = m # control # get in
+        control_fun keys;
+      ) el

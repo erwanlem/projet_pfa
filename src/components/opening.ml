@@ -24,6 +24,11 @@ blandit a tortor nec, eleifend aliquet
 quam. Donec mauris lectus, dapibus ut
 pulvinar feugiat, elementum sit amet sem."
 
+
+let move_cam () =
+  ()
+
+
 let create id settings nbr =
   let font_size = 80 in
   let h_space = 10 in
@@ -53,19 +58,13 @@ let create id settings nbr =
 
   box#texture#set (Image surf);
 
-  (*(match settings.texture with 
-  None -> box # texture # set (Color (Gfx.color 255 255 255 255))
-  | Some t -> 
-    let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) t) in
-    let ctx = Gfx.get_context (Global.window ()) in
+  let cam = Camera.create "position" in
+  cam#axis#set "xy";
+  cam#pos#set Vector.{ x = float (block_size * 4); y = float (-height) };
+  Global.init_camera cam;
 
-    let w, h = Gfx.surface_size res in
-    Gfx.debug "%d, %d\n%!" w h;
+  Control.disable := true;
 
-    let texture = Texture.image_from_surface ctx res 0 0 
-          w h Const.window_width Const.window_height in    
-    
-    box # texture # set texture);*)
   Move_system.register (box :> movable);
   Draw_system.register (box :> drawable);
   View_system.register (box :> drawable);

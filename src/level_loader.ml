@@ -90,19 +90,12 @@ let draw_element id x y w h =
 
   | 24 -> 
     Gfx.debug "Create opening\n%!"; ignore (Opening.create "op1" (load_settings ()) 1);
-    let cam = Camera.create "position" in
-    cam#axis#set "xy";
-    cam#pos#set Vector.{x=0.; y=float (-Const.window_height)};
-    Global.init_camera cam
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
     block_size block_size 50. 0. (int_of_string (
       try (Hashtbl.find settings_table "level") 
       with Not_found -> failwith "Level not found")) None in
-    let cam = Camera.create "player" in
-    cam#axis#set "x";
-    Global.init_camera cam;
     Global.init_player player
 
   | 101 -> 
