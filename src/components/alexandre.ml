@@ -2,11 +2,10 @@ open Component_defs
 open System_defs
 open State
 
+
 let update_sword_anim alexandre i frame maxframe dir =
-  Texture.Color(Gfx.color 0 0 0 0)
-  (*
-  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/alexandre_attack.png"
-                                    with Not_found -> failwith "In alive.ml : Resource not found" ) in
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/knight_attack.png"
+                              with Not_found -> failwith "In alexandre.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/6) = 0 then
     i := !i+1;
@@ -15,81 +14,116 @@ let update_sword_anim alexandre i frame maxframe dir =
       Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
   else
     Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
-*)
 
-let alexandre_pattern alexandre (dt : float) = 
-  let playerpos = (Global.ply()) # pos # get in
-  if Vector.dist playerpos (alexandre#pos#get) < 50.0 (*&& alexandre # cooldown # get = 0*) then
-    ( if (State.get_state alexandre#state#get) = 0 then
-        (let i = ref (-1) in
-        (*alexandre # cooldown # set 20;*)
-         if alexandre#direction#get = 1. then
-           (alexandre#state#set (State.create_state 1 6 (update_sword_anim alexandre i));
-            alexandre#state_box#set (Some (Sword_box.create "sword" alexandre (30.) 0.)))
-         else
-           (alexandre#state#set (State.create_state 1 6 (update_sword_anim alexandre i));
-            alexandre#state_box#set (Some (Sword_box.create "sword" alexandre (-22.) 0.))))
-    )
+
+let alexandre_pattern alexandre dt = 
+
+  (* Case not alive : unregistered *)
+  if not (alexandre # alive) then begin
+    Real_time_system.unregister (alexandre:> real_time);
+    Force_system.unregister (alexandre:>collidable);
+    Draw_system.unregister (alexandre :> drawable);
+    Collision_system.unregister (alexandre:>collidable);
+    Move_system.unregister (alexandre :> movable);
+    View_system.unregister (alexandre :> drawable)
+  end
+
   else
-  if (Vector.dist playerpos (alexandre#pos#get) < 350.0) && (State.get_state alexandre#state#get) = 0 (*Avancer vers le joueur*)
-  then alexandre # velocity # set (Vector.mult (alexandre # direction # get) !Const.knight_vel) 
-  else alexandre # velocity # set (Vector.zero) ;
-  ()
+    (* Case alive *)
+    (* Get player position *)
+    let playerpos = (Global.ply ()) # pos # get in
 
-
-let alexandre_call alexandre () : unit =
-  if not (alexandre # alive) then  
-    (
-      Real_time_system.unregister (alexandre:> real_time);
-      Force_system.unregister (alexandre:>collidable);
-      Draw_system.unregister (alexandre :> drawable);
-      Collision_system.unregister (alexandre:>collidable);
-      Move_system.unregister (alexandre :> movable);
-      Ennemy_system.unregister (alexandre: Component_defs.alexandre :> mob);
-      View_system.unregister (alexandre :> drawable)
-    )
-  else
-    begin
+    (* get state *)
     let s = alexandre#state#get in
-      if s.kind = 1 then
-        (if s.curframe > 0 then
-          (alexandre#texture#set (s.update s.curframe s.maxframe (alexandre#direction#get)))
-        else if s.curframe = 0 then
-          (alexandre#texture#set (alexandre#anim_recover#get);
-          (match alexandre#state_box#get with
+
+    (* if attacking *)
+    if s.kind = 1 then begin
+      if s.curframe > 0 then
+        (alexandre#texture#set (s.update s.curframe s.maxframe (alexandre#direction#get)))
+      else if s.curframe = 0 then
+        (alexandre#texture#set (alexandre#anim_recover#get);
+         (match alexandre#state_box#get with
           | Some b -> b#remove_box#get (); alexandre#state_box#set None
           | None -> ());
-          s.kind <- 0);
-        s.curframe <- s.curframe - 1;
-        );
- 
-    (*if alexandre # cooldown # get > 0 then alexandre # cooldown # set (alexandre # cooldown # get -1);*)
-    let playerpos = (Global.ply())#pos#get in
-    Gfx.debug "Player pos : %f;%f \n %!" (playerpos.x) (playerpos.y);
-    if playerpos.x > (alexandre # pos#get ).x then
-      alexandre #direction # set 1.
-    else  
-      alexandre #direction #set (-1.)
-  end
-  
+         s.kind <- 0);
+      s.curframe <- s.curframe - 1
+    end
+
+    (* If not attacking *)
+    else begin
+      (* If close to the player : start attack *)
+      if Vector.dist playerpos (alexandre#pos#get) < 100.0 then begin
+        alexandre#anim_recover#set alexandre#texture#get;
+        let i = ref (-1) in
+        if alexandre#direction#get = 1. then
+          (alexandre#state#set (create_state 1 24 (update_sword_anim alexandre i));
+           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (30.) 0.)))
+        else
+          (alexandre#state#set (create_state 1 24 (update_sword_anim alexandre i));
+           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (-22.) 0.)))
+      end
+
+      else
+
+        let disttop = Vector.dist playerpos (alexandre#pos#get) in
+
+        (* Can see the player *)
+        if ( disttop < 750.0) then (
+          let f x = 0.14*.x -. 25. in
+          let randnum = Random.int 100 in
+          let attack = f disttop < float randnum in
+
+
+          (*Walk towards the player*)
+          if (not attack || disttop < 250.)  && abs (int_of_float ((Vector.get_x playerpos) -. (Vector.get_x alexandre#pos#get))) > 10 
+          then begin 
+
+            (* Walk animation *)
+            if Vector.get_x playerpos > (alexandre # pos # get ).x && alexandre#direction#get <> (1.) then begin
+              alexandre # texture # set (Hashtbl.find (alexandre # modifiable_texture # get) "texture_left_walk");
+              alexandre # direction # set 1.
+            end
+            else if Vector.get_x playerpos < (alexandre # pos # get ).x && alexandre#direction#get <> (-1.) then begin
+              alexandre # texture # set (Hashtbl.find (alexandre # modifiable_texture # get) "texture_right_walk");
+              alexandre # direction # set (-1.)
+            end;
+
+            Texture.pause_animation (alexandre#texture#get) false;
+            alexandre # velocity # set (Vector.mult (alexandre # direction # get) !Const.alexandre_vel) 
+          end
+
+          else if attack && dt -. Hashtbl.find (alexandre#cooldown#get) "fireball" > 1000. then begin
+            Hashtbl.replace (alexandre # cooldown # get) "fireball" dt;
+            let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
+              if alexandre#direction#get > 0. then (Vector.get_x alexandre#pos#get)+.(float (Rect.get_width alexandre#rect#get)) 
+              else (Vector.get_x alexandre#pos#get)-.128. in
+            (ignore (Bullet.create "player_fb" x 
+                       (Vector.get_y alexandre#pos#get+.50.) 128 50 (Const.bullet_speed *. alexandre#direction#get) 0.));
+          end
+
+        )
+        (* Wait *)
+        else begin
+          Texture.pause_animation (alexandre#texture#get) true;
+          alexandre#velocity#set ( Vector.{x=0.; y=(alexandre#velocity#get).y} ) 
+        end
+    end
+
 
 
 
 
 let alexandre_collision alexandre collide pos =
   if collide = "ground" then alexandre # grounded # set true;
-  if collide = "sword_left" || collide = "sword_right" then 
-    (alexandre # take_dmg Const.sword_damage);
-  if collide = "exclbr_mel" then alexandre # take_dmg Const.exclbr_mel_atk;
-  if collide = "alexandre_fb" then alexandre # take_dmg Const.fbdamage;
-  if collide = "exclbr_rgd" then alexandre # take_dmg Const.exclbr_rgd_atk
+  if collide = "sword" then
+    alexandre # take_dmg Const.sword_damage
 
 
 let create id x y w h texture  =
+  Random.self_init ();
   let alexandre = new alexandre in
   alexandre # pos # set Vector.{ x = float x; y = float y };
   alexandre # id # set id;
-  (*alexandre # pattern # set (alexandre_pattern alexandre);*)
   alexandre # grounded # set false;
   alexandre # hitbox_rect # set Rect.{width = w - 36; height =  h-18} ;
   alexandre # hitbox_position # set Vector.{x=18.;y=14.};
@@ -97,30 +131,23 @@ let create id x y w h texture  =
   alexandre # mass # set Const.alexandre_stats.mass;
   (
     match texture with 
-      None -> (*
-    let res =Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/alexandre.png" ) in
-    let ctx = Gfx.get_context (Global.window () )in
+      None -> 
+      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/knight_walk.png") in
+      let ctx = Gfx.get_context (Global.window ()) in
 
-    let reposG = Texture.anim_from_surface ctx res 1 64 64 64 64 60 1 in
-    let reposD = Texture.anim_from_surface ctx res 1 64 64 64 64 60 3 in
-    let attackG = Texture.anim_from_surface ctx res 12 64 64 64 64 60 1 in
-    let attackD = Texture.anim_from_surface ctx res 12 64 64 64 64 60 1 in
-    let h = Hashtbl.create 4 in
-    Hashtbl.replace h "textReposG" reposG;
-    Hashtbl.replace h "textReposD" reposD;
-    Hashtbl.replace h "textAttackG" attackG;
-    Hashtbl.replace h "textAttackD" attackD;
-    alexandre # modifiable_texture # set h;
-    alexandre # texture # set reposG
-    *)
-      alexandre # texture # set (Texture.color (Gfx.color 255 255 0 255))
-    | Some t -> alexandre # texture # set t
-  );
+      let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 
+      let texture2 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 1 in 
+      let h = Hashtbl.create 2 in
+      Hashtbl.replace h "texture_left_walk" texture1;
+      Hashtbl.replace h "texture_right_walk" texture2;
+      alexandre # modifiable_texture # set h;
+      alexandre # texture # set texture2
+    | Some t -> alexandre # texture # set t);
 
-  (* show hitbox *)
-  (*
-  ignore (Hitbox.create "alexandre" alexandre);
-  *)
+  (* shows hitbox 
+  ignore (Hitbox.create "alexandre" alexandre);*)
+  alexandre # cooldown # set (Hashtbl.create 2);
+  Hashtbl.add (alexandre # cooldown # get) "fireball" 0.;
   alexandre # elasticity # set Const.alexandre_stats.elas;
   alexandre # health # set Const.alexandre_stats.health;
   alexandre # damage # set Const.alexandre_stats.damage;
@@ -132,7 +159,6 @@ let create id x y w h texture  =
   Draw_system.register (alexandre :> drawable);
   Collision_system.register (alexandre:>collidable);
   Move_system.register (alexandre :> movable);
-  Ennemy_system.register (alexandre :> mob);
   View_system.register (alexandre :> drawable);
   Real_time_system.register(alexandre:> real_time);
   alexandre

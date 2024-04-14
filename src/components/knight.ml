@@ -24,7 +24,6 @@ let knight_pattern knight dt =
       Draw_system.unregister (knight :> drawable);
       Collision_system.unregister (knight:>collidable);
       Move_system.unregister (knight :> movable);
-      Ennemy_system.unregister (knight: Component_defs.knight :> mob);
       View_system.unregister (knight :> drawable)
   end
 
@@ -137,7 +136,7 @@ let create id x y w h texture  =
   knight # health # set Const.knight_stats.health;
   knight # damage # set Const.knight_stats.damage;
   knight # layer # set 9;
-  knight # direction # set (1.);
+  knight # direction # set (-1.);
   knight # real_time_fun # set (knight_pattern knight);
   knight # onCollideEvent # set (knight_collision knight);
   Force_system.register (knight:>collidable);

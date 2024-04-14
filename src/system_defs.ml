@@ -25,8 +25,6 @@ module Real_time_system = System.Make(Real_time)
 let () = System.register (module Real_time_system)
 (* Register the system globally *)
 
-module Ennemy_system = System.Make(Ennemy)
-let () = System.register (module Ennemy_system)
 
 module Force_system = System.Make(Force)
 (* Use a functor to define the new system *)

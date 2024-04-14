@@ -21,7 +21,7 @@ let load_settings () =
     link = (try Hashtbl.find settings_table "link" with Not_found -> "");
     animation = (try int_of_string (Hashtbl.find settings_table "animation") with Not_found -> 0);
     color = (let c = (try Hashtbl.find settings_table "color" with Not_found -> "black") in
-            try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255);
+       try Hashtbl.find colors c with Not_found -> Gfx.color 0 0 0 255);
     text = (try Hashtbl.find settings_table "text" with Not_found -> "");
     text_key = (try Hashtbl.find settings_table "text_key" with Not_found -> "");
     font = (try Hashtbl.find settings_table "font" with Not_found -> "");
@@ -43,40 +43,40 @@ let draw_element id x y w h =
   match id with
   | 0 ->
     ignore (Box.create "platform"
-    (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
+              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
 
   | 1 ->
     ignore (Jump_box.create "jump"
-    (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
-    (load_settings ()))
+              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
+              (load_settings ()))
 
   | 2 ->
     ignore (Box.create "death_box"
-    (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
-  
+              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
+
   | 3 -> 
     ignore (
-    Box.create "ground"
-    (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()));
-  
+      Box.create "ground"
+        (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()));
+
   | 4 ->
     ignore (Box.create "wall"
-    (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
+              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
 
   | 5 ->
     ignore (Decor.create "decor"
-    (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (load_settings ()))
+              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (load_settings ()))
 
   | 10 ->
     ignore ( Exit_box.create "exit" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
-    (load_settings ()) )
+               (load_settings ()) )
 
   | 19 ->
     ignore ( Text.create (x*block_size) (y*block_size) (w*block_size) (h*block_size) (load_settings ()) )
 
   | 20 ->
     ignore ( Button.create "button" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
-    (Gfx.color 0 0 0 255) (load_settings ()))
+               (Gfx.color 0 0 0 255) (load_settings ()))
 
   | 21 -> 
     let cam = Camera.create "position" in
@@ -93,16 +93,20 @@ let draw_element id x y w h =
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
-    block_size block_size 50. 0. (int_of_string (
-      try (Hashtbl.find settings_table "level") 
-      with Not_found -> failwith "Level not found")) None in
+        block_size block_size 50. 0. (int_of_string (
+            try (Hashtbl.find settings_table "level") 
+            with Not_found -> failwith "Level not found")) None in
     Global.init_player player
 
   | 101 -> 
     ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
-    
+
   | 102 -> 
-      ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
+    ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
+  
+    | 103 -> 
+    ignore(Alexandre.create "alexandre" (x*basic_block_w) (Const.window_height-y*basic_block_h) (block_size*2) (block_size*2) None)
+
 
   | 1000 ->
     let s = load_settings () in

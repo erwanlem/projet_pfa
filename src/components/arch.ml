@@ -26,7 +26,6 @@ let arch_pattern arch dt =
       Draw_system.unregister (arch :> drawable);
       Collision_system.unregister (arch:>collidable);
       Move_system.unregister (arch :> movable);
-      Ennemy_system.unregister (arch: Component_defs.arch :> mob);
       View_system.unregister (arch :> drawable)
     )
 
@@ -120,7 +119,7 @@ let create id x y w h texture =
   (* show hitbox *)
   ignore (Hitbox.create "archer" arch);
 
-  Hashtbl.replace arch#cooldown#get "attack" 0.;
+  Hashtbl.replace (arch#cooldown#get) "attack" 0.;
 
   arch # elasticity # set Const.arch_stats.elas;
   arch # health # set Const.arch_stats.health;

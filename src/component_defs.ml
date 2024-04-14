@@ -227,7 +227,7 @@ class cooldown =
 object 
   val cooldown = Component.def (Hashtbl.create 10 : (string, float) Hashtbl.t)
   method cooldown = cooldown
-  method cooldown_decr c = Hashtbl.iter (fun (k:string) v -> if v > -1 then Hashtbl.replace c k (v-1)) c
+  method cooldown_decr c = Hashtbl.iter (fun (k:string) v -> if v > (-1.) then Hashtbl.replace c k (v-.1.)) c
 end
 
 class mob =
@@ -239,8 +239,6 @@ class mob =
     inherit direction 
     inherit real_time
     inherit modifiable_texture
-    val pattern = Component.def (fun  (_:float)->())
-    method pattern = pattern
     inherit cooldown
     method alive = (health#get) > 0. 
     method take_dmg dmg = (Gfx.debug "Archer life = %f\n%!" (health#get); health#set ((health#get)-.dmg))
@@ -261,6 +259,7 @@ class arch=
 class alexandre=
   object
     inherit mob
+    inherit !state
   end
 
 
