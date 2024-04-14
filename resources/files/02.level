@@ -4,6 +4,8 @@
 
 100:2x4|0x0|level=1     # joueur
 
+24:0x0|0x0|level=2     # opening
+
 10:58x5|1x2|link=resources/files/03.level                                                     # fin niveau
 5:57x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
 

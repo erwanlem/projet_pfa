@@ -3,7 +3,7 @@
 3:0x3|44x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
 3:48x3|12x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
 
-24:0x0|0x0|     # opening
+24:0x0|0x0|level=1     # opening
 
 1:15x6|2x1|texture=resources/images/grass.png,texture_x=5,texture_y=0,texture_w=2,texture_h=1 # tremplin
 0:10x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1

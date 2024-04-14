@@ -89,7 +89,10 @@ let draw_element id x y w h =
   | 23 -> Gfx.debug "New Audio %s\n%!" (load_settings ()).track; ignore (Audio.create (load_settings ()).track)
 
   | 24 -> 
-    Gfx.debug "Create opening\n%!"; ignore (Opening.create "op1" (load_settings ()) 1);
+    let level = int_of_string (
+      try (Hashtbl.find settings_table "level") 
+      with Not_found -> failwith "Level not found") in
+    Gfx.debug "Create opening\n%!"; ignore (Opening.create "op1" (load_settings ()) level);
 
   | 100 ->
     let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
