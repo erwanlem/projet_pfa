@@ -100,7 +100,7 @@ let knight_collision knight collide pos =
   if collide = "sword" then
     knight # take_dmg Const.sword_damage;
   if collide = "exclbr_mel" then knight # take_dmg Const.exclbr_mel_atk;
-  if collide = "knight_fb" then knight # take_dmg Const.fbdamage;
+  if collide = "player_fb" then knight # take_dmg Const.fbdamage;
   if collide = "exclbr_rgd" then knight # take_dmg Const.exclbr_rgd_atk
 
 
@@ -125,7 +125,7 @@ let create id x y w h texture  =
       Hashtbl.replace h "texture_left_walk" texture1;
       Hashtbl.replace h "texture_right_walk" texture2;
       knight # modifiable_texture # set h;
-      knight # texture # set texture1
+      knight # texture # set texture2
   
     | Some t -> knight # texture # set t);
 

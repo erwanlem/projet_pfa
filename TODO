@@ -1,5 +1,5 @@
-[ ] alexandre complet
-[ ] skin ennemis - Ew
+[X] alexandre complet - Ew
+[X] skin ennemis - Ew
 [x] collision avec méchants - Er
 [x] mécanique téléporte - Er
 [x] gestion temps réel - Er
@@ -8,3 +8,4 @@
 [X] cooldown - Ew 
 [ ] menu - Er
 [x] personnage petit
+[ ] hpbar - Ew

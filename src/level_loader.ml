@@ -108,7 +108,8 @@ let draw_element id x y w h =
     ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
   
     | 103 -> 
-    ignore(Alexandre.create "alexandre" (x*basic_block_w) (Const.window_height-y*basic_block_h) (block_size*2) (block_size*2) None)
+    let a =Alexandre.create "alexandre" (x*basic_block_w) (Const.window_height-y*basic_block_h) (block_size*2) (block_size*2) None in
+    ignore(Hpbar.create "hpbar" (basic_block_w * 5) (Const.window_height-basic_block_h * 9) (block_size *10) (block_size/2) a )
 
 
   | 1000 ->

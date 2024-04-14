@@ -16,6 +16,8 @@ let dist a b =
 let get_x vect = vect.x
 let get_y vect = vect.y
 
+let addX {x; y} nx = {x = x+.nx; y}
+
 let clamp vect min max =
   let {x;y} = vect in
   let x = if x > max then max else (if x < min then min else x) in

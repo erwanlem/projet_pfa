@@ -2,7 +2,7 @@
 
 100:2x4|0x0|level=3     # joueur
 
-24:0x0|0x0|level=4     # opening
+#24:0x0|0x0|level=4     # opening
 
 10:58x5|1x2|link=resources/files/menu.level     # bloc sortie
 

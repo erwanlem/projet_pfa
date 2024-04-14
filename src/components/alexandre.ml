@@ -4,16 +4,16 @@ open State
 
 
 let update_sword_anim alexandre i frame maxframe dir =
-  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/knight_attack.png"
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/boss.png"
                               with Not_found -> failwith "In alexandre.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
-  if frame mod (maxframe/6) = 0 then
+  if frame mod (maxframe/8) = 0 then
     i := !i+1;
   if dir = -1. then
     (
-      Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
+      Texture.image_from_surface ctx res (364*(!i)) (364*2) 364 364 64 64)
   else
-    Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
+    Texture.image_from_surface ctx res (364*(!i)) (3*364) 364 364 64 64
 
 
 let alexandre_pattern alexandre dt = 
@@ -52,15 +52,15 @@ let alexandre_pattern alexandre dt =
     (* If not attacking *)
     else begin
       (* If close to the player : start attack *)
-      if Vector.dist playerpos (alexandre#pos#get) < 100.0 then begin
+      if Vector.dist (Vector.addX playerpos 32.) (Vector.addX alexandre#pos#get 64.) < 110.0 then begin
         alexandre#anim_recover#set alexandre#texture#get;
         let i = ref (-1) in
         if alexandre#direction#get = 1. then
           (alexandre#state#set (create_state 1 24 (update_sword_anim alexandre i));
-           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (30.) 0.)))
+           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (30.) 0. ~alex:true)))
         else
           (alexandre#state#set (create_state 1 24 (update_sword_anim alexandre i));
-           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (-22.) 0.)))
+           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (-22.) 0. ~alex:true)))
       end
 
       else
@@ -97,7 +97,7 @@ let alexandre_pattern alexandre dt =
             let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
               if alexandre#direction#get > 0. then (Vector.get_x alexandre#pos#get)+.(float (Rect.get_width alexandre#rect#get)) 
               else (Vector.get_x alexandre#pos#get)-.128. in
-            (ignore (Bullet.create "player_fb" x 
+            (ignore (Bullet.create "alexandre_fb" x 
                        (Vector.get_y alexandre#pos#get+.50.) 128 50 (Const.bullet_speed *. alexandre#direction#get) 0.));
           end
 
@@ -115,6 +115,7 @@ let alexandre_pattern alexandre dt =
 
 let alexandre_collision alexandre collide pos =
   if collide = "ground" then alexandre # grounded # set true;
+  if collide = "player_fb" then alexandre # take_dmg Const.fbdamage;
   if collide = "sword" then
     alexandre # take_dmg Const.sword_damage
 
@@ -132,11 +133,11 @@ let create id x y w h texture  =
   (
     match texture with 
       None -> 
-      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/knight_walk.png") in
+      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/boss.png") in
       let ctx = Gfx.get_context (Global.window ()) in
 
-      let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 
-      let texture2 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 1 in 
+      let texture1 = Texture.anim_from_surface ctx res 8 364 364 64 64 3 1 in 
+      let texture2 = Texture.anim_from_surface ctx res 8 364 364 64 64 3 0 in 
       let h = Hashtbl.create 2 in
       Hashtbl.replace h "texture_left_walk" texture1;
       Hashtbl.replace h "texture_right_walk" texture2;

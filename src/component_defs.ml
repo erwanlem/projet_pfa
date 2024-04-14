@@ -9,10 +9,10 @@ class position =
   end
 
 class damage = 
-object 
-  val damage = Component.def 0.
-  method damage = damage
-end 
+  object 
+    val damage = Component.def 0.
+    method damage = damage
+  end 
 
 
 class anim_recover =
@@ -145,7 +145,7 @@ class hitbox_display =
     method hitbox_display = hitbox_display
   end
 
-  (* Disable collision repultion *)
+(* Disable collision repultion *)
 class isTransparent =
   object
     val isTransparent = Component.def false
@@ -224,11 +224,11 @@ class real_time =
   end
 
 class cooldown =
-object 
-  val cooldown = Component.def (Hashtbl.create 10 : (string, float) Hashtbl.t)
-  method cooldown = cooldown
-  method cooldown_decr c = Hashtbl.iter (fun (k:string) v -> if v > (-1.) then Hashtbl.replace c k (v-.1.)) c
-end
+  object 
+    val cooldown = Component.def (Hashtbl.create 10 : (string, float) Hashtbl.t)
+    method cooldown = cooldown
+    method cooldown_decr c = Hashtbl.iter (fun (k:string) v -> if v > (-1.) then Hashtbl.replace c k (v-.1.)) c
+  end
 
 class mob =
   object 
@@ -242,7 +242,7 @@ class mob =
     inherit cooldown
     method alive = (health#get) > 0. 
     method take_dmg dmg = (Gfx.debug "Archer life = %f\n%!" (health#get); health#set ((health#get)-.dmg))
-                          
+
   end 
 
 class knight=
@@ -260,6 +260,25 @@ class alexandre=
   object
     inherit mob
     inherit !state
+  end
+
+class hpbar = 
+  object
+    inherit id
+    inherit hitbox
+    inherit real_time
+    inherit drawable
+    method updatew p = 
+      let r = (rect # get) in
+      (rect # set (Rect.{width = p; height =r.height}))
+    val totw =Component.def 0
+    val master  = Component.def (None : alexandre option)
+    method master = master
+    method totw = totw
+    method master_hp = 
+      match master # get with 
+        None-> assert false
+      |Some(m) -> m # health # get
   end
 
 

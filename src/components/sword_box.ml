@@ -15,12 +15,14 @@ let collision_function sword collide pos =
 
 
 
-let create id master_obj x y =
+let create ?(alex=false) id master_obj x y =
+  let dim = ref Rect.{width = 18 ; height = 20} in
   let box = new state_box in
   box # set_mutable_pos master_obj#pos;
   box # hitbox_position # set (Vector.add master_obj#hitbox_position#get Vector.{x;y});
-  box # hitbox_rect # set Rect.{width=18;height=40};
-  box # rect # set Rect.{width=18;height=40};
+  if alex then dim := Rect.{width = 36; height = 128} ;
+  box # hitbox_rect # set !dim;
+  box # rect # set !dim;
   box # id # set id;
   box # hitbox_display # set (Vector.add (master_obj#hitbox_position # get) Vector.{x;y});
   box # mass # set 1.;
