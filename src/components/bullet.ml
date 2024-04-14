@@ -4,7 +4,7 @@ open System_defs
 let bullet_collide bullet collide pos =
   (* Détruire *)
   if not (collide = "vs") then(
-  Gfx.debug "Destroy bullet with %s\n%!" collide;
+  (*Gfx.debug "Destroy bullet with %s\n%!" collide;*)
   Force_system.unregister (bullet :> collidable);
   Draw_system.unregister (bullet :> drawable);
   Collision_system.unregister (bullet :> collidable);

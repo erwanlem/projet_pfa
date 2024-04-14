@@ -241,7 +241,7 @@ class mob =
     inherit modifiable_texture
     inherit cooldown
     method alive = (health#get) > 0. 
-    method take_dmg dmg = (Gfx.debug "Archer life = %f\n%!" (health#get); health#set ((health#get)-.dmg))
+    method take_dmg dmg = (health#set ((health#get)-.dmg))
 
   end 
 

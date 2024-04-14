@@ -21,6 +21,7 @@ let update_sword_anim player i frame maxframe dir =
 
 
 let player_framed_call player _ : unit =
+  player # cooldown_decr (player # cooldown # get); 
   let s = player#state#get in
     if s.kind = 1 then
       (if s.curframe > 0 then
@@ -77,7 +78,9 @@ let player_control player keys =
 
 
   (* Shoot *)
-  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space then begin
+  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && 
+    Hashtbl.find (player#cooldown#get) "fireball" < 1. then begin
+      Hashtbl.replace (player # cooldown # get) "fireball" 120.;
     let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.64. in
@@ -187,6 +190,7 @@ let create id x y w h mass elas lvl texture =
   player # spawn_position # set Vector.{x = float x;y = float y};
   player # camera_position # set Vector.{ x = float x; y = float y };
 
+  Hashtbl.replace (player # cooldown # get) "fireball" 0.; 
 
   (* Enregistrement dans les systèmes *)
   Force_system.register (player:>collidable);

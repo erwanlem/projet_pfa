@@ -4,9 +4,7 @@ open System_defs
 let real_time_f bar (dt : float) =
   let percentage = bar # master_hp  /. Const.alexandre_stats.health in
   let w = int_of_float ((float bar # totw # get) *. percentage) in
-  bar # updatew w;
-  let r:Rect.t = bar # rect # get in
-  Gfx.debug "rect: %d;%d\n%!" (r.width) (r.height)
+  bar # updatew w
 
 
 let create id x y w h alex=
