@@ -55,4 +55,6 @@ let () = System.register (module Draw_system)
 
 
 let reset_systems () =
+  Control.disable := false;
+  (Global.camera ())#pos#set Vector.zero;
   System.remove_all ()

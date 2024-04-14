@@ -33,7 +33,6 @@ let update _dt el =
     else
       (* Move camera without the focus on the player *)
       if camera#focus#get = "position" then begin
-        Gfx.debug "%a\n%!" Vector.pp camera_pos;
       let Vector.{x; y} = m # pos # get in
 
       let new_x, new_y =

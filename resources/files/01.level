@@ -37,10 +37,10 @@
 
 
 # parallax background
-5:0x18|60x24|texture=resources/images/layer-1.png,texture_w=48,texture_h=24,layer=0,parallax=0.0 # background
-5:0x18|60x24|texture=resources/images/layer-6.png,texture_w=48,texture_h=24,layer=1,parallax=0.1 # background
-5:0x18|60x24|texture=resources/images/layer-2.png,texture_w=48,texture_h=24,layer=2,parallax=0.4 # background
-5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=3,parallax=0.5 # background
+5:0x18|60x24|texture=resources/images/layer-1.png,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
+5:0x18|60x24|texture=resources/images/layer-6.png,texture_w=48,texture_h=24,layer=2,parallax=0.1 # background
+5:0x18|60x24|texture=resources/images/layer-2.png,texture_w=48,texture_h=24,layer=3,parallax=0.4 # background
+5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=4,parallax=0.5 # background
 
 23:0x0|0x0|track=track2
 

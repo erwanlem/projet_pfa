@@ -61,6 +61,7 @@ let onAction key =
 
 let create () =
   let box = new controlable in
+  box # id # set "superuser";
   box # pos # set Vector.{ x = 0.; y = 0. };
   box # rect # set Rect.{width = 0; height = 0};
   box # control # set (onAction);

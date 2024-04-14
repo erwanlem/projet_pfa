@@ -13,7 +13,7 @@ let cfg = Config.get_config ()
 let update dt el =
   let () = match Gfx.poll_event () with
     Gfx.NoEvent -> ()
-    | Gfx.KeyDown s -> Gfx.debug "%s\n%!" s;
+    | Gfx.KeyDown s -> (*Gfx.debug "%s\n%!" s;*)
                 if Hashtbl.mem keys s then ()
                 else Hashtbl.replace keys s true
     | Gfx.KeyUp s -> Hashtbl.remove keys s
@@ -21,8 +21,8 @@ let update dt el =
     | Gfx.MouseButton (b, false, x, y) -> Hashtbl.remove keys "mouse1"
     | _ -> ()
   in
-  if not !disable then
-    Seq.iter (fun m ->
-        let control_fun = m # control # get in
-        control_fun keys;
-      ) el
+  Seq.iter (fun m ->
+    if not !disable || m#id#get = "superuser" then
+      let control_fun = m # control # get in
+      control_fun keys;
+    ) el

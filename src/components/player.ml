@@ -159,7 +159,8 @@ let create id x y w h mass elas lvl texture =
     Hashtbl.replace h "texture_left_attack" texture3;
     Hashtbl.replace h "texture_right_attack" texture4;
     player # modifiable_texture # set h;
-    player # texture # set texture1
+    player # texture # set texture1;
+    Texture.pause_animation (player#texture#get) true
 
   | Some t -> player # texture # set t);
 
