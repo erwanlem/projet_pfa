@@ -9,7 +9,8 @@ let game_audio = ref None
 let text_resources = Hashtbl.create 10
 
 let input_files = ["resources/files/menu.level"; "resources/files/01.level"; "resources/files/02.level"; "resources/files/03.level";
-              "resources/files/04.level"; "resources/files/opening1.level"]
+              "resources/files/04.level"; "resources/files/opening1.level"; "resources/files/opening3.level"; 
+              "resources/files/opening2.level"; "resources/files/opening4.level"]
 
 let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"; "resources/images/grass.png"; 
                   "resources/images/night.png"; "resources/images/snow.png"; "resources/images/menu_image.jpg";
@@ -21,7 +22,8 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
                   "resources/images/snow_layer2.png"; "resources/images/night/night-layer1.png";
                   "resources/images/night/night-layer4.png"; "resources/images/night/night-layer3.png";
                   "resources/images/night/night-layer0.jpg"; "resources/images/knight_walk.png";
-                  "resources/images/knight_attack.png"; "resources/images/op1.png"]
+                  "resources/images/knight_attack.png"; "resources/images/op1.png"; "resources/images/op2.png"; 
+                  "resources/images/op3.png"]
 
 let audio_input = ["resources/audio/tkucza-happyflutes.mp3"; "resources/audio/The_Bards_Tale_.mp3";
                    "resources/audio/Tavern-Brawl.mp3"; "resources/audio/Lord-McDeath.mp3"; 

@@ -2,6 +2,8 @@
 
 100:2x4|0x0|level=3     # joueur
 
+24:0x0|0x0|level=4     # opening
+
 10:58x5|1x2|link=resources/files/menu.level     # bloc sortie
 
 4:-1x18|1x15|    # mur gauche
@@ -17,10 +19,10 @@
 5:11x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=5
 
 
-5:0x18|60x24|texture=resources/images/night/night-layer0.jpg,texture_w=48,texture_h=24,layer=0,parallax=0.0 # background
-5:0x9|27x5|texture=resources/images/night/night-layer1.png,texture_w=27,texture_h=5,layer=2,parallax=0.1 # background
-5:0x10|54x7|texture=resources/images/night/night-layer4.png,texture_w=27,texture_h=7,layer=3,parallax=0.3 # background
-5:0x10|54x8|texture=resources/images/night/night-layer3.png,texture_w=27,texture_h=8,layer=4,parallax=0.6 # background
+5:0x18|60x24|texture=resources/images/night/night-layer0.jpg,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
+5:0x9|27x5|texture=resources/images/night/night-layer1.png,texture_w=27,texture_h=5,layer=3,parallax=0.1 # background
+5:0x10|54x7|texture=resources/images/night/night-layer4.png,texture_w=27,texture_h=7,layer=4,parallax=0.3 # background
+5:0x10|54x8|texture=resources/images/night/night-layer3.png,texture_w=27,texture_h=8,layer=5,parallax=0.6 # background
 
 23:0x0|0x0|track=track5 # audio
 

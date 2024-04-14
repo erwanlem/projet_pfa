@@ -35,19 +35,31 @@ let create id settings nbr =
 
   let height = (font_size+h_space) * List.length line in
 
+  (* Create the background of the opening *)
   let background = new box in
-  background#pos#set Vector.{ x = 0.; y = float (-height) };
-  background#rect#set Rect.{width = block_size * 20; height = height};
+  background#pos#set Vector.{ x = 0.; y = float (-height-Const.window_height) };
+  background#rect#set Rect.{width = block_size * 20; height = height+Const.window_height};
   background#layer#set 0;
   let surf_back = Gfx.create_surface ctx (Rect.get_width background#rect#get) height in
-  let back = try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/op1.png") 
-            with Not_found -> failwith "Background not found" in
+  let back =
+    if nbr = 1 || nbr = 2 then
+      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/op1.png") 
+              with Not_found -> failwith "Background not found")
+    else if nbr = 3 then
+      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/op2.png") 
+      with Not_found -> failwith "Background not found") 
+    else if nbr = 4 then
+      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/op3.png") 
+      with Not_found -> failwith "Background not found") 
+    else failwith "Invalid opening id"
+  in
   Gfx.blit_scale ctx surf_back back 0 0 (Rect.get_width background#rect#get) height;
   background#texture#set (Image surf_back);
 
   Draw_system.register (background :> drawable);
   View_system.register (background :> drawable);
 
+  (* Text of the opening *)
   let box = new opening in
   box # pos # set Vector.{ x = 0.; y = float (-height) };
   box # rect # set Rect.{width = block_size * 20; height = height};
@@ -70,9 +82,10 @@ let create id settings nbr =
 
   box#real_time_fun#set (move_cam box background);
 
+  (* Place camera for the opening *)
   let cam = Camera.create "position" in
   cam#axis#set "xy";
-  cam#pos#set Vector.{ x = 0.; y = float (-height) };
+  cam#pos#set Vector.{ x = 0.; y = float (-height-Const.window_height) };
   Global.init_camera cam;
 
   Control.disable := true;
