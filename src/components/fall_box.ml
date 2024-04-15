@@ -3,9 +3,28 @@ open System_defs
 open Const
 
 
+(* Saves states of fall_box instances *)
+let save_box = Hashtbl.create 2
+
+let remove_fall_box () =
+  Gfx.debug "REMOVE\n%!";
+  Hashtbl.clear save_box
+
+let reset_fall_box_position () =
+  Gfx.debug "RESET\n%!";
+  Hashtbl.iter (
+    fun k (x, y) -> 
+      k#pos#set Vector.{x;y};
+      k#mass#set infinity;
+      k#velocity#set Vector.zero
+      ) save_box
+
+
 let onCollide box collide pos =
-  if collide = "player" then
+  if collide = "player" then begin
+    box#pushable#set false;
     box#mass#set 1000.
+  end
 
 
 
@@ -35,6 +54,10 @@ let create id x y w h mass settings =
   box # elasticity # set 0.;
   box # camera_position # set Vector.{ x = float x; y = float y };
   box # onCollideEvent # set (onCollide box);
+
+  (* Save to reset origin state *)
+  Hashtbl.replace save_box box (float x, float y);
+
   Force_system.register (box:>collidable);
   Draw_system.register (box :> drawable);
   Collision_system.register (box:>collidable);

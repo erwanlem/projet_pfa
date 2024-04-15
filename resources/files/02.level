@@ -18,7 +18,7 @@
 
 0:33x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 3
 
-0:40x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 4
+6:40x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 4
 
 2:30x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:31x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse

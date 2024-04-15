@@ -35,10 +35,11 @@ let player_framed_call player _ : unit =
       s.curframe <- s.curframe - 1;
       );
       
-    if player#health#get <= 0.0 then 
-      (player#pos#set (player#spawn_position#get);
+    if player#health#get <= 0.0 then begin
+      Fall_box.reset_fall_box_position ();
+      player#pos#set (player#spawn_position#get);
       player#health#set Const.player_health
-    )
+    end
 
 
 

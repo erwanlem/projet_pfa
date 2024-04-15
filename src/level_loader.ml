@@ -161,6 +161,7 @@ let read_line line =
 
 (* Charge le fichier au chemin donné en paramètre et renvoie la liste des lignes *)
 let load_map (map : string) =
+  Fall_box.remove_fall_box ();
   let l = try (Hashtbl.find (Resources.get_resources ()) map) with Not_found -> failwith "Map not found\n" in
   let l = Gfx.get_resource l in
   let l = String.split_on_char '\n' l in
