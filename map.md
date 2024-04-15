@@ -30,6 +30,7 @@ Les lignes ont la structure suivante:
 |101|Archer| Permet de créer un ennemi de type archer| - |
 |102|Knight| Création d'un chevalier| - |
 |103|Alexandre| Création du boss final| - |
+|200|Medkit| Création d'un élément de soin | - |
 |1000|Définition de paramètres|Définir une configuration personnalisé pour un niveau|`width` la largeur en blocs de la map|
 
 
