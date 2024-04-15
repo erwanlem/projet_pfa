@@ -152,6 +152,12 @@ class isTransparent =
     method isTransparent = isTransparent
   end
 
+class pushable =
+  object
+    val pushable = Component.def true
+    method pushable = pushable
+  end
+
 (* Some complex components *)
 
 class collidable =
@@ -167,6 +173,7 @@ class collidable =
     inherit onCollideEvent
     inherit isTransparent
     inherit hitbox
+    inherit pushable
   end
 
 class drawable =

@@ -12,7 +12,7 @@ let bullet_collide bullet collide pos =
   View_system.unregister (bullet :> drawable))
 
 
-let create id x y w h dir_x dir_y =
+let create ?(color=1) id x y w h dir_x dir_y =
   let box = new box in
   box # pos # set Vector.{ x;y };
   box # rect # set Rect.{width = w; height = h};
@@ -24,7 +24,11 @@ let create id x y w h dir_x dir_y =
   box # camera_position # set Vector.{ x; y };
   box # layer # set 9;
 
-  let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame.png") in
+  let res =
+  if color = 1 then
+    Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame.png")
+  else
+    Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame2.png") in
   let ctx = Gfx.get_context (Global.window ()) in
 
   let texture = 

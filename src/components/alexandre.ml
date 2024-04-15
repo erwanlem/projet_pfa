@@ -11,9 +11,9 @@ let update_sword_anim alexandre i frame maxframe dir =
     i := !i+1;
   if dir = -1. then
     (
-      Texture.image_from_surface ctx res (364*(!i)) (364*2) 364 364 64 64)
+      Texture.image_from_surface ctx res (364*(!i)) (364*2) 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get))
   else
-    Texture.image_from_surface ctx res (364*(!i)) (3*364) 364 364 64 64
+    Texture.image_from_surface ctx res (364*(!i)) (3*364) 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get)
 
 
 let alexandre_pattern alexandre dt = 
@@ -56,10 +56,10 @@ let alexandre_pattern alexandre dt =
         alexandre#anim_recover#set alexandre#texture#get;
         let i = ref (-1) in
         if alexandre#direction#get = 1. then
-          (alexandre#state#set (create_state 1 24 (update_sword_anim alexandre i));
+          (alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
            alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (30.) 0. ~alex:true)))
         else
-          (alexandre#state#set (create_state 1 24 (update_sword_anim alexandre i));
+          (alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
            alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (-22.) 0. ~alex:true)))
       end
 
@@ -98,7 +98,7 @@ let alexandre_pattern alexandre dt =
               if alexandre#direction#get > 0. then (Vector.get_x alexandre#pos#get)+.(float (Rect.get_width alexandre#rect#get)) 
               else (Vector.get_x alexandre#pos#get)-.128. in
             (ignore (Bullet.create "alexandre_fb" x 
-                       (Vector.get_y alexandre#pos#get+.50.) 128 50 (Const.bullet_speed *. alexandre#direction#get) 0.));
+                       (Vector.get_y alexandre#pos#get+.50.) 128 50 (Const.bullet_speed *. alexandre#direction#get) 0. ~color:2));
           end
 
         )
@@ -116,6 +116,7 @@ let alexandre_pattern alexandre dt =
 let alexandre_collision alexandre collide pos =
   if collide = "ground" then alexandre # grounded # set true;
   if collide = "player_fb" then alexandre # take_dmg Const.fbdamage;
+  if collide = "player" then alexandre#pushable#set false;
   if collide = "sword" then
     alexandre # take_dmg Const.sword_damage
 
@@ -126,8 +127,8 @@ let create id x y w h texture  =
   alexandre # pos # set Vector.{ x = float x; y = float y };
   alexandre # id # set id;
   alexandre # grounded # set false;
-  alexandre # hitbox_rect # set Rect.{width = w - 36; height =  h-18} ;
-  alexandre # hitbox_position # set Vector.{x=18.;y=14.};
+  alexandre # hitbox_rect # set Rect.{width = w - 56; height =  h-18} ;
+  alexandre # hitbox_position # set Vector.{x=28.;y=14.};
   alexandre # rect # set Rect.{width = w; height = h};
   alexandre # mass # set Const.alexandre_stats.mass;
   (
@@ -136,8 +137,8 @@ let create id x y w h texture  =
       let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/boss.png") in
       let ctx = Gfx.get_context (Global.window ()) in
 
-      let texture1 = Texture.anim_from_surface ctx res 8 364 364 64 64 3 1 in 
-      let texture2 = Texture.anim_from_surface ctx res 8 364 364 64 64 3 0 in 
+      let texture1 = Texture.anim_from_surface ctx res 8 364 364 w w 3 1 in 
+      let texture2 = Texture.anim_from_surface ctx res 8 364 364 w w 3 0 in 
       let h = Hashtbl.create 2 in
       Hashtbl.replace h "texture_left_walk" texture1;
       Hashtbl.replace h "texture_right_walk" texture2;
@@ -145,10 +146,15 @@ let create id x y w h texture  =
       alexandre # texture # set texture2
     | Some t -> alexandre # texture # set t);
 
-  (* shows hitbox 
-  ignore (Hitbox.create "alexandre" alexandre);*)
+    
+  (* shows hitbox *)
+  ignore (Hitbox.create "alexandre" alexandre);
+
+
   alexandre # cooldown # set (Hashtbl.create 2);
   Hashtbl.add (alexandre # cooldown # get) "fireball" 0.;
+
+
   alexandre # elasticity # set Const.alexandre_stats.elas;
   alexandre # health # set Const.alexandre_stats.health;
   alexandre # damage # set Const.alexandre_stats.damage;
@@ -156,6 +162,8 @@ let create id x y w h texture  =
   alexandre # direction # set (-1.);
   alexandre # real_time_fun # set (alexandre_pattern alexandre);
   alexandre # onCollideEvent # set (alexandre_collision alexandre);
+
+
   Force_system.register (alexandre:>collidable);
   Draw_system.register (alexandre :> drawable);
   Collision_system.register (alexandre:>collidable);

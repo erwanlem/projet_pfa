@@ -97,6 +97,7 @@ let knight_pattern knight dt =
 
 let knight_collision knight collide pos =
   if collide = "ground" then knight # grounded # set true;
+  if collide = "player" then knight # pushable # set false;
   if collide = "sword" then
     knight # take_dmg Const.sword_damage;
   if collide = "exclbr_mel" then knight # take_dmg Const.exclbr_mel_atk;

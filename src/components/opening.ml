@@ -15,7 +15,7 @@ let move_cam opening background _ =
     View_system.unregister (background :> drawable);
   end
   else
-    cam#pos#set Vector.{x=x;y=y+.1.}
+    cam#pos#set Vector.{x=x;y=y+.0.9}
 
 
 

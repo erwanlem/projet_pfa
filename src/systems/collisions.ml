@@ -106,8 +106,16 @@ let update _dt el =
               let new_v2 = Vector.clamp new_v2 (-0.6*.Const.force_const) (0.6*.Const.force_const) in 
 
               (* [9] mise à jour des vitesses *)
-              e1#velocity#set new_v1;
-              e2#velocity#set new_v2
+              if e1#pushable#get then
+                e1#velocity#set new_v1
+              else
+                e1#pushable#set true;
+
+              if e2#pushable#get then
+                e2#velocity#set new_v2
+              else
+                e2#pushable#set true
+                
             end
             end
           end)

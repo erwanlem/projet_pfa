@@ -80,6 +80,7 @@ else
     
 let arch_collision arch collide pos =
   if collide = "ground" then arch # grounded # set true;
+  if collide = "player" then arch # pushable # set false;
   if collide = "sword_left" || collide = "sword_right" then 
     (arch # take_dmg Const.sword_damage; Gfx.debug "COLLIDE SWORD\n%!");
   if collide = "exclbr_mel" then arch # take_dmg Const.exclbr_mel_atk;

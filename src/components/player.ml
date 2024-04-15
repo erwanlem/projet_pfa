@@ -168,7 +168,7 @@ let create id x y w h mass elas lvl texture =
   | Some t -> player # texture # set t);
 
   (* Hitbox *)
-  (*ignore (Hitbox.create "player" player);*)
+  ignore (Hitbox.create "player" player);
 
   Hashtbl.replace player#cooldown#get "attack1" 0.;
   Hashtbl.replace player#cooldown#get "attack2" 0.;
