@@ -25,10 +25,10 @@ let onAction key =
     Gfx.debug "Switch 4\n%!";
     reset_systems ();
     Global.set_level "resources/files/04.level" end;
-  if Hashtbl.mem key "a" then begin
+  if Hashtbl.mem key "u" then begin
     Const.horz_vel := Vector.{x= Vector.get_x !Const.horz_vel +. 0.01 ; y= Vector.get_y !Const.horz_vel };
     Gfx.debug "Velocity = %a\n%!" Vector.pp (!Const.horz_vel) end;
-  if Hashtbl.mem key "q" then begin
+  if Hashtbl.mem key "j" then begin
     Const.horz_vel := Vector.{x= Vector.get_x !Const.horz_vel -. 0.01 ; y= Vector.get_y !Const.horz_vel };
     Gfx.debug "Velocity = %a\n%!" Vector.pp (!Const.horz_vel) end;
   if Hashtbl.mem key "p" then begin

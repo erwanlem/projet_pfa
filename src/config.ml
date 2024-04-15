@@ -11,20 +11,20 @@ type config = {
 }
 
 
-let js = {  key_left = "ArrowLeft"; 
-            key_right = "ArrowRight"; 
-            key_up = "ArrowUp";
-            key_down = "ArrowDown";
-            key_space = "Control";
-            key_return = "Enter";
+let js = {  key_left = "q"; 
+            key_right = "d"; 
+            key_up = " ";
+            key_down = "s";
+            key_space = "Shift";
+            key_return = "e";
             key_teleport = "c"; }
 
-let sdl = { key_left = "left";
-            key_right = "right";
-            key_up = "up";
-            key_down = "down";
-            key_space = "space";
-            key_return="return";
+let sdl = { key_left = "q";
+            key_right = "d";
+            key_up = "space";
+            key_down = "s";
+            key_space = "f";
+            key_return="e";
             key_teleport = "c"}
 
 

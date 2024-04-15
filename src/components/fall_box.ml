@@ -7,11 +7,9 @@ open Const
 let save_box = Hashtbl.create 2
 
 let remove_fall_box () =
-  Gfx.debug "REMOVE\n%!";
   Hashtbl.clear save_box
 
 let reset_fall_box_position () =
-  Gfx.debug "RESET\n%!";
   Hashtbl.iter (
     fun k (x, y) -> 
       k#pos#set Vector.{x;y};

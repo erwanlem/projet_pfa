@@ -7,11 +7,9 @@ open Const
 let save_box = Hashtbl.create 2
 
 let remove_hide_box () =
-  Gfx.debug "REMOVE\n%!";
   Hashtbl.clear save_box
 
 let reset_hide_box () =
-  Gfx.debug "RESET\n%!";
   Hashtbl.iter (
     fun k _ -> 
       Draw_system.unregister (k :> drawable);

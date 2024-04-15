@@ -22,6 +22,14 @@ let update_sword_anim player i frame maxframe dir =
 
 let player_framed_call player _ : unit =
   player # cooldown_decr (player # cooldown # get); 
+  if Hashtbl.find (player#cooldown#get) "teleport" > 190. then begin
+    if (player # direction # get) = (1.) then
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=5.; y=0.})
+    else
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-5.); y=0.})
+  end;
+
+
   let s = player#state#get in
     if s.kind = 1 then
       (if s.curframe > 0 then
@@ -70,7 +78,9 @@ let player_control player keys =
     player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
   (* Teleport *)
-  if Hashtbl.mem keys cfg.key_teleport then begin
+  if Hashtbl.mem keys cfg.key_teleport && 
+    Hashtbl.find (player#cooldown#get) "teleport" < 1. then begin
+    Hashtbl.replace (player # cooldown # get) "teleport" 200.;
     if (player # direction # get) = (1.) then begin
       player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=5.; y=0.});
     end
@@ -82,7 +92,7 @@ let player_control player keys =
   (* Shoot *)
   if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && 
     Hashtbl.find (player#cooldown#get) "fireball" < 1. then begin
-      Hashtbl.replace (player # cooldown # get) "fireball" 120.;
+      Hashtbl.replace (player # cooldown # get) "fireball" 100.;
     let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
       else (Vector.get_x player#pos#get)-.64. in
