@@ -72,6 +72,11 @@ let draw_element id x y w h =
               (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
               (load_settings ()))
 
+  | 7 ->
+    ignore (Hide_box.create "platform"
+              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
+              (load_settings ()))
+
   | 10 ->
     ignore ( Exit_box.create "exit" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
                (load_settings ()) )
@@ -112,9 +117,9 @@ let draw_element id x y w h =
   | 102 -> 
     ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
   
-    | 103 -> 
-    let a =Alexandre.create "alexandre" (x*basic_block_w) (Const.window_height-y*basic_block_h) (block_size*2) (block_size*2) None in
-    ignore(Hpbar.create "hpbar" (basic_block_w * 5) (Const.window_height-basic_block_h * 9) (block_size *10) (block_size/4) a )
+  | 103 -> 
+  let a =Alexandre.create "alexandre" (x*basic_block_w) (Const.window_height-y*basic_block_h) (block_size*2) (block_size*2) None in
+  ignore(Hpbar.create "hpbar" (basic_block_w * 5) (Const.window_height-basic_block_h * 9) (block_size *10) (block_size/4) a )
 
 
   | 1000 ->
@@ -162,6 +167,7 @@ let read_line line =
 (* Charge le fichier au chemin donné en paramètre et renvoie la liste des lignes *)
 let load_map (map : string) =
   Fall_box.remove_fall_box ();
+  Hide_box.remove_hide_box ();
   let l = try (Hashtbl.find (Resources.get_resources ()) map) with Not_found -> failwith "Map not found\n" in
   let l = Gfx.get_resource l in
   let l = String.split_on_char '\n' l in

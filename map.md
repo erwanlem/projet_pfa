@@ -17,11 +17,20 @@ Les lignes ont la structure suivante:
 |3|Sol| Un bloc utilisé pour le sol| - |
 |4|Mur| Un bloc permettant de créer un mur| - |
 |5|Element de décor| Crée un élément de décor qui n'a aucun effet sur le joueur| - |
+|6|Fall box|La box tombe par gravité lorsque le joueur entre en collision avec| - |
+|7|Hidden box|La box apparait seulement lorsque le joueur entre en collision avec| - |
 |10|Bloc changement de niveau|Change de niveau lorsque le bloc est en collision avec le joueur|*destination*: le lien de niveau de destination|
+|19|Élément textuel|Création d'un bloc de texte| - |
 |20|Bloc bouton|Crée un bouton avec un texte et un lien utilisé lorsqu'on clique dessus|*link*: le fichier de destination|
 |21|Caméra|Crée une caméra. **Attention**, utiliser seulement s'il n'y a pas de joueur| - |
+|22|Background|Fond fixe pour le menu|-|
+|23|Audio|Création d'un audio utilisant une liste de musiques prédéfinies|`track` l'identifiant de la track|
+|24|Opening|Création d'un opening pour le niveau|`level` le niveau correspondant à l'opening|
 |100|Joueur| Crée un joueur ainsi qu'une caméra qui suit le joueur. Les dimensions données sont ignorées car le joueur est de taille fixe| - |
-|101|Archer| Permet de créer un ennemi de type archer |-|-|
+|101|Archer| Permet de créer un ennemi de type archer| - |
+|102|Knight| Création d'un chevalier| - |
+|103|Alexandre| Création du boss final| - |
+|1000|Définition de paramètres|Définir une configuration personnalisé pour un niveau|`width` la largeur en blocs de la map|
 
 
 Les différents paramètres utilisables sont:

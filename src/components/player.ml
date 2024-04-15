@@ -37,6 +37,7 @@ let player_framed_call player _ : unit =
       
     if player#health#get <= 0.0 then begin
       Fall_box.reset_fall_box_position ();
+      Hide_box.reset_hide_box ();
       player#pos#set (player#spawn_position#get);
       player#health#set Const.player_health
     end
