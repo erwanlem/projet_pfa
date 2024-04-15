@@ -5,7 +5,7 @@ open State
 
 let update_arc_anim knight i frame maxframe dir =
   let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png"
-                                    with Not_found -> failwith "In arch.ml : Resource not found" ) in
+                              with Not_found -> failwith "In arch.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/13) = 0 then
     i := !i+1;
@@ -13,7 +13,7 @@ let update_arc_anim knight i frame maxframe dir =
     (
       Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
   else
-      Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
+    Texture.image_from_surface ctx res (64*(!i)) (3*64) 64 64 64 64
 
 
 let arch_pattern arch dt = 
@@ -29,55 +29,61 @@ let arch_pattern arch dt =
       View_system.unregister (arch :> drawable)
     )
 
-else
+  else
 
-  (* Get player position *)
-  let playerpos = (Global.ply ()) # pos # get in
+    (* Get player position *)
+    let playerpos = (Global.ply ()) # pos # get in
 
-  (* get state *)
-  let s = arch#state#get in
+    (* get state *)
+    let s = arch#state#get in
 
-  (* if attacking *)
-  if s.kind = 1 then begin
-    if s.curframe > 0 then
-      (arch#texture#set (s.update s.curframe s.maxframe (arch#direction#get)))
-    else if s.curframe = 0 then
-      (arch#texture#set (arch#anim_recover#get);
-      (match arch#state_box#get with
-      | Some b -> b#remove_box#get (); arch#state_box#set None
-      | None -> ());
-      s.kind <- 0);
-    s.curframe <- s.curframe - 1
-  end
+    (* if attacking *)
+    if s.kind = 1 then begin
+      if s.curframe > 0 then
+        (arch#texture#set (s.update s.curframe s.maxframe (arch#direction#get)))
+      else if s.curframe = 0 then 
+        (ignore(Arrow.create "arrow" ((arch # pos # get).x +. 32. +. (arch # direction # get) *. 40.)
+                  ((arch # pos # get).y +. 40.)
+                  (arch # direction # get )
+               );
+         arch#texture#set (arch#anim_recover#get);
 
-  (* If not attacking *)
-  else begin
-  (* If player visible *)
+         (match arch#state_box#get with
+          | Some b -> b#remove_box#get (); arch#state_box#set None
+          | None -> ());
+         s.kind <- 0);
+      s.curframe <- s.curframe - 1
 
-  (* If close to the player : start attack *)
-  if Vector.dist playerpos (arch#pos#get) < 400.0
-  && dt -. Hashtbl.find (arch#cooldown#get) "attack" > 1000. then begin
-    Hashtbl.replace arch#cooldown#get "attack" dt;
-    arch#anim_recover#set arch#texture#get;
-    let i = ref (-1) in
-    if arch#direction#get = 1. then
-      arch#state#set (State.create_state 1 39 (update_arc_anim arch i))
-    else
-      arch#state#set (State.create_state 1 39 (update_arc_anim arch i))
-    end;
+    end
 
-  if playerpos.x > (arch # pos#get ).x then begin
-    arch #direction # set 1.;
-    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposD")
-  end
-  else  begin
-    arch #direction #set (-1.);
-    arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposG")
-  end
+    (* If not attacking *)
+    else begin
+      (* If player visible *)
 
-  end
+      (* If close to the player : start attack *)
+      if Vector.dist playerpos (arch#pos#get) < 800.0
+      && dt -. Hashtbl.find (arch#cooldown#get) "attack" > 1000. then begin
+        Hashtbl.replace arch#cooldown#get "attack" dt;
+        arch#anim_recover#set arch#texture#get;
+        let i = ref (-1) in
+        if arch#direction#get = 1. then
+          arch#state#set (State.create_state 1 39 (update_arc_anim arch i))
+        else
+          arch#state#set (State.create_state 1 39 (update_arc_anim arch i))
+      end;
 
-    
+      if playerpos.x > (arch # pos#get ).x then begin
+        arch #direction # set 1.;
+        arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposD")
+      end
+      else  begin
+        arch #direction #set (-1.);
+        arch # texture # set (Hashtbl.find (arch # modifiable_texture # get) "textReposG")
+      end
+
+    end
+
+
 let arch_collision arch collide pos =
   if collide = "ground" then arch # grounded # set true;
   if collide = "player" then arch # pushable # set false;
@@ -99,22 +105,22 @@ let create id x y w h texture =
   arch # mass # set Const.arch_stats.mass;
   (
     match texture with 
-  None -> 
-    let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png" ) in
-    let ctx = Gfx.get_context (Global.window () )in
+      None -> 
+      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png" ) in
+      let ctx = Gfx.get_context (Global.window () )in
 
-    let reposG = Texture.anim_from_surface ctx res 1 64 64 64 64 60 1 in
-    let reposD = Texture.anim_from_surface ctx res 1 64 64 64 64 60 3 in
-    let attackG = Texture.anim_from_surface ctx res 13 64 64 64 64 60 1 in
-    let attackD = Texture.anim_from_surface ctx res 13 64 64 64 64 60 1 in
-    let h = Hashtbl.create 4 in
-    Hashtbl.replace h "textReposG" reposG;
-    Hashtbl.replace h "textReposD" reposD;
-    Hashtbl.replace h "textAttackG" attackG;
-    Hashtbl.replace h "textAttackD" attackD;
-    arch # modifiable_texture # set h;
-    arch # texture # set reposG
-  | Some t -> arch # texture # set t
+      let reposG = Texture.anim_from_surface ctx res 1 64 64 64 64 60 1 in
+      let reposD = Texture.anim_from_surface ctx res 1 64 64 64 64 60 3 in
+      let attackG = Texture.anim_from_surface ctx res 13 64 64 64 64 60 1 in
+      let attackD = Texture.anim_from_surface ctx res 13 64 64 64 64 60 1 in
+      let h = Hashtbl.create 4 in
+      Hashtbl.replace h "textReposG" reposG;
+      Hashtbl.replace h "textReposD" reposD;
+      Hashtbl.replace h "textAttackG" attackG;
+      Hashtbl.replace h "textAttackD" attackD;
+      arch # modifiable_texture # set h;
+      arch # texture # set reposG
+    | Some t -> arch # texture # set t
   );
 
   (* show hitbox *)

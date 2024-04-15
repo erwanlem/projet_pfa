@@ -11,7 +11,7 @@ let arrow_collide arrow collide pos =
   View_system.unregister (arrow :> drawable)
 
 
-let create id x y w h dir_x =
+let create id x y dir_x =
   let box = new box in
   box # pos # set Vector.{ x;y };
   box # rect # set Const.arrow_size;
