@@ -121,7 +121,7 @@ let draw_element id x y w h =
   let a =Alexandre.create "alexandre" (x*basic_block_w) (Const.window_height-y*basic_block_h) (block_size*2) (block_size*2) None in
   ignore(Hpbar.create "hpbar" (basic_block_w * 5) (Const.window_height-basic_block_h * 9) (block_size *10) (block_size/4) a )
 
-
+  | 200 ->ignore( Medkit.create "medkit" (x*basic_block_w) (Const.window_height-y*basic_block_h))
   | 1000 ->
     let s = load_settings () in
     map_width := s.width * block_size

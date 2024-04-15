@@ -10,6 +10,6 @@
 [x] personnage petit
 [x] hpbar - Ew
 [ ] indicateur de vie player(opt)
-[ ] soins player (opt)
+[x] soins player (opt) (VERIFIER QUE CA RESTORE BIEN LA VIE DE JOUEUR MAIS A PRIORI BON)
 [ ] porte
 [ ] sfx (opt)

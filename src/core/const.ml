@@ -43,6 +43,8 @@ let arrow_speed = -0.15
 let arrow_speed = Vector.{x = 0.5; y = 0.}
 let arrow_size = Rect.{width = 10; height=5}
 
+let medkit_size = Rect.{width =32; height = 32}
+
 let fbdamage = 5.
 
 let knight_vel = ref Vector.{x = 0.20; y = 0.}

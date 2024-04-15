@@ -152,6 +152,8 @@ class isTransparent =
     method isTransparent = isTransparent
   end
 
+
+
 class pushable =
   object
     val pushable = Component.def true
@@ -194,6 +196,12 @@ class box =
     inherit! collidable
     inherit! id
   end
+
+  class medkit = 
+  object
+    inherit box
+  end
+
 
 class state_box =
   object
