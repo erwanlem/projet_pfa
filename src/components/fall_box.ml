@@ -26,9 +26,6 @@ let onCollide box collide pos =
     box#mass#set 1000.
   end
 
-
-
-
 let create id x y w h mass settings =
   let box = new box in
   box # pos # set Vector.{ x = float x; y = float y };

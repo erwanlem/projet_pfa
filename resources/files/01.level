@@ -16,7 +16,7 @@
 
 100:2x4|0x0|level=3,opening=1 # joueur
 
-101:4x4|0x0|level=3        # knight
+#101:4x4|0x0|level=3        # knight
 101:5x4|0x0|level=3
 101:6x4|0x0|level=3
 
