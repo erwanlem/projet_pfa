@@ -61,8 +61,8 @@ let arch_pattern arch dt =
       (* If player visible *)
 
       (* If close to the player : start attack *)
-      if Vector.dist playerpos (arch#pos#get) < 800.0
-      && dt -. Hashtbl.find (arch#cooldown#get) "attack" > 1000. then begin
+      if Vector.dist playerpos (arch#pos#get) < 800.0 
+      && dt -. Hashtbl.find (arch#cooldown#get) "attack" > 1000. && (Float.abs (playerpos.y -. (arch#pos# get).y)) < 10. then begin
         Hashtbl.replace arch#cooldown#get "attack" dt;
         arch#anim_recover#set arch#texture#get;
         let i = ref (-1) in

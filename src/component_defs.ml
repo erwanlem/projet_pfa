@@ -197,7 +197,7 @@ class box =
     inherit! id
   end
 
-  class medkit = 
+class medkit = 
   object
     inherit box
   end
@@ -302,7 +302,6 @@ class opening =
     inherit box
     inherit real_time
   end
-
 
 
 class player = 
