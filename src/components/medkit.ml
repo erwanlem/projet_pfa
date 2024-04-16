@@ -11,7 +11,7 @@ else ()
 
 let create id x y  =
   let box = new box in
-  box # pos # set Vector.{ x = float x ; y =float y };
+  box # pos # set Vector.{ x = float x ; y =float y +. ((float Const.block_size) /. 3.)  };
   box # rect # set Const.medkit_size;
   box # hitbox_rect # set Const.medkit_size;
   box # id # set id;
@@ -20,8 +20,10 @@ let create id x y  =
 
   let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/food.png") in
   let ctx = Gfx.get_context (Global.window ()) in
-  let texture1 = Texture.image_from_surface ctx res 32 (6*16) 16 16 16 16 in
+  let texture1 = Texture.image_from_surface ctx res 32 (6*16) 16 16 64 64 in
   box#texture#set texture1;
+
+  ignore (Hitbox.create "heal" box ~col:(Gfx.color 0 0 0 180));
 
   (*let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame.png") in
   let ctx = Gfx.get_context (Global.window ()) in

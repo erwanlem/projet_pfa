@@ -13,11 +13,11 @@ type config = {
 
 let js = {  key_left = "q"; 
             key_right = "d"; 
-            key_up = " ";
-            key_down = "s";
-            key_space = "Shift";
-            key_return = "e";
-            key_teleport = "c"; }
+            key_up = "z";
+            key_down = "down";
+            key_space = " ";
+            key_return = "s";
+            key_teleport = "Shift"; }
 
 let sdl = { key_left = "q";
             key_right = "d";
