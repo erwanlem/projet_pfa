@@ -57,7 +57,9 @@ let player_control player keys =
   (* Déplacement vers la gauche *)
   if Hashtbl.mem keys cfg.key_left then
     (if (player # direction # get) <> (-1.) then
-      (player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
+      (if player#state#get.kind = 1 then
+        player#anim_recover#set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
+      player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
       player # direction # set (-1.));
       Texture.pause_animation (player#texture#get) false;
       player # velocity # set (Vector.add (Vector.mult (-1.) !Const.horz_vel)
@@ -66,10 +68,12 @@ let player_control player keys =
 
   (* Déplacement vers la droite *)
   else if Hashtbl.mem keys cfg.key_right then 
-    (if (player # direction # get) <> (1.) then
-      (player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_left_walk");
+    (if (player # direction # get) <> (1.) then begin
+      if player#state#get.kind = 1 then
+        player#anim_recover#set (Hashtbl.find (player # modifiable_texture # get) "texture_left_walk");  
+      player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_left_walk");
       player # direction # set (1.)
-      );
+      end;
       Texture.pause_animation (player#texture#get) false;
       player # velocity # set (Vector.add (!Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
     )
