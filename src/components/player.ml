@@ -82,10 +82,10 @@ let player_control player keys =
     Hashtbl.find (player#cooldown#get) "teleport" < 1. then begin
     Hashtbl.replace (player # cooldown # get) "teleport" 200.;
     if (player # direction # get) = (1.) then begin
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=5.; y=0.});
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=2.; y=0.});
     end
     else
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-5.); y=0.})
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-2.); y=0.})
     end;
 
 

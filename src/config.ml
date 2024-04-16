@@ -21,11 +21,11 @@ let js = {  key_left = "q";
 
 let sdl = { key_left = "q";
             key_right = "d";
-            key_up = "space";
-            key_down = "s";
-            key_space = "f";
-            key_return="e";
-            key_teleport = "c"}
+            key_up = "z";
+            key_down = " ";
+            key_space = "space";
+            key_return="s";
+            key_teleport = "left shift"}
 
 
 (* Config touches *)
