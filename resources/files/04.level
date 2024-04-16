@@ -1,6 +1,6 @@
 3:0x3|60x3|texture=resources/images/night.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3,layer=7      # sol
 
-100:2x4|0x0|level=3     # joueur
+100:2x4|0x0|level=4     # joueur
 
 #24:0x0|0x0|level=4     # opening
 

@@ -28,7 +28,7 @@ let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"
 
 let audio_input = ["resources/audio/tkucza-happyflutes.mp3"; "resources/audio/The_Bards_Tale_.mp3";
                    "resources/audio/Tavern-Brawl.mp3"; "resources/audio/Lord-McDeath.mp3"; 
-                   "resources/audio/dryad.mp3"]
+                   "resources/audio/dryad.mp3"; "resources/audio/Minstrel_Dance.mp3"]
 
 (* (Sdl, JavaScript) *)
 let input_fonts = [ ("resources/fonts/Seagram.ttf","serif"); ("resources/fonts/Mono.ttf", "serif")]

@@ -12,7 +12,7 @@ let () =
   Hashtbl.replace sounds "track1" [|"resources/audio/tkucza-happyflutes.mp3"; "resources/audio/The_Bards_Tale_.mp3"|];
   Hashtbl.replace sounds "track2" [|"resources/audio/Tavern-Brawl.mp3"|];
   Hashtbl.replace sounds "track3" [|"resources/audio/dryad.mp3"|];
-  Hashtbl.replace sounds "track4" [|"resources/audio/Tavern-Brawl.mp3"|];
+  Hashtbl.replace sounds "track4" [|"resources/audio/Minstrel_Dance.mp3"|];
   Hashtbl.replace sounds "track5" [|"resources/audio/Lord-McDeath.mp3"|]
 
 let update _dt el =

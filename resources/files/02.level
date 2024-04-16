@@ -2,7 +2,7 @@
 3:48x3|12x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
 
 
-100:2x4|0x0|level=1     # joueur
+100:2x4|0x0|level=2     # joueur
 
 #24:0x0|0x0|level=2     # opening
 
@@ -47,6 +47,6 @@
 4:-1x18|1x15|    # mur gauche
 4:60x18|1x15|   # mur droit
 
-23:0x0|0x0|track=track3 # audio
+#23:0x0|0x0|track=track3 # audio
 
 # blocId:posXxposY|WidthxHeight

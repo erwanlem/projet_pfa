@@ -1,23 +1,39 @@
-3:0x3|60x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
-3:18x4|15x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=2,layer=6      # sol
+3:0x3|90x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
+#3:18x4|15x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=2,layer=6      # sol
 
-24:0x0|0x0|level=3     # opening
+#24:0x0|0x0|level=3     # opening
 
-100:2x4|0x0|level=2     # joueur
+100:2x4|0x0|level=3     # joueur
 
-10:58x5|1x2|link=resources/files/04.level                                                     # fin niveau
-5:57x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
+10:88x5|1x2|link=resources/files/04.level                                                     # fin niveau
+5:87x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
 
 4:-1x18|1x15|    # mur gauche
-4:60x18|1x15|   # mur droit
+4:90x18|1x15|   # mur droit
 
-0:25x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+0:28x5|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+0:24x6|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
+0:17x7|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 3
+0:17x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 4
+7:12x8|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 5
+0:24x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 6
+0:32x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 6
 
-5:0x16|23x14|texture=resources/images/snow_fixed.jpg,texture_w=23,texture_h=12,layer=1,parallax=0.05 # background
-5:0x5|60x3|texture=resources/images/snow_layer1.png,texture_w=15,texture_h=2,layer=3,parallax=0.5 # background
-5:0x15|60x14|texture=resources/images/snow_layer2.png,texture_w=23,texture_h=15,layer=2,parallax=0.4 # background
+3:38x9|10x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3,layer=6
+3:38x6|10x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3,layer=6
+5:38x6|10x2|texture=resources/images/snow.png,texture_x=1,texture_y=2,texture_w=1,texture_h=2,layer=6
+5:38x4|10x2|texture=resources/images/snow.png,texture_x=1,texture_y=2,texture_w=1,texture_h=2,layer=6
 
-23:0x0|0x0|track=track4 # audio
+101:33x10|0x0| # 1st archer
+
+102:60x4|0x0| # 1st knight
+102:62x4|0x0| # 2nd knight
+
+5:0x16|46x14|texture=resources/images/snow_fixed.jpg,texture_w=23,texture_h=12,layer=1,parallax=0.05 # background
+5:0x5|90x3|texture=resources/images/snow_layer1.png,texture_w=15,texture_h=2,layer=3,parallax=0.5 # background
+5:0x15|90x14|texture=resources/images/snow_layer2.png,texture_w=23,texture_h=15,layer=2,parallax=0.4 # background
+
+#23:0x0|0x0|track=track4 # audio
 
 
 # blocId:posXxposY|WidthxHeight

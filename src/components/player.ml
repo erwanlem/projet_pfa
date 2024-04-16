@@ -74,11 +74,15 @@ let player_control player keys =
       player # velocity # set (Vector.add (!Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
     )
   else
+  (* Arrêt *)
     (Texture.pause_animation (player#texture#get) true;
-    player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
+    if player#level#get = 3 then
+      player#velocity#set (Vector.clamp ( Vector.{x=(player#velocity#get).x/.1.03; y=(player#velocity#get).y} ) (-0.8) 0.8)
+    else 
+      player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
 
   (* Teleport *)
-  if Hashtbl.mem keys cfg.key_teleport && 
+  if Hashtbl.mem keys cfg.key_teleport && player#level#get >= 2 &&
     Hashtbl.find (player#cooldown#get) "teleport" < 1. then begin
     Hashtbl.replace (player # cooldown # get) "teleport" 200.;
     if (player # direction # get) = (1.) then begin
@@ -90,7 +94,7 @@ let player_control player keys =
 
 
   (* Shoot *)
-  if player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && 
+  if player#level#get >= 3 && player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && 
     Hashtbl.find (player#cooldown#get) "fireball" < 1. then begin
       Hashtbl.replace (player # cooldown # get) "fireball" 100.;
     let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)

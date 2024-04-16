@@ -14,7 +14,7 @@
 
 0:41x4|1x1|texture=resources/images/grass.png,texture_x=7,texture_y=0,texture_w=1,texture_h=1 # rocher
 
-100:2x4|0x0|level=3,opening=1 # joueur
+100:2x4|0x0|level=1,opening=1 # joueur
 
 101:4x4|0x0|level=3        # knight
 
@@ -45,6 +45,6 @@
 5:0x18|60x24|texture=resources/images/layer-2.png,texture_w=48,texture_h=24,layer=3,parallax=0.4 # background
 5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=4,parallax=0.5 # background
 
-23:0x0|0x0|track=track2
+#23:0x0|0x0|track=track2
 
 # blocId:posXxposY|WidthxHeight
