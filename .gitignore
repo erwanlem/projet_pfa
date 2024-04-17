@@ -3,3 +3,8 @@ _build/
 prog/game_js.bc-for-jsoo
 prog/game_js.bc.js
 prog/game_sdl.exe
+doc/*.log
+doc/*.fls
+doc/*.aux
+doc/rapport.synctex.gz
+doc/rapport.fdb_latexmk
