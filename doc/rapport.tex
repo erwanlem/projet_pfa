@@ -189,7 +189,41 @@ Ci-dessous une rapide description des composants de notre jeu.
 \section{Les fonctionnalités}
 
 \subsection{La caméra (Erwan)}
+Une fonctionnalité que j'ai pu implémenter pour le jeu et que j'ai trouvé intéressante est la caméra.
+Au début, nous avions un jeu avec un joueur que l'on pouvait déplacer mais lorsqu'on se déplaçait trop 
+d'un côté le joueur disparaissait. Il a donc fallu trouver un moyen de suivre le joueur dans le jeu.
+J'ai donc créé un objet caméra qui permettrait de voir le jeu non plus en partant de la position 0,0 
+mais à l'endroit où se trouve la caméra. Il a ensuite suffit de donner à la caméra la position du joueur 
+pour pouvoir suivre le joueur. Je vais expliquer dans cette section comment a été implémenté la caméra.
+
+Pour commencer la caméra a deux modes: \verb|position| qui place la caméra en fonction de son attribut 
+\verb|pos| et le mode \verb|player| qui place la caméra à la position du joueur. Ce second mode utilise 
+l'accès au joueur du fichier \verb|global.ml|. La vue est gérée dans le système \verb|view.ml|. Chaque 
+entité affichable (\textit{drawable}) possède un composant \textit{camera\_position} qui est la position 
+à l'écran. On différencie donc maintenant la position à l'écran et la position dans l'espace du jeu qui 
+est le composant \textit{position}. Le système \textit{view} va calculer à partir de la position de la 
+caméra et du composant la position à l'écran du composant. L'algorithme est plutôt simple, pour chaque 
+entité faire \verb|position_entité - position_caméra|. 
 
 \section{Les tests effectués}
+Nous avons développé différents outils permettant de tester notre jeu. Nous allons expliquer dans cette
+section les différents moyens mis en place afin de tester notre code. 
+
+\subsection{Les hitbox}
+Les hitbox sont les zones de collision des objets. Au départ, les collisions se faisaient en fonction de 
+la taille des objets (un rectangle de 10x10 a pour collision l'ensemble de la zone de taille 10x10). Le 
+problème avec cette méthode est que s'il y a une zone de transparence sur une texture, l'utilisateur voit 
+une collision avec du vide. C'est la raison pour laquelle nous avons créé les hitbox. Une hitbox est 
+simplement représentée par un décalage en x et en y et une taille w, h. Dans le système de collision on 
+prend ensuite compte le décalage et la taille de la hitbox. Une hitbox n'est donc pas réellement une 
+nouvelle box. Afin d'ajuster les hitbox au mieux nous avons donc créé un composant hitbox qui affiche 
+la hitbox comme un rectangle au-dessus de l'entité. Ce premier outil nous a permis d'avoir des hitbox 
+collisions réglées au pixel près.
+
+\subsection{Le mode superuser}
+Le mode superuser est un outil qui a été indispensable dans le développement du jeu. D'abord il permet 
+d'accéder directement à un niveau en utilisant les touches 0 à 4, 0 étant le menu. Ensuite il permet 
+également de modifier certaines constantes. Dans la configuration actuelle, on a par exemple les 
+touches u et j pour augmenter et diminuer la vitesse du joueur.
 
 \end{document}
