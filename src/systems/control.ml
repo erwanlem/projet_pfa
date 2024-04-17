@@ -15,9 +15,9 @@ let update dt el =
     Gfx.NoEvent -> ()
     | Gfx.KeyDown s -> (*Gfx.debug "'%s'\n%!" s;*)
                 if Hashtbl.mem keys s then ()
-                else Hashtbl.replace keys s true
+                else Hashtbl.replace keys s (Some (0, 0))
     | Gfx.KeyUp s -> Hashtbl.remove keys s
-    | Gfx.MouseButton (b, true, x, y) -> Hashtbl.replace keys "mouse1" true
+    | Gfx.MouseButton (b, true, x, y) -> Hashtbl.replace keys "mouse1" (Some (x, y))
     | Gfx.MouseButton (b, false, x, y) -> Hashtbl.remove keys "mouse1"
     | _ -> ()
   in

@@ -219,7 +219,7 @@ class movable =
 class controlable =
   object
     inherit box
-    val control = Component.def (fun (h : (string, bool) Hashtbl.t) -> ())
+    val control = Component.def (fun (h : (string, (int * int) option) Hashtbl.t) -> ())
     method control = control
   end
 

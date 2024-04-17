@@ -26,7 +26,7 @@ let create x y w h settings =
   Gfx.debug "Font size = %d, %d\n%!" fw fh;
 
   txt # texture # set (Image surf_font);
-  txt # layer # set 10;
+  txt # layer # set settings.layer;
 
   Draw_system.register (txt :> drawable);
   View_system.register (txt :> drawable);
