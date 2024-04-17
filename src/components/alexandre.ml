@@ -20,6 +20,15 @@ let alexandre_pattern alexandre dt =
 
   (* Case not alive : unregistered *)
   if not (alexandre # alive) then begin
+    ignore (Exit_box.create "exit" (58*Const.block_size) (Const.window_height-5*Const.block_size) (2*Const.block_size) (2*Const.block_size) 
+    {t_x=0;t_y=0;t_w=0;t_h=0;width=0;texture=None;link="resources/files/menu.level";
+    animation=0;color=Gfx.color 0 0 0 0;text="";text_key="";font="";
+    layer=5;parallax=1.;track=""});
+    ignore (Decor.create "door" (57*Const.block_size) (Const.window_height-5*Const.block_size) (2*Const.block_size) (2*Const.block_size)
+    {t_x=0;t_y=8;t_w=2;t_h=2;width=0;texture=Some "resources/images/grass.png";link="";
+    animation=0;color=Gfx.color 0 0 0 0;text="";text_key="";font="";
+    layer=10;parallax=1.;track=""});
+
     Real_time_system.unregister (alexandre:> real_time);
     Force_system.unregister (alexandre:>collidable);
     Draw_system.unregister (alexandre :> drawable);
@@ -68,7 +77,7 @@ let alexandre_pattern alexandre dt =
         let disttop = Vector.dist playerpos (alexandre#pos#get) in
 
         (* Can see the player *)
-        if ( disttop < 750.0) then (
+        if ( disttop < 2000.0) then (
           let f x = 0.14*.x -. 25. in
           let randnum = Random.int 100 in
           let attack = f disttop < float randnum in
@@ -92,13 +101,14 @@ let alexandre_pattern alexandre dt =
             alexandre # velocity # set (Vector.mult (alexandre # direction # get) !Const.alexandre_vel) 
           end
 
-          else if attack && dt -. Hashtbl.find (alexandre#cooldown#get) "fireball" > 1000. then begin
+          else if attack && dt -. Hashtbl.find (alexandre#cooldown#get) "fireball" > 2000.
+            && Vector.get_y playerpos >= Vector.get_y alexandre#pos#get then begin
             Hashtbl.replace (alexandre # cooldown # get) "fireball" dt;
             let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
               if alexandre#direction#get > 0. then (Vector.get_x alexandre#pos#get)+.(float (Rect.get_width alexandre#rect#get)) 
-              else (Vector.get_x alexandre#pos#get)-.128. in
-            (ignore (Bullet.create "alexandre_fb" x 
-                       (Vector.get_y alexandre#pos#get+.50.) 128 50 (Const.bullet_speed *. alexandre#direction#get) 0. ~color:2));
+              else (Vector.get_x alexandre#pos#get)-.68. in
+            (ignore (Bullet.create "fireball" x 
+                       (Vector.get_y playerpos+.20.) 64 25 (Const.bullet_speed *. alexandre#direction#get) 0. ~color:2));
           end
 
         )

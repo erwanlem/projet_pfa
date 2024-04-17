@@ -21,8 +21,8 @@ type mob_stat={health : float; damage: float; mass:float; elas : float}
 let window_width = 1440
 let window_height = 810
 let block_size = window_width/20
-let map_width = ref (60*block_size)
-let max_gap = float (!map_width - window_width)
+let map_width = ref (90*block_size)
+let max_gap = ref (float (!map_width - window_width))
 
 let force_const = float (block_size) /. 64.
 

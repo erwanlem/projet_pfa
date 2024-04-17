@@ -22,8 +22,8 @@ let update _dt el =
         (*let cam_position =Vector.{x=new_x;y=new_y} in*)
   
         let position_gap = (x -. Vector.get_x cam_position) in
-        if position_gap >= Const.max_gap *. m#parallax#get then
-          m#camera_position#set Vector.{x=x-.Const.max_gap*.m#parallax#get; y=y}
+        if position_gap >= !Const.max_gap *. m#parallax#get then
+          m#camera_position#set Vector.{x=x-.(!Const.max_gap)*.m#parallax#get; y=y}
         else
           m#camera_position#set cam_position
 

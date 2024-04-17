@@ -151,7 +151,10 @@ let player_collision player collide pos =
   if collide = "medkit" then player # health # set (min (player # health # get +. 10.) (Const.player_health));
 
   if collide = "arrow" || collide = "ennemy_sword" then 
-    player#health#set (player#health#get -. Const.knight_stats.damage)
+    player#health#set (player#health#get -. Const.knight_stats.damage);
+
+  if collide = "fireball" then
+    player#health#set (player#health#get -. Const.fbdamage)
 
 
 
