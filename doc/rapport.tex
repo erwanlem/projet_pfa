@@ -62,6 +62,8 @@ mis à sa disposition.
 
 \section{Organisation du code}
 
+\subsection{Les systèmes}
+
 L'organisation générale du jeu est proche de celle du code modèle utilisé au début de ce projet.
 On retrouve dans \verb|src/systems/| l'ensemble des systèmes du jeu. Le système \textbf{control} permet 
 d'avoir accès aux entrées du joueur. Il est utilisé par l'entité player et les boutons du jeu. Ce 
@@ -72,16 +74,114 @@ de gérer les ennemis. Le système \textbf{music} s'occupe de la gestion des mus
 variable \verb|current_track| qui permet de sélectionner la track à jouer. Les track sont prédéfinies dans le code 
 elles ne peuvent pas être modifiées depuis l'extérieur. Le système \textbf{view} permet de gérer la caméra. Nous 
 reviendrons sur cette partie plus en profondeur dans la suite de ce rapport.
+
+\subsection{Le répertoire \texttt{src}}
 Le répertoire \verb|src/| contient trois nouveaux fichiers. 
 
 Le fichier \verb|level_loader.ml| permet le chargement 
-des niveaux depuis des fichiers texte. C'est une partie qui a été particulièrement intéressante à implémenter. 
+les niveaux depuis des fichiers texte. C'est une partie qui a été particulièrement intéressante à implémenter. 
 L'objectif a été de pouvoir créer des niveaux sans avoir besoin de connaître le fonctionnement interne du jeu. 
-Nous pensons être plotôt proche de cet objectif. Les fichiers textes doivent contenir un ensemble de lignes 
+Nous pensons être plutôt proche de cet objectif même si certaines choses pourraient être améliorée. Les fichiers
+ textes doivent contenir un ensemble de lignes 
 chacune permettant la création d'un élément du jeu. On utilise la notation \texttt{id:XxY|WxH|param} avec id 
-l'identifiant de l'entité, XxY la position XY, WxH la largeur et hauteur de l'entité et param les paramètres 
+l'identifiant de l'entité (Les identifiants des entités et leur description sont disponibles dans le fichier
+ \texttt{map.md}.), XxY la position XY, WxH la largeur et hauteur de l'entité et param les paramètres 
 associés à l'entité. Cette ligne est découpée pour récupérer chacune des parties. Les paramètres entrés sont 
-ajoutés dans une table de hachage. Enfin lors de la création de l'entité on va récupérer un type 
+ajoutés dans une table de hachage. Lors de la création d'une entité on récupère un type énuméré \verb|setting|
+définit dans \verb|const.ml|. Ce type contient les différents paramètres possibles. Les entités peuvent ensuite
+récupérer les paramètres dont elles ont besoin dans cette structure. Ce fonctionnement permet d'avoir une 
+flexibilité dans les déinitions de niveau. On peut par exemple donner des paramètres qui n'existent pas, cela 
+n'aura aucune influence. On peut également ne pas définir un paramètre qui est nécessaire et dans ce cas une 
+valeur par défaut sera donnée sans causer d'erreur. 
+
+Le fichier \verb|resources.ml| gère le chargement des fichiers image, texte, audio et police du jeu. Le chargement 
+est effectué dans le fichier \verb|game.ml| avant d'afficher le menu au démarrage du jeu.
+
+Le fichier \verb|config.ml| contient la définition des touches pour Javascript et Sdl. La configuration est utilisée 
+par les entités utilisant le système contrôle afin d'avoir accès au nom des touches.
+
+\subsection{Le répertoire \texttt{core}}
+Le répertoire \verb|src/core/| contient 2 nouveaux fichiers.
+
+Le fichier \verb|const.ml| contient l'ensemble des constantes du jeu. On y trouve par exemple la vitesse du joueur,
+la taille des blocs, etc\dots Ce regroupement permet de modifier facilement les valeurs importantes du jeu sans 
+avoir besoin de chercher tous les endroits où elles sont utilisées. Ce fichier contient également le type \verb|setting| 
+dont nous avons parlé dans la section précédente.
+
+Le fichier \verb|state.ml| contient la définition du type \texttt{state}. Ce type est utilisé par le joueur et les ennemis 
+afin de contrôler les animations des attaques. L'état $0$ de state signifie qu'aucune attaque est en cours. L'état $1$ 
+signifie que l'attaque est en cours. Elle est mise à jour grâce à une fonction \verb|update| qui gère l'animation en 
+fonction du numéro de la frame courante.
+
+Dans le fichier \verb|global.ml| nous avons ajouté la caméra et le joueur. On peut ainsi accéder au joueur depuis tous les 
+fichiers, ce qui est utile pour gérer le comportement des ennemis.
+
+\subsection{Components}
+De nombreux composants ont été créés pour notre jeu. Les composants avec box dans leur nom permettent de créer des 
+variations de box avec des comportement différents. Par exemple les \textit{hide\_box} sont des box qui sont 
+ajoutés dans les systèmes \textit{draw} et \textit{view} seulement lorsque la box est en collision avec le joueur.
+Ci-dessous une rapide description des composants de notre jeu.
+\begin{center}
+    \begin{tabular}[h]{ |c|p{10cm}| }
+        \hline
+        \textbf{Composant} & \textbf{Description} \\
+        \hline
+        alexandre & Boss final du jeu \textit{Alexandre Le Petit}. \\
+        \hline
+        arch & Archer, tire ne se déplace pas, tire des flèches. \\
+        \hline
+        arrow & Flèche tirée par l'archer. Détruite lorsqu'elle entre en collision avec n'importe quel objet. \\
+        \hline
+        audio & Composant audio contenant la piste d'écoute courante et le numéro de la musque écouté dans la 
+        piste. \\
+        \hline
+        background & Utilisé pour créer le fond du menu. \\
+        \hline
+        box & Une box simple avec toutes les paramètres possibles dessus. \\
+        \hline
+        bullet & Boule de feu pour le joueur et l'ennemi final. Fonctionnement similaire à \verb|arrow|. \\
+        \hline
+        button & Bouton, notamment utilisé dans le menu. \\
+        \hline
+        camera & Composant caméra contenant le focus (discuté dans la suite). \\
+        \hline
+        decor & Affiche une texture tout en ayant aucune intéraction avec les autres éléments du jeu. \\
+        \hline
+        exit\_box & Box permettant de changer de niveau lorsque le joueur entre en collision avec. \\
+        \hline
+        fall\_box & Box qui est affectée par la gravité lorsque le joueur entre en collision avec. \\
+        \hline
+        hide\_box & Box qui est affichée seulement lorsque le joueur entre en collision avec. \\
+        \hline
+        hitbox & Outil de débogage, voir section tests. \\
+        \hline
+        hpbar & Barre affichant la vie de l'ennemi final. Affiche un rectangle proportionnel à la vie du composant \verb|alexandre|. \\
+        \hline
+        jump\_box & Box permettant de faire rebondir le joueur. Le fait de pouvoir rebondir plus haut implique une élasticité 
+        supérieure à 1. Or une élasticité supérieure à 1 fait rebondir de plus en plus haut le joueur. C'est pourquoi on à limité la 
+        vélocité dans le système \textit{collisions} en utilisant \verb|clamp| du module \verb|Vector| (ajouté). \\
+        \hline
+        knight & Chevalier, attaque seulement avec une épée et suit le joueur lorsqu'il est assez près. \\
+        \hline
+        medkit & Soin pour le joueur. \\
+        \hline
+        opening & Opening en début de niveau. Crée le texte de l'opening et gère la caméra. Une fois l'opening terminé 
+        le texte est retiré des systèmes et on laisse les commandes au joueur (\verb|Control.disable| devient faux). \\
+        \hline
+        player & Joueur avec ses fonctions de contrôle, collisions, mise à jour en temps réel. \\
+        \hline
+        superuser & Outil de débogage, voir section tests. \\
+        \hline
+        sword\_box & Zone de collision de l'épée. L'épée du joueur et des ennemis étant associée à la texture, nous avons 
+        créé une box qui apparaît lorsque le joueur utilise l'épée. On peut ensuite simplement utiliser le système de collisions 
+        pour savoir si on a été touché par une épée. \\
+        \hline
+        text & Un élément de texte \\
+        \hline
+
+    \end{tabular}
+\end{center}
+
 
 
 \section{Organisation du travail}
@@ -89,6 +189,21 @@ ajoutés dans une table de hachage. Enfin lors de la création de l'entité on v
 \section{Les fonctionnalités}
 
 \subsection{La caméra (Erwan)}
+Une fonctionnalité que j'ai pu implémenter pour le jeu et que j'ai trouvé intéressante est la caméra.
+Au début, nous avions un jeu avec un joueur que l'on pouvait déplacer mais lorsqu'on se déplaçait trop 
+d'un côté le joueur disparaissait. Il a donc fallu trouver un moyen de suivre le joueur dans le jeu.
+J'ai donc créé un objet caméra qui permettrait de voir le jeu non plus en partant de la position 0,0 
+mais à l'endroit où se trouve la caméra. Il a ensuite suffit de donner à la caméra la position du joueur 
+pour pouvoir suivre le joueur. Je vais expliquer dans cette section comment a été implémenté la caméra.
+
+Pour commencer la caméra a deux modes: \verb|position| qui place la caméra en fonction de son attribut 
+\verb|pos| et le mode \verb|player| qui place la caméra à la position du joueur. Ce second mode utilise 
+l'accès au joueur du fichier \verb|global.ml|. La vue est gérée dans le système \verb|view.ml|. Chaque 
+entité affichable (\textit{drawable}) possède un composant \textit{camera\_position} qui est la position 
+à l'écran. On différencie donc maintenant la position à l'écran et la position dans l'espace du jeu qui 
+est le composant \textit{position}. Le système \textit{view} va calculer à partir de la position de la 
+caméra et du composant la position à l'écran du composant. L'algorithme est plutôt simple, pour chaque 
+entité faire \verb|position_entité - position_caméra|. 
 
 \subsection{Les ennemis (Ewen)}
 
@@ -97,5 +212,27 @@ ajoutés dans une table de hachage. Enfin lors de la création de l'entité on v
 \subsubsection{Objets de soin (Ewen)}
 
 \section{Les tests effectués}
+Nous avons développé différents outils permettant de tester notre jeu. Nous allons expliquer dans cette
+section les différents moyens mis en place afin de tester notre code. 
+
+\subsection{Les hitbox}
+Les hitbox sont les zones de collision des objets. Au départ, les collisions se faisaient en fonction de 
+la taille des objets (un rectangle de 10x10 a pour collision l'ensemble de la zone de taille 10x10). Le 
+problème avec cette méthode est que s'il y a une zone de transparence sur une texture, l'utilisateur voit 
+une collision avec du vide. C'est la raison pour laquelle nous avons créé les hitbox. Une hitbox est 
+simplement représentée par un décalage en x et en y et une taille w, h. Dans le système de collision on 
+prend ensuite compte le décalage et la taille de la hitbox. Une hitbox n'est donc pas réellement une 
+nouvelle box. Afin d'ajuster les hitbox au mieux nous avons donc créé un composant hitbox qui affiche 
+la hitbox comme un rectangle au-dessus de l'entité. Ce premier outil nous a permis d'avoir des hitbox 
+collisions réglées au pixel près.
+
+\subsection{Le mode superuser}
+Le mode superuser est un outil qui a été indispensable dans le développement du jeu. D'abord il permet 
+d'accéder directement à un niveau en utilisant les touches 0 à 4, 0 étant le menu. Ensuite il permet 
+également de modifier certaines constantes. Dans la configuration actuelle, on a par exemple les 
+touches $u$ et $j$ pour augmenter et diminuer la vitesse du joueur.
+
+Ce mode permet enfin de contrôler la caméra. La touche $p$ change le focus de \textit{player} à 
+\textit{position}.
 
 \end{document}

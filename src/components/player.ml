@@ -98,8 +98,9 @@ let player_control player keys =
 
 
   (* Shoot *)
-  if player#level#get >= 3 && player#level#get > 1 && Hashtbl.mem keys cfg.key_space && Hashtbl.find keys cfg.key_space && 
-    Hashtbl.find (player#cooldown#get) "fireball" < 1. then begin
+  if player#level#get >= 3 && player#level#get > 1 && Hashtbl.mem keys cfg.key_space 
+    && Hashtbl.find keys cfg.key_space <> None 
+    && Hashtbl.find (player#cooldown#get) "fireball" < 1. then begin
       Hashtbl.replace (player # cooldown # get) "fireball" 100.;
     let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
       if player#direction#get > 0. then (Vector.get_x player#pos#get)+.(float (Rect.get_width player#rect#get)) 
@@ -107,16 +108,16 @@ let player_control player keys =
 
     (ignore (Bullet.create "player_fb" x 
     (Vector.get_y player#pos#get+.25.) 64 25 (Const.bullet_speed *. player#direction#get) 0.));
-    Hashtbl.replace keys cfg.key_space false;
+    Hashtbl.replace keys cfg.key_space None;
   end;
 
 
   (* Jump *)
   if Hashtbl.mem keys cfg.key_up && player#grounded#get 
-    && Hashtbl.find keys cfg.key_up then
+    && Hashtbl.find keys cfg.key_up <> None then
     (player # grounded # set false;
     player # sum_forces # set (Vector.add (player#sum_forces#get) (Const.jump));
-    Hashtbl.replace keys cfg.key_up false);
+    Hashtbl.replace keys cfg.key_up None);
 
   (* sword *)
   if Hashtbl.mem keys cfg.key_return && (State.get_state player#state#get) = 0 then begin
