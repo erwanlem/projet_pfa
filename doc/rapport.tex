@@ -4,6 +4,7 @@
 \usepackage[french]{babel}
 \usepackage{parskip}
 \usepackage[margin=4cm]{geometry}
+\usepackage{graphicx}
 
 \title{Rapport projet PFA}
 \author{Erwan LEMATTRE \and Ewen DUFOUR}
@@ -188,32 +189,87 @@ Ci-dessous une rapide description des composants de notre jeu.
 
 \section{Les fonctionnalités}
 
-\subsection{La caméra (Erwan)}
-Une fonctionnalité que j'ai pu implémenter pour le jeu et que j'ai trouvé intéressante est la caméra.
-Au début, nous avions un jeu avec un joueur que l'on pouvait déplacer mais lorsqu'on se déplaçait trop 
-d'un côté le joueur disparaissait. Il a donc fallu trouver un moyen de suivre le joueur dans le jeu.
-J'ai donc créé un objet caméra qui permettrait de voir le jeu non plus en partant de la position 0,0 
-mais à l'endroit où se trouve la caméra. Il a ensuite suffit de donner à la caméra la position du joueur 
-pour pouvoir suivre le joueur. Je vais expliquer dans cette section comment a été implémenté la caméra.
+\subsection{Les pouvoirs (Erwan)}
 
-Pour commencer la caméra a deux modes: \verb|position| qui place la caméra en fonction de son attribut 
-\verb|pos| et le mode \verb|player| qui place la caméra à la position du joueur. Ce second mode utilise 
-l'accès au joueur du fichier \verb|global.ml|. La vue est gérée dans le système \verb|view.ml|. Chaque 
-entité affichable (\textit{drawable}) possède un composant \textit{camera\_position} qui est la position 
-à l'écran. On différencie donc maintenant la position à l'écran et la position dans l'espace du jeu qui 
-est le composant \textit{position}. Le système \textit{view} va calculer à partir de la position de la 
-caméra et du composant la position à l'écran du composant. L'algorithme est plutôt simple, pour chaque 
-entité faire \verb|position_entité - position_caméra|. 
+Il existe deux pouvoirs différents: les pouvoirs lancés (boules de feu, flèches) et les pouvoirs 
+directement associés au joueur (téléportation, coups d'épée).
+
+Les pouvoirs lancés sont plutôt simples à mettre en place car il suffit de créer une 
+entité qui avance tant qu'elle n'entre pas en collision avec une autre entité. Dans ce cas le joueur 
+gère seulement la création du projectile et c'est ensuite le projectile qui s'occupe des collisions.
+
+Les pouvoirs directement associés au joueur ont été plus compliqués à mettre en place. Je vais 
+dans cette section expliquer les problèmes que nous avons eu et comment je les ai résolu en me basant 
+sur le cas des coups d'épée.
+
+Pour commencer, nous avons des textures pour nos personnages qui contiennent déjà l'épée. Partant de cela
+j'ai pu identifier deux options: soit modifier l'état de l'entité pour indiquer aux objets en collision 
+que l'entité attaque ou soit créer une nouvelle entité autre que celle qui attaque.
+
+Prenons un exemple dans lequel nous sommes le personnage principale (Arthur). Avec la première option il 
+faut vérifier à chaque fois que nous sommes en collision avec un ennemi que cet ennemi est en état d'attaque 
+et qu'il regarde dans notre direction. De plus cette option nécessite une modification de la taille de 
+l'entité qui attaque afin de rendre l'attaque plus réaliste. Cette option m'a paru réalisable mais tout de 
+même assez complexe. Le seconde option que j'ai choisi d'utiliser nécessite la création d'une entité 
+\textit{sword} qui représente uniquement la hitbox de l'épée (qui est transparente). Cette box est créée 
+le temps de l'animation. Si le joueur entre en collision avec cet objet, il sait qu'il s'est pris un 
+coup d'épée, pas de vérification supplémentaire n'est nécessaire.
+
+Après avoir trouvé le mécanisme général, il a fallu trouver comment le mettre en place. Pour mettre en place 
+ce mécanisme j'ai créé un type \textit{state}. Ce type contient un identifiant d'état (\textit{kind}), le 
+nombre de frame de l'état (\textit{maxframe}), le numéro de la frame courant (\textit{curframe}) et une 
+fonction \textit{update}. L'identifiant indique si le personnage attaque avec $1$ ou ne fait rien avec $0$. 
+Afin de gérer l'animation j'utilise le système \textit{real\_time}. Ce système qui appelle une fonction à 
+chaque frame va permettre d'actualiser l'état de l'animation à la vitesse du jeu. Dans la fonction utilisée 
+par \textit{real\_time} on vérifie que l'animation 
+n'est pas terminée avec \textit{curframe} et \textit{maxframe}. Si elle n'est pas terminée on met à jour 
+l'animation avec la fonction \textit{update} donnée par \textit{state}. Si elle est terminée, on récupère la texture 
+utilisée avant l'animation et on retire la box de l'épée.
+La fonction \textit{update} gère l'évolution de l'animation. C'est elle qui change les textures au fur et à 
+mesure de l'avancement de l'animation.
+
+\begin{center}
+    \begin{figure}[ht]
+        \includegraphics[scale=0.5]{img/exec.png}
+        \caption{Graphe de flot de conrôle -- animation}
+    \end{figure}
+\end{center}
+
+\subsubsection{Les problématiques}
+
+
+\subsubsection{Le type state}
+
+%Une fonctionnalité que j'ai pu implémenter pour le jeu et que j'ai trouvé intéressante est la caméra.
+%Au début, nous avions un jeu avec un joueur que l'on pouvait déplacer mais lorsqu'on se déplaçait trop 
+%d'un côté le joueur disparaissait. Il a donc fallu trouver un moyen de suivre le joueur dans le jeu.
+%J'ai donc créé un objet caméra qui permettrait de voir le jeu non plus en partant de la position 0,0 
+%mais à l'endroit où se trouve la caméra. Il a ensuite suffit de donner à la caméra la position du joueur 
+%pour pouvoir suivre le joueur. Je vais expliquer dans cette section comment a été implémenté la caméra.
+
+%Pour commencer la caméra a deux modes: \verb|position| qui place la caméra en fonction de son attribut 
+%\verb|pos| et le mode \verb|player| qui place la caméra à la position du joueur. Ce second mode utilise 
+%l'accès au joueur du fichier \verb|global.ml|. La vue est gérée dans le système \verb|view.ml|. Chaque 
+%entité affichable (\textit{drawable}) possède un composant \textit{camera\_position} qui est la position 
+%à l'écran. On différencie donc maintenant la position à l'écran et la position dans l'espace du jeu qui 
+%est le composant \textit{position}. Le système \textit{view} va calculer à partir de la position de la 
+%caméra et du composant la position à l'écran du composant. L'algorithme est plutôt simple, pour chaque 
+%entité faire \verb|position_entité - position_caméra|. 
 
 \subsection{Les ennemis (Ewen)}
-
+% Si ajouts mineurs va dans ennemis mettre subsubsection
 \subsection{Ajout mineurs}
 \subsubsection{Barre de vie (Ewen)}
 \subsubsection{Objets de soin (Ewen)}
 
 \section{Les tests effectués}
-Nous avons développé différents outils permettant de tester notre jeu. Nous allons expliquer dans cette
-section les différents moyens mis en place afin de tester notre code. 
+
+Les tests du jeu se sont principalement fait avec la commande d'affichage en console afin de vérifier 
+toutes les valeurs et intéractions entre les éléments du jeu. Les fichiers des niveaux ont également 
+permis de simplifier le débogage avec la possibilité de mettre des commentaires. Ils permettent de 
+facilement retirer un élément d'un niveau en le mettant en commentaire (sans pour autant tout supprimer).
+Nous avons également développé divers outils permettant de tester notre jeu que nous allons maintenant 
+présenter plus en détail. 
 
 \subsection{Les hitbox}
 Les hitbox sont les zones de collision des objets. Au départ, les collisions se faisaient en fonction de 
@@ -233,6 +289,9 @@ d'accéder directement à un niveau en utilisant les touches 0 à 4, 0 étant le
 touches $u$ et $j$ pour augmenter et diminuer la vitesse du joueur.
 
 Ce mode permet enfin de contrôler la caméra. La touche $p$ change le focus de \textit{player} à 
-\textit{position}.
+\textit{position}. En mode \textit{player} la caméra suit le joueur. En mode \textit{position} 
+la caméra peut être déplacée. Le superuser permet de déplacer librement la caméra dans l'espace
+ avec les touches \verb|oklm|. Cet outil a notamment été utile lors de la création des opnening 
+ de niveau.
 
 \end{document}

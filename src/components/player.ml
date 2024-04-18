@@ -31,17 +31,18 @@ let player_framed_call player _ : unit =
 
 
   let s = player#state#get in
-    if s.kind = 1 then
-      (if s.curframe > 0 then
-        (player#texture#set (s.update s.curframe s.maxframe (player#direction#get)))
-      else if s.curframe = 0 then
-        (player#texture#set (player#anim_recover#get);
+    if s.kind = 1 then begin
+      if s.curframe > 0 then
+        player#texture#set (s.update s.curframe s.maxframe (player#direction#get))
+      else if s.curframe = 0 then begin
+        player#texture#set (player#anim_recover#get);
         (match player#state_box#get with
         | Some b -> b#remove_box#get (); player#state_box#set None
         | None -> ());
-        s.kind <- 0);
+        s.kind <- 0 
+      end;
       s.curframe <- s.curframe - 1;
-      );
+      end;
       
     if player#health#get <= 0.0 then begin
       Fall_box.reset_fall_box_position ();
@@ -55,46 +56,48 @@ let player_framed_call player _ : unit =
 let player_control player keys =
 
   (* Déplacement vers la gauche *)
-  if Hashtbl.mem keys cfg.key_left then
-    (if (player # direction # get) <> (-1.) then
-      (if player#state#get.kind = 1 then
+  if Hashtbl.mem keys cfg.key_left then begin
+    if (player # direction # get) <> (-1.) then begin
+      if player#state#get.kind = 1 then
         player#anim_recover#set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
-      player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
-      player # direction # set (-1.));
+        player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_right_walk");
+        player # direction # set (-1.)
+      end;
       Texture.pause_animation (player#texture#get) false;
       player # velocity # set (Vector.add (Vector.mult (-1.) !Const.horz_vel)
-      (Vector.{x=0.; y=(player#velocity#get).y}));
-    )
+                                          (Vector.{x=0.; y=(player#velocity#get).y}));
+    end
 
   (* Déplacement vers la droite *)
-  else if Hashtbl.mem keys cfg.key_right then 
-    (if (player # direction # get) <> (1.) then begin
+  else if Hashtbl.mem keys cfg.key_right then begin
+    if (player # direction # get) <> 1. then begin
       if player#state#get.kind = 1 then
         player#anim_recover#set (Hashtbl.find (player # modifiable_texture # get) "texture_left_walk");  
       player # texture # set (Hashtbl.find (player # modifiable_texture # get) "texture_left_walk");
       player # direction # set (1.)
-      end;
-      Texture.pause_animation (player#texture#get) false;
-      player # velocity # set (Vector.add (!Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
-    )
-  else
+    end;
+    Texture.pause_animation (player#texture#get) false;
+    player # velocity # set (Vector.add (!Const.horz_vel)(Vector.{x=0.; y=(player#velocity#get).y}));
+  end
+
+  else begin
   (* Arrêt *)
-    (Texture.pause_animation (player#texture#get) true;
+    Texture.pause_animation (player#texture#get) true;
     if player#level#get = 3 then
       player#velocity#set (Vector.clamp ( Vector.{x=(player#velocity#get).x/.1.03; y=(player#velocity#get).y} ) (-0.8) 0.8)
     else 
-      player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} ));
+      player#velocity#set ( Vector.{x=0.; y=(player#velocity#get).y} )
+  end;
 
   (* Teleport *)
   if Hashtbl.mem keys cfg.key_teleport && player#level#get >= 2 &&
     Hashtbl.find (player#cooldown#get) "teleport" < 1. then begin
     Hashtbl.replace (player # cooldown # get) "teleport" 200.;
-    if (player # direction # get) = (1.) then begin
-      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=2.; y=0.});
-    end
+    if (player # direction # get) = 1. then
+      player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=2.; y=0.})
     else
       player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=(-2.); y=0.})
-    end;
+  end;
 
 
   (* Shoot *)
@@ -114,10 +117,11 @@ let player_control player keys =
 
   (* Jump *)
   if Hashtbl.mem keys cfg.key_up && player#grounded#get 
-    && Hashtbl.find keys cfg.key_up <> None then
-    (player # grounded # set false;
+    && Hashtbl.find keys cfg.key_up <> None then begin
+    player # grounded # set false;
     player # sum_forces # set (Vector.add (player#sum_forces#get) (Const.jump));
-    Hashtbl.replace keys cfg.key_up None);
+    Hashtbl.replace keys cfg.key_up None
+  end;
 
   (* sword *)
   if Hashtbl.mem keys cfg.key_return && (State.get_state player#state#get) = 0 then begin
@@ -125,7 +129,7 @@ let player_control player keys =
     let i = ref (-1) in
     if player#direction#get = 1. then
       (player#state#set (State.create_state 1 24 (update_sword_anim player i));
-      player#state_box#set (Some (Sword_box.create "sword" player (30.) 0.)))
+      player#state_box#set (Some (Sword_box.create "sword" player 30. 0.)))
     else
       (player#state#set (State.create_state 1 24 (update_sword_anim player i));
       player#state_box#set (Some (Sword_box.create "sword" player (-22.) 0.))))
