@@ -12,10 +12,20 @@ let update_sword_anim alexandre i frame maxframe dir =
   if frame mod (maxframe/8) = 0 then
     i := !i+1;
   if dir = -1. then
-    (
-      Texture.image_from_surface ctx res (364*(!i)) (364*2) 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get))
+    Texture.image_from_surface ctx res (364*(!i)) (364*2) 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get)
   else
     Texture.image_from_surface ctx res (364*(!i)) (3*364) 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get)
+
+let update_appear_anim alexandre i frame maxframe dir =
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/appear.png"
+                              with Not_found -> failwith "In alexandre.ml : Resource not found" ) in
+  let ctx = Gfx.get_context (Global.window ()) in
+  if frame mod (maxframe/10) = 0 then
+    i := !i+1;
+  Texture.image_from_surface ctx res (364*(!i)) 0 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get)
+  
+
+
 
 
 let alexandre_pattern alexandre dt = 
@@ -48,7 +58,7 @@ let alexandre_pattern alexandre dt =
     let s = alexandre#state#get in
 
     (* if attacking *)
-    if s.kind = 1 then begin
+    if s.kind > 0 then begin
       if s.curframe > 0 then
         (alexandre#texture#set (s.update s.curframe s.maxframe (alexandre#direction#get)))
       else if s.curframe = 0 then
@@ -190,6 +200,10 @@ let create id x y w h texture  =
 
 let appear_on_collide event_box x y collide pos =
   Collision_system.unregister event_box;
-  if collide = "player" then
+  if collide = "player" then begin
     let a = create "alexandre" ((x+4)*block_size) (Const.window_height-y*block_size) (block_size*2) (block_size*2) None in
-    ignore(Hpbar.create "hpbar" (block_size * 5) (Const.window_height-block_size * 9) (block_size *10) (block_size/4) a )
+    ignore(Hpbar.create "hpbar" (block_size * 5) (Const.window_height-block_size * 9) (block_size *10) (block_size/4) a );
+    let i = ref (-1) in
+    a#anim_recover#set (a#texture#get);
+    a#state#set (create_state 1 40 (update_appear_anim a i))
+  end

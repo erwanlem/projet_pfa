@@ -23,15 +23,7 @@ let create id x y  =
   let texture1 = Texture.image_from_surface ctx res 32 (6*16) 16 16 64 64 in
   box#texture#set texture1;
 
-  ignore (Hitbox.create "heal" box ~col:(Gfx.color 0 0 0 180));
-
-  (*let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame.png") in
-  let ctx = Gfx.get_context (Global.window ()) in
-
-  let texture = 
-    if dir_x > 0. then Texture.anim_from_surface ctx res 6 512 197 128 49 5 1
-    else Texture.anim_from_surface ctx res 6 512 197 128 49 5 0 in
-    *)
+  box#isTransparent#set true;
 
   Draw_system.register (box :> drawable);
   Collision_system.register (box:>collidable);

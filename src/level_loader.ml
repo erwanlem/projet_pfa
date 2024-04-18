@@ -96,7 +96,7 @@ let draw_element id x y w h =
 
   | 22 -> ignore (Background.create "menu_background" (load_settings ()))
 
-  | 23 -> Gfx.debug "New Audio %s\n%!" (load_settings ()).track; ignore (Audio.create (load_settings ()).track)
+  | 23 -> ignore (Audio.create (load_settings ()).track)
 
   | 24 -> 
     let level = int_of_string (
@@ -127,9 +127,8 @@ let draw_element id x y w h =
   | 1000 ->
     let s = load_settings () in
     map_width := s.width * block_size;
-    max_gap := float (!map_width - window_width);
-    Gfx.debug "Width = %d*%d\n%!" s.width block_size
-
+    max_gap := float (!map_width - window_width)
+    
   | _ -> ()
 
 
@@ -177,6 +176,6 @@ let load_map (map : string) =
   let l = try (Hashtbl.find (Resources.get_resources ()) map) with Not_found -> failwith "Map not found\n" in
   let l = Gfx.get_resource l in
   let l = String.split_on_char '\n' l in
-  print_map l;
+  (*print_map l;*)
 
   List.iter (fun line -> read_line line) l

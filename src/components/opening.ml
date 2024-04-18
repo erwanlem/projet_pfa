@@ -29,7 +29,7 @@ let create id settings nbr =
   with Not_found -> failwith (Printf.sprintf "%s not found\n%!" ("opening" ^ string_of_int nbr ^ ".level"))) in
   let line = String.split_on_char '\n' text in
 
-  List.iter (fun e -> Gfx.debug "-> %s\n%!" e) line;
+  (*List.iter (fun e -> Gfx.debug "-> %s\n%!" e) line;*)
 
   let ctx = Gfx.get_context (Global.window ()) in
 
