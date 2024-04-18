@@ -18,7 +18,7 @@
 2:30x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 2:31x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
 
-#24:0x0|0x0|level=1     # opening
+24:0x0|0x0|level=1     # opening
 100:2x4|0x0|level=1,opening=1 # joueur
 
 

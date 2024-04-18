@@ -1,6 +1,8 @@
 open Component_defs
 open System_defs
 open State
+open Const
+    
 
 
 let update_sword_anim alexandre i frame maxframe dir =
@@ -27,7 +29,7 @@ let alexandre_pattern alexandre dt =
     ignore (Decor.create "door" (57*Const.block_size) (Const.window_height-5*Const.block_size) (2*Const.block_size) (2*Const.block_size)
     {t_x=0;t_y=8;t_w=2;t_h=2;width=0;texture=Some "resources/images/grass.png";link="";
     animation=0;color=Gfx.color 0 0 0 0;text="";text_key="";font="";
-    layer=10;parallax=1.;track=""});
+    layer=6;parallax=1.;track=""});
 
     Real_time_system.unregister (alexandre:> real_time);
     Force_system.unregister (alexandre:>collidable);
@@ -106,9 +108,9 @@ let alexandre_pattern alexandre dt =
             Hashtbl.replace (alexandre # cooldown # get) "fireball" dt;
             let x = (* position de l'élément en fonction de la direction (tirer vers la gauche ou vers la droite) *)
               if alexandre#direction#get > 0. then (Vector.get_x alexandre#pos#get)+.(float (Rect.get_width alexandre#rect#get)) 
-              else (Vector.get_x alexandre#pos#get)-.68. in
+              else (Vector.get_x alexandre#pos#get)-.94. in
             (ignore (Bullet.create "fireball" x 
-                       (Vector.get_y playerpos+.20.) 64 25 (Const.bullet_speed *. alexandre#direction#get) 0. ~color:2));
+                       (Vector.get_y playerpos+.20.) 90 36 (Const.bullet_speed *. alexandre#direction#get) 0. ~color:2));
           end
 
         )
@@ -181,3 +183,13 @@ let create id x y w h texture  =
   View_system.register (alexandre :> drawable);
   Real_time_system.register(alexandre:> real_time);
   alexandre
+
+
+
+
+
+let appear_on_collide event_box x y collide pos =
+  Collision_system.unregister event_box;
+  if collide = "player" then
+    let a = create "alexandre" ((x+4)*block_size) (Const.window_height-y*block_size) (block_size*2) (block_size*2) None in
+    ignore(Hpbar.create "hpbar" (block_size * 5) (Const.window_height-block_size * 9) (block_size *10) (block_size/4) a )
