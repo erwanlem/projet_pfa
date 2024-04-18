@@ -71,7 +71,7 @@ let create id settings nbr =
 
   let surf = Gfx.create_surface ctx (Rect.get_width box#rect#get) height in
 
-  Gfx.set_color ctx (Gfx.color 0 0 0 255);
+  Gfx.set_color ctx settings.color;
   for i = 0 to List.length line - 1 do
     let surf_font = Gfx.render_text ctx (List.nth line i) res in
     Gfx.blit_scale ctx surf surf_font (block_size * 4) (i * (font_size+h_space)) (block_size * 12) font_size;
