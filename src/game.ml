@@ -29,7 +29,8 @@ let d = ref 0.
 
 let update dt =
   (* Affiche FPS *)
-  (*(if (int_of_float dt) mod 1000 <= 5 then
+  (*
+  (if (int_of_float dt) mod 1000 <= 5 then
     (Gfx.debug "%d FPS\n%!" !fps;
     fps := 0)
   else
