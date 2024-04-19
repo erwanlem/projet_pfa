@@ -51,9 +51,13 @@ ennemis. Au niveau 3 s'ajoute les \textbf{boules de feu} qui est l'attaque à di
 joueur a les mêmes capacités qu'au niveau 3. Enfin le joueur peut trouver des \textbf{soins} dans les niveaux. 
 Les soins sont représentés par les items poulet.
 
-Nous avons pu mentionner précédemment que chaque niveau possède une musique 
-différente afin de varier l'ambience. Nous avons voulu faire en sorte que plus le joueur avance dans le jeu,
- plus la musique devient pesante.
+L'affichage est découpé en blocs. L'écran fait 20 blocs de large. Cela permet d'adapter l'affichage à la taille de 
+l'écran sans qu'il n'y ait de déformation. Les mesures données dans les fichiers de map sont donc en bloc. 
+Par exemple, lorsqu'on indique \verb|x = 2|, on veut que l'élément se place sur le deuxième bloc en x. Les blocs nous 
+garantissent qu'en changeant la taille de l'écran on conservera les bonnes proportions. Les blocs sont des carrés,
+ la hauteur va donc dépendre de la largeur (nous avons fait en sorte que l'affichage soit idéal en 16:9).
+Enfin pour un affichage correct \textbf{la largeur de l'écran doit être un multiple de 20} car les nombres à 
+virgule causent des problèmes d'affichage.
 
 Pour terminer, le jeu se joue avec les touches \verb|zqd| (ou directionnelles) pour les déplacements. Les 
 touches utiles aux pouvoirs dépendent des préférences des joueurs. On utilise par défaut \verb|Shift|, 

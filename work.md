@@ -86,10 +86,3 @@ La taille des blocs s'adapte maintenant à la largeur de la fenêtre. La fenêtr
 La hauteur est donc relative à la hauteur des blocs. 
 **ATTENTION** : La largeur de la fenêtre doit être un multiple de 16. Si 
 cette condition n'est pas respectée les arrondis sur les flottants vont créer des espaces visibles.
-
-#### Note importante
-J'ai pu remarquer que `real_time` provoque une réduction non négligeable des performances du jeu (SDL et JavaScript). Cela est notamment dû au nombre d'appels trop élevé. Je vais travailler à l'adaptation de la 
-fréquence d'appels en fonction des tâches effectuées. 
-**De plus** j'ai pu remarquer que le système `ennemy` fait exactement la même chose que le système `real_time` 
-à la différence que les fonctions appelées ne sont pas les mêmes. Il serait préférable de regrouper tout dans le 
-système `real_time`.
