@@ -252,10 +252,41 @@ mesure de l'avancement de l'animation.
 %entité faire \verb|position_entité - position_caméra|. 
 
 \subsection{Les ennemis (Ewen)}
-% Si ajouts mineurs va dans ennemis mettre subsubsection
-\subsection{Ajout mineurs}
-\subsubsection{Barre de vie (Ewen)}
-\subsubsection{Objets de soin (Ewen)}
+Lorsque l'on a débuté la création des ennemis, nous avons commencé par créer un système \textbf{Ennemi} qui appelait 
+une fonction \textit{pattern} à chaque frame et permettait ainsi de contrôler les comportements des ennemis. 
+Nous avons commencé par essayer d'implémenter un composant qui simulait la vision d'un ennemi 
+et se servait de l'algorithme de détection de collision. Pour ce faire, nous avions implémenté un nouveau composant 
+\textit{vision} qui faisait apparaître un rectangle autour de l'ennemi mais ne corrigeait aucune collision. 
+On pouvait alors détecter lorsque le joueur rentrait en collision avec la vision et ainsi appliquer un pattern à l'ennemi. 
+Cependant, après divers tests et problèmes, nous avons décidé de garder la position courante du joueur dans 
+une variable globale. Cela nous permet non seulement de réduire le nombre de composants, mais également d'appliquer plusieurs 
+patterns différents selon la distance avec le joueur (cf. Alexandre le petit).
+Par la suite, nous nous sommes rendu compte que nous pouvions utiliser le système \textbf{Real\_time} afin de contrôler 
+le comportement des ennemis. Nous avons donc supprimé le système \textbf{Ennemi}.
+
+Comme mentionné plus haut, il existe 3 types d'ennemis différents. Il y a tout d'abord les archers (composant \textit{arch})
+ qui ne se déplacent pas et ne tirent que devant eux. 
+Ils vérifient que le joueur se trouve bien à leur hauteur et à une certaine distance d'eux. Si les conditions sont vérifiées, 
+ils tirent une flèche. Afin qu'ils ne tirent pas tout le temps, on utilise également une table de hachage qui stocke un cooldown. 
+Ils ne tirent donc que si la condition sur le cooldown est vérifiée.
+
+Ensuite, il y a les chevaliers (composant \textit{knight}). Ils commencent par 
+vérifier que le joueur se trouve à une certaine distance d'eux. S'il est assez proche pour être vu, le chevalier va se rapprocher 
+du joueur. Dès lors que le chevalier colle le joueur, il va mettre des coups d'épée afin d'infliger des dégâts.
+
+Enfin, il y a le boss final, Alexandre le petit (composant \textit{Alexandre}). Tout comme les autres ennemis, 
+il va commencer par regarder sa distance avec le joueur. Si le joueur est assez proche pour être vu, on prend 
+la distance avec le joueur et on la fait passer à travers une fonction qui va donner un nombre entre 0 et 100. 
+Ensuite, on tire au hasard un nombre entre 0 et 100, si il est plus grand que le premier nombre, on tire une boule de feu 
+(on utilise également un cooldown). Si la distance est trop petite, le boss va se rapprocher du joueur jusqu'à 
+ce qu'il soit à portée afin de l'attaquer au corps à corps.
+
+Le boss étant un ennemi spécial et ayant beaucoup de vie, nous avons décidé d'implémenter une barre de vie qui 
+apparaît en haut de l'écran. Cette barre est gérée par le composant \textit{hpbar}.
+
+Enfin, comme il devient fréquent de prendre des dégâts, nous avons implémenté un composant de soin \textit{medkit}.
+Il prend la forme d'un morceau de viande et lorsque que le joueur rentre en collision avec celui-ci, cela lui rend une 
+partie de sa vie et le medkit est ensuite détruit.
 
 \section{Les tests effectués}
 

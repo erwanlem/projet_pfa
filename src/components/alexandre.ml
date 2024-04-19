@@ -90,7 +90,7 @@ let alexandre_pattern alexandre dt =
 
         (* Can see the player *)
         if ( disttop < 2000.0) then (
-          let f x = 0.14*.x -. 25. in
+          let f x = 0.034*.x +. 11. in
           let randnum = Random.int 100 in
           let attack = f disttop < float randnum in
 
