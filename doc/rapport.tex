@@ -25,7 +25,7 @@ L'histoire est le fil conducteur du jeu: elle permet de donner un sens aux diff�
 en gardant un jeu cohérent pour les non-connaisseurs. On retrouve également une référence 
 à \textit{Star Wars} avec les opening des niveaux inspirés de ceux des films. Enfin, 
 le joueur est accompagné d'une série de musiques médiévales tout au long du jeu qui le 
-plonge d'avantage dans l'aventure du roi arthur.
+plonge d'avantage dans l'aventure du roi Arthur.
 
 Le jeu se compose de 4 niveaux et d'un menu. Le \textbf{menu} sert uniquement d'accueil du jeu.
 Le \textbf{niveau 1} introduit la problématique de l'histoire (opening) et permet au joueur de 
@@ -61,7 +61,7 @@ virgule causent des problèmes d'affichage.
 
 Pour terminer, le jeu se joue avec les touches \verb|zqd| (ou directionnelles) pour les déplacements. Les 
 touches utiles aux pouvoirs dépendent des préférences des joueurs. On utilise par défaut \verb|Shift|, 
-\verb|space| et \verb|s|. D'autres touches servent au débogage, nous le verrons dans une section dédiée. 
+\verb|space| et \verb|s|. D'autres touches servent au débogage, nous les verrons dans une section dédiée. 
 Les niveaux ont été conçus de manière à ce que le joueur se serve au moins une fois de chaque pouvoir 
 mis à sa disposition.
 
@@ -76,17 +76,24 @@ système va appeler une fonction dans l'entité qui va ensuite gérer les action
 Le système \textbf{real\_time} permet de gérer les actions qui doivent se passer sans latence pour le joueur.
 À chaque frame il appelle une fonction spécifique à chaque entité présente dans le système. Il permet par exemple
 de gérer les ennemis. Le système \textbf{music} s'occupe de la gestion des musiques du jeu. Il contient une 
-variable \verb|current_track| qui permet de sélectionner la track à jouer. Les track sont prédéfinies dans le code 
-elles ne peuvent pas être modifiées depuis l'extérieur. Le système \textbf{view} permet de gérer la caméra. Nous 
-reviendrons sur cette partie plus en profondeur dans la suite de ce rapport.
+variable \verb|current_track| qui permet de sélectionner la piste à jouer. Les pistes sont prédéfinies dans le code 
+elles ne peuvent pas être modifiées depuis l'extérieur. Le système \textbf{view} permet de gérer la caméra.
+La caméra a deux modes: \verb|position| qui place la caméra en fonction de son attribut 
+\verb|pos| et le mode \verb|player| qui place la caméra à la position du joueur. Ce second mode utilise 
+l'accès au joueur du fichier \verb|global.ml|. La vue est gérée dans le système \verb|view.ml|. Chaque 
+entité affichable (\textit{drawable}) possède un composant \textit{camera\_position} qui est la position 
+à l'écran. On différencie donc maintenant la position à l'écran et la position dans l'espace du jeu qui 
+est le composant \textit{position}. Le système \textit{view} va calculer à partir de la position de la 
+caméra et du composant la position à l'écran du composant. L'algorithme est plutôt simple, pour chaque 
+entité faire \verb|position_entité - position_caméra|. 
 
 \subsection{Le répertoire \texttt{src}}
 Le répertoire \verb|src/| contient trois nouveaux fichiers. 
 
 Le fichier \verb|level_loader.ml| permet le chargement 
-les niveaux depuis des fichiers texte. C'est une partie qui a été particulièrement intéressante à implémenter. 
+des niveaux depuis les fichiers texte. C'est une partie qui a été particulièrement intéressante à implémenter. 
 L'objectif a été de pouvoir créer des niveaux sans avoir besoin de connaître le fonctionnement interne du jeu. 
-Nous pensons être plutôt proche de cet objectif même si certaines choses pourraient être améliorée. Les fichiers
+Nous pensons être plutôt proche de cet objectif même si certaines choses pourraient être améliorées. Les fichiers
  textes doivent contenir un ensemble de lignes 
 chacune permettant la création d'un élément du jeu. On utilise la notation \texttt{id:XxY|WxH|param} avec id 
 l'identifiant de l'entité (Les identifiants des entités et leur description sont disponibles dans le fichier
@@ -95,7 +102,7 @@ associés à l'entité. Cette ligne est découpée pour récupérer chacune des 
 ajoutés dans une table de hachage. Lors de la création d'une entité on récupère un type énuméré \verb|setting|
 définit dans \verb|const.ml|. Ce type contient les différents paramètres possibles. Les entités peuvent ensuite
 récupérer les paramètres dont elles ont besoin dans cette structure. Ce fonctionnement permet d'avoir une 
-flexibilité dans les déinitions de niveau. On peut par exemple donner des paramètres qui n'existent pas, cela 
+flexibilité dans les déinitions de niveaux. On peut par exemple donner des paramètres qui n'existent pas, cela 
 n'aura aucune influence. On peut également ne pas définir un paramètre qui est nécessaire et dans ce cas une 
 valeur par défaut sera donnée sans causer d'erreur. 
 
@@ -166,7 +173,7 @@ Ci-dessous une rapide description des composants de notre jeu.
         hpbar & Barre affichant la vie de l'ennemi final. Affiche un rectangle proportionnel à la vie du composant \verb|alexandre|. \\
         \hline
         jump\_box & Box permettant de faire rebondir le joueur. Le fait de pouvoir rebondir plus haut implique une élasticité 
-        supérieure à 1. Or une élasticité supérieure à 1 fait rebondir de plus en plus haut le joueur. C'est pourquoi on à limité la 
+        supérieure à 1. Or une élasticité supérieure à 1 fait rebondir de plus en plus haut le joueur. C'est pourquoi on a limité la 
         vélocité dans le système \textit{collisions} en utilisant \verb|clamp| du module \verb|Vector| (ajouté). \\
         \hline
         knight & Chevalier, attaque seulement avec une épée et suit le joueur lorsqu'il est assez près. \\
