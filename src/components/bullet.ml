@@ -3,13 +3,14 @@ open System_defs
 
 let bullet_collide bullet collide pos =
   (* Détruire *)
-  if not (collide = "vs") then(
-  (*Gfx.debug "Destroy bullet with %s\n%!" collide;*)
-  Force_system.unregister (bullet :> collidable);
-  Draw_system.unregister (bullet :> drawable);
-  Collision_system.unregister (bullet :> collidable);
-  Move_system.unregister (bullet :> movable);
-  View_system.unregister (bullet :> drawable))
+  if not (collide = "vs" || collide = "appear_box") then begin
+    (*Gfx.debug "Destroy bullet with %s\n%!" collide;*)
+    Force_system.unregister (bullet :> collidable);
+    Draw_system.unregister (bullet :> drawable);
+    Collision_system.unregister (bullet :> collidable);
+    Move_system.unregister (bullet :> movable);
+    View_system.unregister (bullet :> drawable)
+  end
 
 
 let create ?(color=1) id x y w h dir_x dir_y =
