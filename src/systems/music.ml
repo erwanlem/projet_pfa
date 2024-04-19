@@ -9,7 +9,7 @@ let current_track = ref "track1"
 let sounds = Hashtbl.create 10
 let () =
   Hashtbl.replace sounds "" [||];
-  Hashtbl.replace sounds "track1" [|"resources/audio/tkucza-happyflutes.mp3"; "resources/audio/The_Bards_Tale_.mp3"|];
+  Hashtbl.replace sounds "track1" [|"resources/audio/The_Bards_Tale_.mp3";"resources/audio/tkucza-happyflutes.mp3" |];
   Hashtbl.replace sounds "track2" [|"resources/audio/Tavern-Brawl.mp3"|];
   Hashtbl.replace sounds "track3" [|"resources/audio/dryad.mp3"|];
   Hashtbl.replace sounds "track4" [|"resources/audio/Minstrel_Dance.mp3"|];
