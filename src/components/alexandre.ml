@@ -206,8 +206,8 @@ let create id x y w h texture  =
 
 
 let appear_on_collide event_box x y collide pos =
-  Collision_system.unregister event_box;
   if collide = "player" then begin
+    Collision_system.unregister event_box;
     let a = create "alexandre" ((x+4)*block_size) (Const.window_height-y*block_size) (block_size*2) (block_size*2) None in
     ignore(Hpbar.create "hpbar" (block_size * 5) (Const.window_height-block_size * 9) (block_size *10) (block_size/4) a );
     let i = ref (-1) in
