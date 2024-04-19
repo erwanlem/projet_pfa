@@ -22,7 +22,7 @@ let update_sword_anim player i frame maxframe dir =
 
 let player_framed_call player _ : unit =
   player # cooldown_decr (player # cooldown # get); 
-  if Hashtbl.find (player#cooldown#get) "teleport" > 190. then begin
+  if Hashtbl.find (player#cooldown#get) "teleport" > (Const.teleport_cooldown-.10.) then begin
     if (player # direction # get) = (1.) then
       player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=5.; y=0.})
     else
@@ -93,7 +93,7 @@ let player_control player keys =
   (* Teleport *)
   if Hashtbl.mem keys cfg.key_teleport && player#level#get >= 2 &&
     Hashtbl.find (player#cooldown#get) "teleport" < 1. then begin
-    Hashtbl.replace (player # cooldown # get) "teleport" 200.;
+    Hashtbl.replace (player # cooldown # get) "teleport" Const.teleport_cooldown;
     if (player # direction # get) = 1. then
       player#sum_forces#set (Vector.add player#sum_forces#get Vector.{x=2.; y=0.})
     else

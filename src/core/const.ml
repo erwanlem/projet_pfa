@@ -36,6 +36,7 @@ let horz_vel = ref Vector.{x = 0.3 *. force_const; y =0.}
 let jump = Vector.{x = 0.; y = -1.6 *. force_const}
 let player_health = 50.
 let sword_damage = 10.
+let teleport_cooldown = 200.
 
 
 let exclbr_rgd_atk=7.5
