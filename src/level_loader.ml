@@ -170,7 +170,11 @@ let read_line line =
 (* Charge le fichier au chemin donné en paramètre et renvoie la liste des lignes *)
 let load_map (map : string) =
   Hashtbl.clear settings_table;
+
+  (* Reset map size with the default size *)
   map_width := 90 * block_size;
+  max_gap := float (!map_width - window_width);
+
   Fall_box.remove_fall_box ();
   Hide_box.remove_hide_box ();
   let l = try (Hashtbl.find (Resources.get_resources ()) map) with Not_found -> failwith "Map not found\n" in

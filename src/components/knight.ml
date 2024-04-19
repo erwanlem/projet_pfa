@@ -6,8 +6,16 @@ let update_sword_anim knight i frame maxframe dir =
   let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/knight_attack.png"
                                     with Not_found -> failwith "In knight.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
-  if frame mod (maxframe/6) = 0 then
-    i := !i+1;
+  if frame mod (maxframe/6) = 0 then begin
+    if !i = 3 then begin
+      Gfx.debug "SWORD\n%!";
+      if dir = 1. then
+        knight#state_box#set (Some (Sword_box.create "ennemy_sword" knight (30.) 0.))
+      else
+        knight#state_box#set (Some (Sword_box.create "ennemy_sword" knight (-22.) 0.))
+      end;
+    i := !i+1
+  end;
   if dir = -1. then
     (
       Texture.image_from_surface ctx res (64*(!i)) 64 64 64 64 64)
@@ -57,11 +65,9 @@ let knight_pattern knight dt =
       knight#anim_recover#set knight#texture#get;
       let i = ref (-1) in
       if knight#direction#get = 1. then
-        (knight#state#set (State.create_state 1 24 (update_sword_anim knight i));
-        knight#state_box#set (Some (Sword_box.create "ennemy_sword" knight (30.) 0.)))
+        knight#state#set (State.create_state 1 24 (update_sword_anim knight i))
       else
-        (knight#state#set (State.create_state 1 24 (update_sword_anim knight i));
-        knight#state_box#set (Some (Sword_box.create "ennemy_sword" knight (-22.) 0.)))
+        knight#state#set (State.create_state 1 24 (update_sword_anim knight i))
       end
 
     else
@@ -114,12 +120,12 @@ let create id x y w h texture  =
   knight # hitbox_position # set Vector.{x=18.;y=14.};
   knight # rect # set Rect.{width = w; height = h};
   knight # mass # set Const.knight_stats.mass;
-  (
-    match texture with 
-    None -> 
+  
+  (match texture with 
+    | None -> 
       let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/knight_walk.png") in
       let ctx = Gfx.get_context (Global.window ()) in
-  
+
       let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 
       let texture2 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 1 in 
       let h = Hashtbl.create 2 in
@@ -127,11 +133,12 @@ let create id x y w h texture  =
       Hashtbl.replace h "texture_right_walk" texture2;
       knight # modifiable_texture # set h;
       knight # texture # set texture2
-  
-    | Some t -> knight # texture # set t);
+
+    | Some t -> knight # texture # set t
+  );
 
   (* shows hitbox *)
-  ignore (Hitbox.create "knight" knight);
+  (*ignore (Hitbox.create "knight" knight);*)
 
   knight # elasticity # set Const.knight_stats.elas;
   knight # health # set Const.knight_stats.health;
@@ -140,6 +147,7 @@ let create id x y w h texture  =
   knight # direction # set (-1.);
   knight # real_time_fun # set (knight_pattern knight);
   knight # onCollideEvent # set (knight_collision knight);
+
   Force_system.register (knight:>collidable);
   Draw_system.register (knight :> drawable);
   Collision_system.register (knight:>collidable);

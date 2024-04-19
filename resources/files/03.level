@@ -17,7 +17,8 @@
 0:17x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 4
 7:12x8|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 5
 0:24x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 6
-0:32x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 6
+0:32x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 7
+0:8x9|2x1|texture=resources/images/snow.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 8
 
 3:38x9|10x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3,layer=6
 3:38x6|10x3|texture=resources/images/snow.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3,layer=6
@@ -26,13 +27,14 @@
 
 200:42x10|0x0|
 
-5:10x4|1x1|texture=resources/images/snow.png,texture_x=3,texture_y=0,texture_w=1,texture_h=1,layer=6
+5:15x4|1x1|texture=resources/images/snow.png,texture_x=3,texture_y=0,texture_w=1,texture_h=1,layer=6
 5:33x4|1x1|texture=resources/images/snow.png,texture_x=3,texture_y=0,texture_w=1,texture_h=1,layer=6
 5:8x5|1x2|texture=resources/images/snow.png,texture_x=7,texture_y=8,texture_w=1,texture_h=2,layer=6
 
 
 
 101:33x10|0x0| # 1st archer
+101:8x10|0x0| # 2nd archer
 
 102:60x4|0x0| # 1st knight
 102:62x4|0x0| # 2nd knight

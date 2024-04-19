@@ -86,7 +86,7 @@ let arch_pattern arch dt =
 
 let arch_collision arch collide pos =
   if collide = "ground" then arch # grounded # set true;
-  if collide = "player" then arch # pushable # set false;
+  if collide = "player" || collide = "arrow" then arch # pushable # set false;
   if collide = "sword" then 
     arch # take_dmg Const.sword_damage;
   if collide = "player_fb" then arch # take_dmg Const.fbdamage

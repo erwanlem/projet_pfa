@@ -16,9 +16,27 @@
 #5:10x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=5 # decor
 #5:13x4|2x1|texture=resources/images/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=5 # decor
 
-# tree
+# trees
 5:8x7|3x4|texture=resources/images/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
 5:11x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
+
+5:35x7|3x4|texture=resources/images/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
+5:38x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
+
+5:46x7|3x4|texture=resources/images/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
+5:49x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
+
+
+5:26x4|2x1|texture=resources/images/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=6
+5:23x5|1x2|texture=resources/images/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
+5:24x5|1x2|texture=resources/images/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
+5:25x5|1x2|texture=resources/images/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
+
+5:29x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
+
+5:42x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
+5:43x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
+5:44x4|2x1|texture=resources/images/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=6
 
 
 5:0x18|60x24|texture=resources/images/night/night-layer0.jpg,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background

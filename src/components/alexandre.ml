@@ -9,8 +9,15 @@ let update_sword_anim alexandre i frame maxframe dir =
   let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/boss.png"
                               with Not_found -> failwith "In alexandre.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
-  if frame mod (maxframe/8) = 0 then
-    i := !i+1;
+  if frame mod (maxframe/8) = 0 then begin
+    if !i = 3 then begin
+      if dir = 1. then
+        alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (float (Rect.get_width alexandre#hitbox_rect#get)) 0. ~alex:true))
+      else
+        alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (-.36.) 0. ~alex:true))
+      end;
+    i := !i+1
+  end;
   if dir = -1. then
     Texture.image_from_surface ctx res (364*(!i)) (364*2) 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get)
   else
@@ -77,14 +84,10 @@ let alexandre_pattern alexandre dt =
         alexandre#anim_recover#set alexandre#texture#get;
         let i = ref (-1) in
         if alexandre#direction#get = 1. then begin
-          Gfx.debug "RIGHT\n%!";
           alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
-          alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (float (Rect.get_width alexandre#hitbox_rect#get)) 0. ~alex:true))
         end
         else begin
-          Gfx.debug "LEFT\n%!";
-          alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
-          alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre ((Vector.get_x alexandre#hitbox_position#get)-.36.) 0. ~alex:true))
+          alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i))
         end
       end
 
