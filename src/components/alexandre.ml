@@ -76,12 +76,16 @@ let alexandre_pattern alexandre dt =
       if Vector.dist (Vector.addX playerpos 32.) (Vector.addX alexandre#pos#get 64.) < 110.0 then begin
         alexandre#anim_recover#set alexandre#texture#get;
         let i = ref (-1) in
-        if alexandre#direction#get = 1. then
-          (alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
-           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (30.) 0. ~alex:true)))
-        else
-          (alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
-           alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (-22.) 0. ~alex:true)))
+        if alexandre#direction#get = 1. then begin
+          Gfx.debug "RIGHT\n%!";
+          alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
+          alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre (float (Rect.get_width alexandre#hitbox_rect#get)) 0. ~alex:true))
+        end
+        else begin
+          Gfx.debug "LEFT\n%!";
+          alexandre#state#set (create_state 1 32 (update_sword_anim alexandre i));
+          alexandre#state_box#set (Some (Sword_box.create "ennemy_sword" alexandre ((Vector.get_x alexandre#hitbox_position#get)-.36.) 0. ~alex:true))
+        end
       end
 
       else
@@ -170,7 +174,7 @@ let create id x y w h texture  =
 
     
   (* shows hitbox *)
-  ignore (Hitbox.create "alexandre" alexandre);
+  (*ignore (Hitbox.create "alexandre" alexandre);*)
 
 
   alexandre # cooldown # set (Hashtbl.create 2);

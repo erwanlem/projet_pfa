@@ -11,6 +11,7 @@ let create id x y w h settings =
   box # hitbox_rect # set Rect.{width = w; height = h};
   box # id # set id;
   box # mass # set infinity;
+  box # isTransparent # set true;
 
   Collision_system.register (box:>collidable);
   box
