@@ -44,7 +44,7 @@
 5:0x10|54x7|texture=resources/images/night/night-layer4.png,texture_w=27,texture_h=7,layer=4,parallax=0.3 # background
 5:0x10|54x8|texture=resources/images/night/night-layer3.png,texture_w=27,texture_h=8,layer=5,parallax=0.6 # background
 
-#23:0x0|0x0|track=track5 # audio
+23:0x0|0x0|track=track5 # audio
 
 
 # blocId:posXxposY|WidthxHeight
