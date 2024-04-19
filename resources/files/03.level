@@ -24,6 +24,7 @@
 5:38x6|10x2|texture=resources/images/snow.png,texture_x=1,texture_y=2,texture_w=1,texture_h=2,layer=7
 5:38x4|10x2|texture=resources/images/snow.png,texture_x=1,texture_y=2,texture_w=1,texture_h=2,layer=7
 
+200:42x10|0x0|
 
 5:10x4|1x1|texture=resources/images/snow.png,texture_x=3,texture_y=0,texture_w=1,texture_h=1,layer=6
 5:33x4|1x1|texture=resources/images/snow.png,texture_x=3,texture_y=0,texture_w=1,texture_h=1,layer=6

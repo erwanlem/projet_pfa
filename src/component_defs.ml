@@ -245,7 +245,7 @@ class cooldown =
     method cooldown_decr c = Hashtbl.iter (fun (k:string) v -> if v > (-1.) then Hashtbl.replace c k (v-.1.)) c
   end
 
-class mob =
+class person =
   object 
     inherit box
     inherit health
@@ -255,6 +255,7 @@ class mob =
     inherit real_time
     inherit modifiable_texture
     inherit cooldown
+
     method alive = (health#get) > 0. 
     method take_dmg dmg = (health#set ((health#get)-.dmg))
 
@@ -262,38 +263,37 @@ class mob =
 
 class knight=
   object 
-    inherit mob
+    inherit person
     inherit !state 
   end
 
 class arch=
   object
-    inherit mob 
+    inherit person
   end
 
 class alexandre=
   object
-    inherit mob
+    inherit person
     inherit !state
   end
 
 class hpbar = 
   object
     inherit id
-    inherit hitbox
     inherit real_time
     inherit drawable
     method updatew p = 
       let r = (rect # get) in
       (rect # set (Rect.{width = p; height =r.height}))
     val totw =Component.def 0
-    val master  = Component.def (None : alexandre option)
+    val master  = Component.def (None : person option)
     method master = master
     method totw = totw
     method master_hp = 
       match master # get with 
         None-> assert false
-      |Some(m) -> m # health # get
+      | Some(m) -> m # health # get
   end
 
 
@@ -306,16 +306,10 @@ class opening =
 
 class player = 
   object
-    inherit health
+    inherit person
     inherit spawn_position
-    inherit state
-    inherit box
     inherit! controlable
-    inherit real_time
-    inherit direction
     inherit level
-    inherit modifiable_texture
-    inherit cooldown
   end
 
 

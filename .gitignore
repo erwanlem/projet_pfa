@@ -8,3 +8,4 @@ doc/*.fls
 doc/*.aux
 doc/rapport.synctex.gz
 doc/rapport.fdb_latexmk
+work.md

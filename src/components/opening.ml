@@ -7,6 +7,7 @@ let move_cam opening background _ =
   let Vector.{x ; y} = cam#pos#get in
   if y >= 0. then begin
     cam#focus#set "player";
+    ignore(Hpbar.create "hpbar" (block_size * 1) (Const.window_height-block_size * 1) (block_size*3) (block_size/10) (Global.ply () :> person) ~margin:"bottom" );
     Control.disable := false;
     Real_time_system.unregister (opening :> real_time);
     Draw_system.unregister (opening :> drawable);
@@ -15,7 +16,7 @@ let move_cam opening background _ =
     View_system.unregister (background :> drawable);
   end
   else
-    cam#pos#set Vector.{x=x;y=y+.0.9}
+    cam#pos#set Vector.{x=x;y=y+.Const.opening_speed}
 
 
 

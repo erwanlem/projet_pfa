@@ -1,19 +1,21 @@
 # Game
 
-Cette archive contient un squelette permettant de faire le projet de PFA en suivant le modèle ECS.
+Ce répertoire contient le code du jeu `Arthur la quête de la Cuillère`.
+
+> Pour une meilleure expérience de jeu activer le son !
 
 
 ## Structure des répertoires 
 
+* `doc` : Le répertoire contenant le rapport du projet.
 * `resources` : répertoire dans lequel déposer les ressources (images, polices, fichiers textes, …)
 * `lib`: répertoire contenant deux bibliothèques :
-	- `ecs`: La bibliothèque ECS telle qu'utilisée en TP, présentée au TP2
-	- `gfx` : La bibliothèque Graphique avec un backend JavaScript et un backend [SDL2](https://www.libsdl.org/), présentée au TP1
+	- `ecs`: La bibliothèque ECS
+	- `gfx` : La bibliothèque Graphique avec un backend JavaScript et un backend [SDL2](https://www.libsdl.org/).
 
-* `src` : le répertoire devant contenir les sources du jeu. On peut suivre le même modèle que pour le jeu `pong`, en utilisant la bibliothèque ECS plutôt que d'avoir les fichiers inclus dans les sources :
+* `src` : le répertoire devant contenir les sources du jeu :
 
-*`prog`: un répertoire contenant deux programmes principaux. Ils sont uniquement là pour servir de cible de compilation différente : `game_js.ml` produit le fichier `game_js.bc.js` qui est inclus depuis le fichier `index.html`. C'est le « programme principal » compilé en Javascript, le seul que l'on demande de supporter pour le projet. `game_sdl.ml` produit le fichier `game_sdl.exe` qui utilise la bibliothèque SDL pour faire un rendu graphique et produit un exécutable natif. Chacun de ces deux fichiers se contente d'appeler
- `Game.run()`. On pourra, si on le souhaite, modifier cette fonction `run` pour prendre en argument des arguments spécifiques au backend.
+* `prog`: un répertoire contenant deux programmes principaux. Ils sont uniquement là pour servir de cible de compilation différente : `game_js.ml` produit le fichier `game_js.bc.js` qui est inclus depuis le fichier `index.html`. C'est le « programme principal » compilé en Javascript, le seul que l'on demande de supporter pour le projet. `game_sdl.ml` produit le fichier `game_sdl.exe` qui utilise la bibliothèque SDL pour faire un rendu graphique et produit un exécutable natif.
 
 ## Construction du jeu 
 
@@ -22,7 +24,9 @@ Il suffit de faire `dune build` à la racine. La cible construite par défaut es
 Pour effacer les fichiers générés, utiliser la commande `dune clean`.
 
 ##  Dépendences
-Le projet de base requiert `ocaml`, `js_of_ocaml`, `js_of_ocaml-ppx`, `dune`. La production de code natif (testé uniquement sous Linux pour l'instant) requiert `tsdl`, `tsdl-image` et `tsdl-ttf` (ainsi que la bibliothèque SDL native).
+Le projet de base requiert `ocaml`, `js_of_ocaml`, `js_of_ocaml-ppx`, `dune`. La production de code natif (testé uniquement sous Linux pour l'instant) requiert `tsdl`, `tsdl-image`, `tsdl-mixer` et `tsdl-ttf` (ainsi que la bibliothèque SDL native).
+
+
 
 
 ## Références
