@@ -47,7 +47,7 @@ let arrow_size = Rect.{width = 32; height=7}
 
 let medkit_size = Rect.{width =block_size/3; height = block_size/3}
 
-let fbdamage = 5.
+let fbdamage = 8.
 
 let knight_vel = ref Vector.{x = 0.20; y = 0.}
 let alexandre_vel = ref Vector.{x = 0.10; y = 0.}

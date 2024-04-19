@@ -45,6 +45,7 @@ let player_framed_call player _ : unit =
       end;
       
     if player#health#get <= 0.0 then begin
+      Alexandre.reset_alexandre_health ();
       Fall_box.reset_fall_box_position ();
       Hide_box.reset_hide_box ();
       player#pos#set (player#spawn_position#get);

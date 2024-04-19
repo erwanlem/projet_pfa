@@ -283,6 +283,11 @@ class hpbar =
     inherit id
     inherit real_time
     inherit drawable
+    val max_health = Component.def 100.
+    method max_health = max_health
+    val player = Component.def false
+    method player = player
+
     method updatew p = 
       let r = (rect # get) in
       (rect # set (Rect.{width = p; height =r.height}))

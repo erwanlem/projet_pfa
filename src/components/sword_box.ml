@@ -31,7 +31,7 @@ let create ?(alex=false) id master_obj x y =
   box # isTransparent # set true;
   box # onCollideEvent # set (collision_function box);
   box # remove_box # set (remove_sword box); 
-  box # texture # set (Texture.Color (Gfx.color 0 0 0 255));
+  box # texture # set (Texture.Color (Gfx.color 0 0 0 0));
   box # camera_position # set (master_obj#camera_position#get);
 
   Draw_system.register (box :> drawable);

@@ -3,7 +3,12 @@ open System_defs
 open State
 open Const
     
+let alexandre_instance = ref (None : alexandre option)
 
+let reset_alexandre_health () =
+  match !alexandre_instance with
+  | None -> ()
+  | Some a -> a#health#set (Const.alexandre_stats.health)
 
 let update_sword_anim alexandre i frame maxframe dir =
   let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/boss.png"
@@ -48,6 +53,7 @@ let alexandre_pattern alexandre dt =
     animation=0;color=Gfx.color 0 0 0 0;text="";text_key="";font="";
     layer=6;parallax=1.;track=""});
 
+    alexandre_instance := None;
     Real_time_system.unregister (alexandre:> real_time);
     Force_system.unregister (alexandre:>collidable);
     Draw_system.unregister (alexandre :> drawable);
@@ -153,6 +159,7 @@ let alexandre_collision alexandre collide pos =
 let create id x y w h texture  =
   Random.self_init ();
   let alexandre = new alexandre in
+  alexandre_instance := Some alexandre;
   alexandre # pos # set Vector.{ x = float x; y = float y };
   alexandre # id # set id;
   alexandre # grounded # set false;
@@ -209,7 +216,7 @@ let appear_on_collide event_box x y collide pos =
   if collide = "player" then begin
     Collision_system.unregister event_box;
     let a = create "alexandre" ((x+4)*block_size) (Const.window_height-y*block_size) (block_size*2) (block_size*2) None in
-    ignore(Hpbar.create "hpbar" (block_size * 5) (Const.window_height-block_size * 9) (block_size *10) (block_size/4) a );
+    ignore(Hpbar.create "hpbar" (block_size * 5) (Const.window_height-block_size * 9) (block_size *10) (block_size/4) a false);
     let i = ref (-1) in
     a#anim_recover#set (a#texture#get);
     a#state#set (create_state 1 40 (update_appear_anim a i))
