@@ -148,6 +148,9 @@ Ci-dessous une rapide description des composants de notre jeu.
         \hline
         decor & Affiche une texture tout en ayant aucune intéraction avec les autres éléments du jeu. \\
         \hline
+        event\_box & Box invisible qui déclenche un évenement lors d'une collision. L'évenément est donné 
+        par une fonction stockée dans \verb|onCollideEvent| \\
+        \hline
         exit\_box & Box permettant de changer de niveau lorsque le joueur entre en collision avec. \\
         \hline
         fall\_box & Box qui est affectée par la gravité lorsque le joueur entre en collision avec. \\
@@ -318,13 +321,16 @@ collisions réglées au pixel près.
 \subsection{Le mode superuser}
 Le mode superuser est un outil qui a été indispensable dans le développement du jeu. D'abord il permet 
 d'accéder directement à un niveau en utilisant les touches 0 à 4, 0 étant le menu. Ensuite il permet 
-également de modifier certaines constantes. Dans la configuration actuelle, on a par exemple les 
-touches $u$ et $j$ pour augmenter et diminuer la vitesse du joueur.
+également de modifier certaines constantes. Avec la configuration actuelle, on a par exemple les 
+touches $u$ et $j$ pour augmenter et diminuer la vitesse du joueur. Avec ce composant il est assez 
+simple d'ajouter des touches qui modifient les constantes.
 
 Ce mode permet enfin de contrôler la caméra. La touche $p$ change le focus de \textit{player} à 
 \textit{position}. En mode \textit{player} la caméra suit le joueur. En mode \textit{position} 
 la caméra peut être déplacée. Le superuser permet de déplacer librement la caméra dans l'espace
  avec les touches \verb|oklm|. Cet outil a notamment été utile lors de la création des opnening 
  de niveau.
+
+Le mode superuser peut être désactivé en retirer la création de l'entité \verb|superuser| dans \verb|game.ml|.
 
 \end{document}

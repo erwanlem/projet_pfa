@@ -4,6 +4,20 @@ Ce répertoire contient le code du jeu `Arthur la quête de la Cuillère`.
 
 > Pour une meilleure expérience de jeu activer le son !
 
+## Les commandes de jeu
+
+- `q` : déplacement droite
+- `d` : déplacement gauche
+- `s` : coup d'épée
+- `z` : saut
+- `espace` : boule de feu (à partir du niveau 3)
+- `shift` : Téléportation (à partir du niveau 2)
+
+### Commandes débogage
+- Sélection de niveau avec `0 1 2 3 4`
+- Changer focus caméra joueur/libre avec `p`
+- Déplacement caméra mode libre : `o` (haut), `k` (gauche), `l` (bas), `m` (droite)
+- Modifier la vitesse du joueur : + avec `u`, - avec `j`
 
 ## Structure des répertoires 
 
