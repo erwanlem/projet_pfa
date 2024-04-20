@@ -2,37 +2,37 @@
 
 1000:0x0|0x0|width=60
 
-3:0x3|26x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
-3:32x5|12x5|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
-5:32x2|12x2|texture=resources/images/grass.png,texture_x=0,texture_y=2,texture_w=3,texture_h=2,layer=6
+3:0x3|26x3|texture=resources/images/env/1/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
+3:32x5|12x5|texture=resources/images/env/1/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
+5:32x2|12x2|texture=resources/images/env/1/grass.png,texture_x=0,texture_y=2,texture_w=3,texture_h=2,layer=6
 
-3:48x3|12x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
+3:48x3|12x3|texture=resources/images/env/1/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3 # sol
 
-0:32x6|1x1|texture=resources/images/grass.png,texture_x=7,texture_y=0,texture_w=1,texture_h=1 # rocher
-0:43x6|1x1|texture=resources/images/grass.png,texture_x=7,texture_y=0,texture_w=1,texture_h=1 # rocher
+0:32x6|1x1|texture=resources/images/env/1/grass.png,texture_x=7,texture_y=0,texture_w=1,texture_h=1 # rocher
+0:43x6|1x1|texture=resources/images/env/1/grass.png,texture_x=7,texture_y=0,texture_w=1,texture_h=1 # rocher
 
-2:26x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:27x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:28x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:29x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:30x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:31x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:26x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:27x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:28x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:29x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:30x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:31x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
 
 24:0x0|0x0|level=1     # opening
 100:2x4|0x0|level=1,opening=1 # joueur
 
 
 
-1:15x6|2x1|texture=resources/images/grass.png,texture_x=5,texture_y=0,texture_w=2,texture_h=1 # tremplin
-0:10x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+1:15x6|2x1|texture=resources/images/env/1/grass.png,texture_x=5,texture_y=0,texture_w=2,texture_h=1 # tremplin
+0:10x5|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
 
-0:20x8|6x6|texture=resources/images/grass.png,texture_x=0,texture_y=1,texture_w=3,texture_h=6 # butte
-5:20x5|6x2|texture=resources/images/grass.png,texture_x=0,texture_y=2,texture_w=3,texture_h=2,layer=6
-5:20x3|6x2|texture=resources/images/grass.png,texture_x=0,texture_y=2,texture_w=3,texture_h=2,layer=6
-6:26x8|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1
+0:20x8|6x6|texture=resources/images/env/1/grass.png,texture_x=0,texture_y=1,texture_w=3,texture_h=6 # butte
+5:20x5|6x2|texture=resources/images/env/1/grass.png,texture_x=0,texture_y=2,texture_w=3,texture_h=2,layer=6
+5:20x3|6x2|texture=resources/images/env/1/grass.png,texture_x=0,texture_y=2,texture_w=3,texture_h=2,layer=6
+6:26x8|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1
 
 
-0:18x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+0:18x6|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
 
 
 
@@ -51,29 +51,29 @@
 200:47x7|0x0|
 
 
-2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:46x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:47x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:44x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:45x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:46x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:47x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
 
 10:57x5|1x2|link=resources/files/02.level                                                     # fin niveau
-5:57x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
+5:57x5|2x2|texture=resources/images/env/1/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
 
 # Walls
 4:-1x18|1x15|color=transparent # limite gauche
 4:89x18|1x15|color=transparent # limite droite
 
 # background grass
-5:0x4|23x1|texture=resources/images/grass.png,texture_w=1,texture_h=1,texture_x=4,texture_y=0,layer=6
-5:10x4|1x1|texture=resources/images/grass.png,texture_w=1,texture_h=1,texture_x=3,texture_y=0,layer=5
-5:21x4|1x1|texture=resources/images/grass.png,texture_w=1,texture_h=1,texture_x=3,texture_y=0,layer=5
+5:0x4|23x1|texture=resources/images/env/1/grass.png,texture_w=1,texture_h=1,texture_x=4,texture_y=0,layer=5
+5:10x4|1x1|texture=resources/images/env/1/grass.png,texture_w=1,texture_h=1,texture_x=3,texture_y=0,layer=5
+5:21x4|1x1|texture=resources/images/env/1/grass.png,texture_w=1,texture_h=1,texture_x=3,texture_y=0,layer=5
 
 
 # parallax background do not touch
-5:0x18|60x24|texture=resources/images/layer-1.png,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
-5:0x18|60x24|texture=resources/images/layer-6.png,texture_w=48,texture_h=24,layer=2,parallax=0.1 # background
-5:0x18|60x24|texture=resources/images/layer-2.png,texture_w=48,texture_h=24,layer=3,parallax=0.4 # background
-5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=4,parallax=0.5 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-1.png,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-6.png,texture_w=48,texture_h=24,layer=2,parallax=0.1 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-2.png,texture_w=48,texture_h=24,layer=3,parallax=0.4 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-3.png,texture_w=48,texture_h=24,layer=4,parallax=0.5 # background
 
 23:0x0|0x0|track=track2
 

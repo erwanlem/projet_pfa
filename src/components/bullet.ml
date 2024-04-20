@@ -27,9 +27,9 @@ let create ?(color=1) id x y w h dir_x dir_y =
 
   let res =
   if color = 1 then
-    Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame.png")
+    Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/power/flame.png")
   else
-    Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/flame2.png") in
+    Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/power/flame2.png") in
   let ctx = Gfx.get_context (Global.window ()) in
 
   let texture = 

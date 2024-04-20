@@ -8,8 +8,8 @@ let cfg = Config.get_config ()
 
 
 let update_sword_anim player i frame maxframe dir =
-  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png"
-                                    with Not_found -> failwith "In alive.ml : Resource not found" ) in
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/player/player_attack.png"
+                                    with Not_found -> failwith "In player.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/6) = 0 then
     i := !i+1;
@@ -179,8 +179,8 @@ let create id x y w h mass elas lvl texture =
   (* Chargement des textures *)
   (match texture with 
   None -> 
-    let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/arthur.png") in
-    let res2 = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/player_attack.png") in
+    let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/player/arthur.png") in
+    let res2 = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/player/player_attack.png") in
     let ctx = Gfx.get_context (Global.window ()) in
 
     let texture1 = Texture.anim_from_surface ctx res 9 64 64 w h 3 3 in 

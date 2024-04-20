@@ -1,7 +1,7 @@
 1000:0x0|0x0|width=60
 
-3:0x3|10x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
-3:52x3|8x3|texture=resources/images/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
+3:0x3|10x3|texture=resources/images/env/1/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
+3:52x3|8x3|texture=resources/images/env/1/grass.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3      # sol
 
 
 100:2x4|0x0|level=2     # joueur
@@ -9,67 +9,67 @@
 24:0x0|0x0|level=2     # opening
 
 10:58x5|1x2|link=resources/files/03.level                                                     # fin niveau
-5:57x5|2x2|texture=resources/images/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
+5:57x5|2x2|texture=resources/images/env/1/grass.png,texture_x=0,texture_y=8,texture_w=2,texture_h=2 # porte sortie
 
 
 
-0:8x5|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
+0:8x5|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 1
 
-0:12x7|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
-0:20x8|4x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
-6:24x8|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
+0:12x7|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
+0:20x8|4x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
+6:24x8|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 2
 
-0:33x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 3
+0:33x6|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 3
 
-6:42x6|2x1|texture=resources/images/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 4
+6:42x6|2x1|texture=resources/images/env/1/grass.png,texture_x=6,texture_y=4,texture_w=2,texture_h=1 # bloc 4
 
-2:10x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:11x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:12x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:13x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:14x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:15x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:16x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:17x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:18x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:19x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:20x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:21x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:22x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:23x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:24x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:25x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:26x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:27x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:28x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:29x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:30x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:31x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:32x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:33x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:34x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:35x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:36x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:37x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:38x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:39x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:40x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:41x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:42x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:43x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:44x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:45x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:46x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:47x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:48x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:49x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:50x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
-2:51x1|1x1|texture=resources/images/water.png,animation=8 # sol fosse
+2:10x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:11x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:12x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:13x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:14x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:15x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:16x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:17x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:18x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:19x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:20x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:21x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:22x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:23x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:24x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:25x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:26x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:27x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:28x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:29x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:30x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:31x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:32x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:33x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:34x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:35x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:36x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:37x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:38x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:39x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:40x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:41x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:42x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:43x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:44x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:45x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:46x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:47x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:48x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:49x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:50x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
+2:51x1|1x1|texture=resources/images/env/water.png,animation=8 # sol fosse
 
-5:0x18|60x24|texture=resources/images/layer-1.png,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
-5:0x18|60x24|texture=resources/images/layer-6.png,texture_w=48,texture_h=24,layer=2,parallax=0.1 # background
-5:0x18|60x24|texture=resources/images/layer-2.png,texture_w=48,texture_h=24,layer=3,parallax=0.4 # background
-5:0x18|60x24|texture=resources/images/layer-3.png,texture_w=48,texture_h=24,layer=4,parallax=0.5 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-1.png,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-6.png,texture_w=48,texture_h=24,layer=2,parallax=0.1 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-2.png,texture_w=48,texture_h=24,layer=3,parallax=0.4 # background
+5:0x18|60x24|texture=resources/images/env/1/layer-3.png,texture_w=48,texture_h=24,layer=4,parallax=0.5 # background
 
 4:-1x18|1x15|    # mur gauche
 4:60x18|1x15|   # mur droit

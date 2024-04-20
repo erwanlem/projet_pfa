@@ -18,7 +18,7 @@ let create id x y  =
   box # onCollideEvent # set (medkit_collide box);
   box # layer # set 9;
 
-  let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/food.png") in
+  let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/power/food.png") in
   let ctx = Gfx.get_context (Global.window ()) in
   let texture1 = Texture.image_from_surface ctx res 32 (6*16) 16 16 64 64 in
   box#texture#set texture1;

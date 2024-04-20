@@ -22,7 +22,7 @@ let create id x y dir_x =
   box # camera_position # set Vector.{ x; y };
   box # layer # set 9;
 
-  let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/arrow.png") in
+  let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/power/arrow.png") in
   let ctx = Gfx.get_context (Global.window ()) in
 
   let texture = 

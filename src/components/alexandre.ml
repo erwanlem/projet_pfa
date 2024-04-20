@@ -11,7 +11,7 @@ let reset_alexandre_health () =
   | Some a -> a#health#set (Const.alexandre_stats.health)
 
 let update_sword_anim alexandre i frame maxframe dir =
-  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/boss.png"
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/ennemies/boss.png"
                               with Not_found -> failwith "In alexandre.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/8) = 0 then begin
@@ -29,7 +29,7 @@ let update_sword_anim alexandre i frame maxframe dir =
     Texture.image_from_surface ctx res (364*(!i)) (3*364) 364 364 (Rect.get_width alexandre#rect#get) (Rect.get_width alexandre#rect#get)
 
 let update_appear_anim alexandre i frame maxframe dir =
-  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/appear.png"
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/ennemies/appear.png"
                               with Not_found -> failwith "In alexandre.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/10) = 0 then
@@ -49,7 +49,7 @@ let alexandre_pattern alexandre dt =
     animation=0;color=Gfx.color 0 0 0 0;text="";text_key="";font="";
     layer=5;parallax=1.;track=""});
     ignore (Decor.create "door" (57*Const.block_size) (Const.window_height-5*Const.block_size) (2*Const.block_size) (2*Const.block_size)
-    {t_x=0;t_y=8;t_w=2;t_h=2;width=0;texture=Some "resources/images/grass.png";link="";
+    {t_x=0;t_y=8;t_w=2;t_h=2;width=0;texture=Some "resources/images/env/1/grass.png";link="";
     animation=0;color=Gfx.color 0 0 0 0;text="";text_key="";font="";
     layer=6;parallax=1.;track=""});
 
@@ -170,7 +170,7 @@ let create id x y w h texture  =
   (
     match texture with 
       None -> 
-      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/boss.png") in
+      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/ennemies/boss.png") in
       let ctx = Gfx.get_context (Global.window ()) in
 
       let texture1 = Texture.anim_from_surface ctx res 8 364 364 w w 3 1 in 

@@ -11,7 +11,7 @@ let real_time_f bar (dt : float) =
   if bar#player#get then begin
     let margin = 10 in (* margin between heart and bar *)
     bar#max_health#set Const.player_health;
-    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/green_heart.png") in
+    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/interface/green_heart.png") in
     let surface = Gfx.create_surface ctx (h*3 + margin + (bar # totw # get)) (h*3) in
 
     (* Bar *)
@@ -25,7 +25,7 @@ let real_time_f bar (dt : float) =
   else begin
     let margin = 20 in (* margin between heart and bar *)
     bar#max_health#set Const.alexandre_stats.health;
-    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/red_heart_64.png") in
+    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/interface/red_heart_64.png") in
     let surface = Gfx.create_surface ctx (h*3 + margin + (bar # totw # get)) (h*3) in
     
     (* Bar *)
@@ -57,7 +57,7 @@ let create ?(margin = "top") id x y w h master player =
   if player then begin
     let margin = 10 in (* margin between heart and bar *)
     hpbar#max_health#set Const.player_health;
-    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/green_heart.png") in
+    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/interface/green_heart.png") in
     let surface = Gfx.create_surface ctx (h*3 + margin + w) (h*3) in
 
     (* Bar *)
@@ -70,7 +70,7 @@ let create ?(margin = "top") id x y w h master player =
   else begin
     let margin = 20 in (* margin between heart and bar *)
     hpbar#max_health#set Const.alexandre_stats.health;
-    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/red_heart_64.png") in
+    let heart = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/interface/red_heart_64.png") in
     let surface = Gfx.create_surface ctx (h*3 + margin + w) (h*3) in
     
     (* Bar *)

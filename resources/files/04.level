@@ -1,6 +1,6 @@
 1000:0x0|0x0|width=60
 
-3:0x3|60x3|texture=resources/images/night.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3,layer=7      # sol
+3:0x3|60x3|texture=resources/images/env/3/night.png,texture_x=1,texture_y=1,texture_w=1,texture_h=3,layer=7      # sol
 
 100:2x4|0x0|level=4     # joueur
 
@@ -13,36 +13,36 @@
 
 103:40x5|0x0|level=3 # Alexandre
 
-#5:10x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=5 # decor
-#5:13x4|2x1|texture=resources/images/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=5 # decor
+#5:10x4|1x1|texture=resources/images/env/3/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=5 # decor
+#5:13x4|2x1|texture=resources/images/env/3/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=5 # decor
 
 # trees
-5:8x7|3x4|texture=resources/images/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
-5:11x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
+5:8x7|3x4|texture=resources/images/env/3/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
+5:11x5|1x2|texture=resources/images/env/3/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
 
-5:35x7|3x4|texture=resources/images/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
-5:38x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
+5:35x7|3x4|texture=resources/images/env/3/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
+5:38x5|1x2|texture=resources/images/env/3/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
 
-5:46x7|3x4|texture=resources/images/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
-5:49x5|1x2|texture=resources/images/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
-
-
-5:26x4|2x1|texture=resources/images/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=6
-5:23x5|1x2|texture=resources/images/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
-5:24x5|1x2|texture=resources/images/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
-5:25x5|1x2|texture=resources/images/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
-
-5:29x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
-
-5:42x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
-5:43x4|1x1|texture=resources/images/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
-5:44x4|2x1|texture=resources/images/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=6
+5:46x7|3x4|texture=resources/images/env/3/night.png,texture_x=0,texture_y=4,texture_w=3,texture_h=4,layer=6
+5:49x5|1x2|texture=resources/images/env/3/night.png,texture_x=3,texture_y=6,texture_w=1,texture_h=2,layer=6
 
 
-5:0x18|60x24|texture=resources/images/night/night-layer0.jpg,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
-5:0x9|27x5|texture=resources/images/night/night-layer1.png,texture_w=27,texture_h=5,layer=3,parallax=0.1 # background
-5:0x10|54x7|texture=resources/images/night/night-layer4.png,texture_w=27,texture_h=7,layer=4,parallax=0.3 # background
-5:0x10|54x8|texture=resources/images/night/night-layer3.png,texture_w=27,texture_h=8,layer=5,parallax=0.6 # background
+5:26x4|2x1|texture=resources/images/env/3/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=6
+5:23x5|1x2|texture=resources/images/env/3/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
+5:24x5|1x2|texture=resources/images/env/3/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
+5:25x5|1x2|texture=resources/images/env/3/night.png,texture_x=0,texture_y=8,texture_w=1,texture_h=2,layer=6
+
+5:29x4|1x1|texture=resources/images/env/3/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
+
+5:42x4|1x1|texture=resources/images/env/3/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
+5:43x4|1x1|texture=resources/images/env/3/night.png,texture_x=1,texture_y=0,texture_w=1,texture_h=1,layer=6
+5:44x4|2x1|texture=resources/images/env/3/night.png,texture_x=1,texture_y=8,texture_w=2,texture_h=1,layer=6
+
+
+5:0x18|60x24|texture=resources/images/env/3/night-layer0.jpg,texture_w=48,texture_h=24,layer=1,parallax=0.0 # background
+5:0x9|27x5|texture=resources/images/env/3/night-layer1.png,texture_w=27,texture_h=5,layer=3, parallax=0.1 # background
+5:0x10|54x7|texture=resources/images/env/3/night-layer4.png,texture_w=27,texture_h=7,layer=4, parallax=0.3 # background
+5:0x10|54x8|texture=resources/images/env/3/night-layer3.png,texture_w=27,texture_h=8,layer=5, parallax=0.6 # background
 
 23:0x0|0x0|track=track5 # audio
 

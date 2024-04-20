@@ -4,7 +4,7 @@ open State
 
 
 let update_arc_anim knight i frame maxframe dir =
-  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png"
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/ennemies/archer.png"
                               with Not_found -> failwith "In arch.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/13) = 0 then
@@ -104,7 +104,7 @@ let create id x y w h texture =
   (
     match texture with 
       None -> 
-      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/archer.png" ) in
+      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/ennemies/archer.png" ) in
       let ctx = Gfx.get_context (Global.window () )in
 
       let reposG = Texture.anim_from_surface ctx res 1 64 64 64 64 60 1 in

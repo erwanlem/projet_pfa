@@ -3,7 +3,7 @@ open System_defs
 open State
 
 let update_sword_anim knight i frame maxframe dir =
-  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/knight_attack.png"
+  let res = Gfx.get_resource (try Hashtbl.find (Resources.get_textures ()) "resources/images/ennemies/knight_attack.png"
                                     with Not_found -> failwith "In knight.ml : Resource not found" ) in
   let ctx = Gfx.get_context (Global.window ()) in
   if frame mod (maxframe/6) = 0 then begin
@@ -123,7 +123,7 @@ let create id x y w h texture  =
   
   (match texture with 
     | None -> 
-      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/knight_walk.png") in
+      let res = Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/ennemies/knight_walk.png") in
       let ctx = Gfx.get_context (Global.window ()) in
 
       let texture1 = Texture.anim_from_surface ctx res 9 64 64 64 64 3 3 in 

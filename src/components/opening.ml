@@ -44,13 +44,13 @@ let create id settings nbr =
   let surf_back = Gfx.create_surface ctx (Rect.get_width background#rect#get) height in
   let back =
     if nbr = 1 || nbr = 2 then
-      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/op1.png") 
+      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/env/1/op1.png") 
               with Not_found -> failwith "Background not found")
     else if nbr = 3 then
-      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/op2.png") 
+      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/env/2/op2.png") 
       with Not_found -> failwith "Background not found") 
     else if nbr = 4 then
-      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/op3.png") 
+      (try Gfx.get_resource (Hashtbl.find (Resources.get_textures ()) "resources/images/env/3/op3.png") 
       with Not_found -> failwith "Background not found") 
     else failwith "Invalid opening id"
   in

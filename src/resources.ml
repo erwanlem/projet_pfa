@@ -12,20 +12,24 @@ let input_files = ["resources/files/menu.level"; "resources/files/01.level"; "re
               "resources/files/04.level"; "resources/files/opening1.level"; "resources/files/opening3.level"; 
               "resources/files/opening2.level"; "resources/files/opening4.level"]
 
-let input_images = ["resources/images/arthur.png"; "resources/images/castle.png"; "resources/images/grass.png"; 
-                  "resources/images/night.png"; "resources/images/snow.png"; "resources/images/menu_image.jpg";
-                  "resources/images/water.png";"resources/images/flame.png";"resources/images/flame2.png";
-                  "resources/images/player_attack.png";"resources/images/archer.png";
-                  "resources/images/snow_fixed.jpg"; 
-                  "resources/images/layer-1.png"; "resources/images/layer-2.png"; "resources/images/layer-3.png";
-                  "resources/images/layer-6.png"; "resources/images/snow_layer1.png"; 
-                  "resources/images/snow_layer2.png"; "resources/images/night/night-layer1.png";
-                  "resources/images/night/night-layer4.png"; "resources/images/night/night-layer3.png";
-                  "resources/images/night/night-layer0.jpg"; "resources/images/knight_walk.png";
-                  "resources/images/knight_attack.png"; "resources/images/op1.png"; "resources/images/op2.png"; 
-                  "resources/images/op3.png"; "resources/images/boss.png"; "resources/images/food.png";
-                  "resources/images/arrow.png"; "resources/images/appear.png"; "resources/images/green_heart.png";
-                  "resources/images/red_heart_64.png"]
+let input_images = ["resources/images/player/arthur.png"; "resources/images/env/1/grass.png"; 
+                  "resources/images/env/3/night.png"; "resources/images/env/2/snow.png";
+                  "resources/images/env/0/menu_image.jpg";
+                  "resources/images/power/flame.png";"resources/images/power/flame2.png";
+                  "resources/images/env/water.png";
+                  "resources/images/player/player_attack.png"; "resources/images/ennemies/archer.png";
+                  "resources/images/env/2/snow_fixed.jpg"; 
+                  "resources/images/env/1/layer-1.png"; "resources/images/env/1/layer-2.png"; 
+                  "resources/images/env/1/layer-3.png"; "resources/images/env/1/layer-6.png";
+                  "resources/images/env/2/snow_layer1.png"; "resources/images/env/2/snow_layer2.png"; 
+                  "resources/images/env/3/night-layer1.png"; "resources/images/env/3/night-layer4.png";
+                  "resources/images/env/3/night-layer3.png"; "resources/images/env/3/night-layer0.jpg"; 
+                  "resources/images/ennemies/knight_walk.png"; "resources/images/ennemies/knight_attack.png";
+                  "resources/images/env/1/op1.png"; "resources/images/env/2/op2.png"; 
+                  "resources/images/env/3/op3.png"; 
+                  "resources/images/ennemies/boss.png"; "resources/images/ennemies/appear.png";
+                  "resources/images/power/food.png"; "resources/images/power/arrow.png"; 
+                  "resources/images/interface/green_heart.png"; "resources/images/interface/red_heart_64.png"]
 
 let audio_input = ["resources/audio/tkucza-happyflutes.mp3"; "resources/audio/The_Bards_Tale_.mp3";
                    "resources/audio/Tavern-Brawl.mp3"; "resources/audio/Lord-McDeath.mp3"; 
