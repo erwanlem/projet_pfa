@@ -40,52 +40,58 @@ let rec print_map map =
 
 (* Crée l'élément donné par l'id *)
 let draw_element id x y w h =
+  (* Computes values *)
+  let val_x = x*block_size in
+  let val_y = Const.window_height-y*basic_block_h in
+  let val_w = w*block_size in
+  let val_h = h*block_size in
+
   match id with
   | 0 ->
     ignore (Box.create "platform"
-              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
+              val_x val_y val_w val_h infinity (load_settings ()))
 
   | 1 ->
     ignore (Jump_box.create "jump"
-              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
+              val_x val_y val_w val_h infinity
               (load_settings ()))
 
   | 2 ->
     ignore (Box.create "death_box"
-              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
+              val_x val_y val_w val_h infinity (load_settings ()))
 
   | 3 -> 
     ignore (
       Box.create "ground"
-        (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()));
+        val_x val_y val_w val_h infinity (load_settings ()));
 
   | 4 ->
     ignore (Box.create "wall"
-              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity (load_settings ()))
+              val_x val_y val_w val_h infinity (load_settings ()))
 
   | 5 ->
     ignore (Decor.create "decor"
-              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) (load_settings ()))
+              val_x val_y val_w val_h (load_settings ()))
 
   | 6 ->
     ignore (Fall_box.create "platform"
-              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
+              val_x val_y val_w val_h infinity
               (load_settings ()))
 
   | 7 ->
     ignore (Hide_box.create "platform"
-              (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) infinity
+              val_x val_y val_w val_h infinity
               (load_settings ()))
 
   | 10 ->
-    ignore ( Exit_box.create "exit" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
+    ignore ( Exit_box.create "exit" val_x val_y val_w val_h 
                (load_settings ()) )
 
   | 19 ->
-    ignore ( Text.create (x*block_size) (y*block_size) (w*block_size) (h*block_size) (load_settings ()) )
+    ignore ( Text.create val_x (y*block_size) (w*block_size) (h*block_size) (load_settings ()) )
 
   | 20 ->
-    ignore ( Button.create "button" (x*basic_block_w) (Const.window_height-y*basic_block_h) (w*basic_block_w) (h*basic_block_h) 
+    ignore ( Button.create "button" val_x val_y val_w val_h 
                (Gfx.color 0 0 0 255) (load_settings ()))
 
   | 21 -> 
@@ -102,27 +108,27 @@ let draw_element id x y w h =
     let level = int_of_string (
       try (Hashtbl.find settings_table "level") 
       with Not_found -> failwith "Level not found") in
-    Gfx.debug "Create opening\n%!"; ignore (Opening.create "op1" (load_settings ()) level);
+    ignore (Opening.create "op1" (load_settings ()) level);
 
   | 100 ->
-    let player = Player.create "player" (x*basic_block_w) (Const.window_height-y*basic_block_h) 
+    let player = Player.create "player" val_x val_y 
         block_size block_size 50. 0. (int_of_string (
             try (Hashtbl.find settings_table "level") 
             with Not_found -> failwith "Level not found")) None in
     Global.init_player player
 
   | 101 -> 
-    ignore(Arch.create "arch" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
+    ignore (Arch.create "arch" val_x val_y block_size block_size None)
 
   | 102 -> 
-    ignore(Knight.create "knight" (x*basic_block_w) (Const.window_height-y*basic_block_h) block_size block_size None)
+    ignore (Knight.create "knight" val_x val_y block_size block_size None)
   
   | 103 -> 
-    let e = Event_box.create "appear_box" (x*basic_block_w) 
-    (Const.window_height-y*basic_block_h) (block_size*2) (block_size*2) (load_settings ()) in
+    let e = Event_box.create "appear_box" val_x
+    val_y (block_size*2) (block_size*2) (load_settings ()) in
     e#onCollideEvent#set (Alexandre.appear_on_collide (e:>collidable) x y)
  
-  | 200 -> ignore( Medkit.create "medkit" (x*block_size) (Const.window_height-y*basic_block_h))
+  | 200 -> ignore ( Medkit.create "medkit" val_x val_y)
 
   | 1000 ->
     let s = load_settings () in
