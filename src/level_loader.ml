@@ -88,7 +88,7 @@ let draw_element id x y w h =
                (load_settings ()) )
 
   | 19 ->
-    ignore ( Text.create val_x (y*block_size) (w*block_size) (h*block_size) (load_settings ()) )
+    ignore ( Text.create val_x (y*block_size) val_w val_h (load_settings ()) )
 
   | 20 ->
     ignore ( Button.create "button" val_x val_y val_w val_h 

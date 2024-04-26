@@ -31,7 +31,8 @@ let onAction key =
   if Hashtbl.mem key "j" then begin
     Const.horz_vel := Vector.{x= Vector.get_x !Const.horz_vel -. 0.01 ; y= Vector.get_y !Const.horz_vel };
     Gfx.debug "Velocity = %a\n%!" Vector.pp (!Const.horz_vel) end;
-  if Hashtbl.mem key "p" then begin
+  if Hashtbl.mem key "p" && Hashtbl.find key "p" <> None then begin
+    Hashtbl.replace key "p" None;
     let c = Global.camera () in
     if c#focus#get = "player" then begin
       c#focus#set "position";

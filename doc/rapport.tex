@@ -16,6 +16,7 @@
 \newpage
 
 \section{Le jeu}
+\subsection{Présentation}
 Le jeu \textit{Arthur la quête de la cuillère} a pour but d'offrir aux joueurs une expérience 
 de jeu agréable avec différents niveaux ayant chacun sa spécificité tout en racontant une histoire.
 L'histoire est le fil conducteur du jeu: elle permet de donner un sens aux différents niveaux.
@@ -27,6 +28,7 @@ en gardant un jeu cohérent pour les non-connaisseurs. On retrouve également un
 le joueur est accompagné d'une série de musiques médiévales tout au long du jeu qui le 
 plonge d'avantage dans l'aventure du roi Arthur.
 
+\subsection{Les niveaux}
 Le jeu se compose de 4 niveaux et d'un menu. Le \textbf{menu} sert uniquement d'accueil du jeu.
 Le \textbf{niveau 1} introduit la problématique de l'histoire (opening) et permet au joueur de 
 prendre en main le jeu avec un niveau plutôt simple. Le \textbf{niveau 2} lance réellement la 
@@ -38,11 +40,13 @@ plus nombreux. Enfin le \textbf{niveau 4} est le niveau final dans lequel le jou
 au boss final. L'environnement devient lugubre, la musique indique au joueur la bataille finale.
 Une fois le squelette éliminé la quête est terminée, on retourne au menu.
 
+\subsection{Les ennemis}
 Il existe 3 ennemis différents dans notre jeu. Les archers (niveaux 1, 2 et 3), les chevaliers (niveaux 1, 2 et 3)
 et \textbf{Alexandre Le Petit} l'ennemi final (niveau 4). Les \textbf{archers} ne se déplacent pas, ils tirent des 
 flèches lorsque le joueur leur fait face. Les \textbf{chevaliers} suivent le joueur pour l'attaquer avec leurs 
 épées. L'ennemi final peut tirer des boules de feu et mettre des coups d'épée. Ils suit également le joueur.
 
+\subsection{Les capacités}
 Le joueur de son côté a différentes capacités qui s'ajoutent à mesure que les niveaux augmentent. Au niveau 1 le 
 joueur n'a aucune capacité particulière il peut seulement se déplacer et mettre des \textbf{coups d'épée}. Au niveau 2 
 le joueur peut utiliser la \textbf{téléportation} qui lui permet de se déplacer très rapidement en un coup. 
@@ -51,14 +55,27 @@ ennemis. Au niveau 3 s'ajoute les \textbf{boules de feu} qui est l'attaque à di
 joueur a les mêmes capacités qu'au niveau 3. Enfin le joueur peut trouver des \textbf{soins} dans les niveaux. 
 Les soins sont représentés par les items poulet.
 
+\subsection{Opening}
+Les \textit{opening} des niveaux permettent de raconter l'histoire qui évolue au fil du jeu. Pour réaliser ces 
+\textit{opening} nous avons créé un composant \verb|opening| qui va ajouter le texte au début du niveau. Il 
+suffit ensuite de gérer la caméra de manière à ce qu'elle se place au début du texte et descende jusqu'à 
+arriver au joueur. Lors du parcours de l'opening la caméra est en mode ``libre'', elle suit sa position.
+Une fois arrivée en bas elle passe en mode ``joueur'' pour suivre le joueur.
+Lorsqu'on est dans l'opening les commandes du joueur sont désactivées grâce à une variable dans le système 
+\textit{control}.
+
+\subsection{Les blocs}
 L'affichage est découpé en blocs. L'écran fait 20 blocs de large. Cela permet d'adapter l'affichage à la taille de 
 l'écran sans qu'il n'y ait de déformation. Les mesures données dans les fichiers de map sont donc en bloc. 
 Par exemple, lorsqu'on indique \verb|x = 2|, on veut que l'élément se place sur le deuxième bloc en x. Les blocs nous 
 garantissent qu'en changeant la taille de l'écran on conservera les bonnes proportions. Les blocs sont des carrés,
  la hauteur va donc dépendre de la largeur (nous avons fait en sorte que l'affichage soit idéal en 16:9).
 Enfin pour un affichage correct \textbf{la largeur de l'écran doit être un multiple de 20} car les nombres à 
-virgule causent des problèmes d'affichage.
+virgule causent des problèmes d'affichage. Les blocs dont nous parlons ici ne sont en réalité pas plusieurs 
+éléments. Lorsqu'on crée un élément de $x$ blocs, nous faisons un unique bloc de taille $x*taille_bloc$.
+Cela nous permet d'éviter tous les soucis liés aux collisions.
 
+\subsection{Commandes}
 Pour terminer, le jeu se joue avec les touches \verb|zqd| (ou directionnelles) pour les déplacements. Les 
 touches utiles aux pouvoirs dépendent des préférences des joueurs. On utilise par défaut \verb|Shift|, 
 \verb|space| et \verb|s|. D'autres touches servent au débogage, nous les verrons dans une section dédiée. 
